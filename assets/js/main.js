@@ -8,7 +8,7 @@
 
   const esc = (value = '') => String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
   const paragraphs = items => items.map(text => `<p>${text}</p>`).join('');
-  const img = (src, alt = '', cls = '') => `<img ${cls ? `class="${cls}" ` : ''}src="${src}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
+  const img = (src, alt = '', eager = false) => `<img src="${src}" alt="${esc(alt)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async">`;
   const gallery = (items, label) => `<div class="gallery" aria-label="${esc(label)}">${items.map((src,i) => `<figure>${img(src, `${label} ${i+1}`)}</figure>`).join('')}</div>`;
   const video = item => `<div class="video-card" data-video="${esc(item.id)}"><button type="button" aria-label="${esc(item.label)}">▶ ${esc(item.label)}</button></div>`;
 
@@ -23,9 +23,12 @@
     main.innerHTML = `
       <section class="hero">
         <div class="section-inner hero-grid">
-          <div class="hero-media">${img(s.images[0], 'Villa Brando')}</div>
+          <div class="hero-media hero-pair">
+            ${img(s.images[0], 'Villa Brando', true)}
+            ${img(s.images[1], 'Villa Brando', true)}
+          </div>
           <div class="hero-copy">
-            <p class="eyebrow">Villa Brando Exclusive</p>
+            <p class="eyebrow">${c.hero.tagline}</p>
             <h1>${c.hero.title}</h1>
             <p>${c.hero.subtitle}</p>
             <p>${c.hero.bookingNote}</p>
@@ -40,7 +43,8 @@
       </section>
 
       <section class="section compact"><div class="section-inner">
-        ${gallery(s.images.slice(1,7), c.galleryLabel)}
+        ${gallery(s.images.slice(2,7), c.galleryLabel)}
+        ${c.hero.aside.length ? `<div class="copy">${paragraphs(c.hero.aside)}</div>` : ''}
         <p class="lead">${c.rating}</p>
         <p>${c.linen}</p>
         <div class="link-panel">
@@ -64,35 +68,37 @@
 
       <section class="section"><div class="section-inner">
         <h2 class="section-title">${c.landTitle}</h2>
-        <div class="two-col">
-          ${video(s.videos[0])}
-          ${video(s.videos[1])}
-        </div>
-        <p class="lead">${c.landCaption}</p>
+        ${video(s.videos[0])}
+        <p class="lead">${c.landCaption.split(' — ')[0]}</p>
+        <div style="margin-top:18px">${video(s.videos[1])}</div>
+        <p class="lead">${c.landCaption.split(' — ')[1] || ''}</p>
+        ${gallery(s.images.slice(7,9), c.galleryLabel)}
       </div></section>
 
       <section class="section"><div class="section-inner">
         <p class="eyebrow">${c.rooms.kicker}</p>
         <h2 class="section-title">${c.rooms.title}</h2>
         <p class="lead">${c.rooms.intro}</p>
-        <div class="room-grid">${c.rooms.names.map((name,i) => `<figure class="room">${img(s.images[7+i], name)}<figcaption>${name}</figcaption></figure>`).join('')}</div>
-        ${gallery(s.images.slice(11,14), c.galleryLabel)}
+        ${gallery(s.images.slice(9,15), c.galleryLabel)}
+        <div class="room-grid">${c.rooms.names.map((name,i) => `<figure class="room">${img(s.images[14+i], name)}<figcaption>${name}</figcaption></figure>`).join('')}</div>
       </div></section>
 
       <section class="section"><div class="section-inner">
         <p class="eyebrow">${c.about.kicker}</p>
         <h2 class="section-title">${c.about.title}</h2>
         <div class="copy">${paragraphs(c.about.paragraphs)}</div>
-        ${gallery(s.images.slice(14,17), c.galleryLabel)}
-        <div class="two-col" style="margin-top:24px">${video(s.videos[2])}<div class="copy">${paragraphs(c.coastIntro)}</div></div>
-        ${gallery(s.images.slice(17,19), c.galleryLabel)}
+        ${gallery(s.images.slice(18,19), c.galleryLabel)}
+        <div style="margin-top:24px">${video(s.videos[2])}</div>
+        ${gallery(s.images.slice(19,21), c.galleryLabel)}
+        <div class="copy">${paragraphs(c.coastIntro)}</div>
+        <div style="margin-top:24px">${video(s.videos[3])}</div>
       </div></section>
 
       <section class="section"><div class="section-inner">
         <p class="eyebrow">${c.surroundings.kicker}</p>
         <h2 class="section-title">${c.surroundings.title}</h2>
-        <div class="two-col"><div class="copy">${paragraphs(c.surroundings.paragraphs)}</div>${video(s.videos[3])}</div>
-        ${gallery(s.images.slice(19,20), c.galleryLabel)}
+        <div class="copy">${paragraphs(c.surroundings.paragraphs)}</div>
+        ${gallery(s.images.slice(21,22), c.galleryLabel)}
         <div class="two-col" style="margin-top:24px">${video(s.videos[4])}${video(s.videos[5])}</div>
       </div></section>
 
@@ -104,23 +110,23 @@
       <section class="section"><div class="section-inner">
         <p class="quote">${c.awardQuote}</p>
         <p>${c.award}</p>
-        ${gallery(s.images.slice(20,23), c.galleryLabel)}
         <p><a class="button" href="${s.links.instagram}" target="_blank" rel="noopener">Instagram</a></p>
+        ${gallery(s.images.slice(22,24), c.galleryLabel)}
       </div></section>
 
       <section class="section"><div class="section-inner">
         <h2 class="section-title">${c.beaches.title}</h2>
         <p class="quote">${c.beaches.quote}</p>
         <p>${c.beaches.award}</p>
-        ${gallery(s.images.slice(23,25), c.galleryLabel)}
+        ${gallery(s.images.slice(24,26), c.galleryLabel)}
         <div class="copy">${paragraphs(c.beaches.paragraphs)}</div>
         ${video(s.videos[6])}
         <div class="link-panel">
           <a class="button dark" href="${s.links.tours}" target="_blank" rel="noopener">${c.actions.tours}</a>
-          <a class="button" href="${s.links.rules}" target="_blank" rel="noopener">${c.actions.rules}</a>
         </div>
-        ${gallery(s.images.slice(25), c.galleryLabel)}
+        ${gallery(s.images.slice(26,28), c.galleryLabel)}
         ${c.registration ? `<p>${c.registration}</p>` : ''}
+        <div class="link-panel"><a class="button" href="${s.links.rules}" target="_blank" rel="noopener">${c.actions.rules}</a></div>
       </div></section>
 
       <section class="section compact"><div class="section-inner">
