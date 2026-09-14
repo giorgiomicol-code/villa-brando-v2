@@ -1,0 +1,4 @@
+# Ambiente di anteprima — Villa Brando V2
+# Non indicizzare finché la pubblicazione non è approvata (CLAUDE.md, regola 10).
+User-agent: *
+Disallow: /

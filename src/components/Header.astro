@@ -1,0 +1,163 @@
+---
+import { nav, brand } from '../data/home.it.ts';
+
+interface Props {
+  bookingHref: string;
+}
+
+const { bookingHref } = Astro.props;
+---
+
+<header>
+  <div class="nav-row">
+    <a href="/it/" class="brand">
+      <img src={brand.logoSrc} alt={`Logo ${brand.name}`} width="38" height="38" />
+      <span class="word">{brand.name}<small>{brand.tagline}</small></span>
+    </a>
+    <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+      {nav.map((item) => (
+        <a href={item.href} class={item.active ? 'active' : undefined} aria-current={item.active ? 'page' : undefined}>
+          {item.label}
+        </a>
+      ))}
+    </nav>
+    <div class="nav-actions">
+      <span class="lang" aria-label="Lingua corrente: italiano">🇮🇹 IT</span>
+      <a href={bookingHref} class="btn btn-gold">Prenota</a>
+      <button class="hamburger" id="nav-toggle" aria-label="Apri menu" aria-expanded="false" aria-controls="main-nav">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('nav-toggle');
+  const menu = document.getElementById('main-nav');
+  toggle?.addEventListener('click', () => {
+    const isOpen = menu?.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+    toggle.setAttribute('aria-label', isOpen ? 'Chiudi menu' : 'Apri menu');
+  });
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      menu.classList.remove('open');
+      toggle?.setAttribute('aria-expanded', 'false');
+      toggle?.setAttribute('aria-label', 'Apri menu');
+    });
+  });
+</script>
+
+<style>
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-row {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 14px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .brand img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+  }
+  .brand .word {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    color: var(--navy);
+    line-height: 1.1;
+  }
+  .brand .word small {
+    display: block;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    font-weight: 600;
+  }
+  nav.main-nav {
+    display: flex;
+    gap: 28px;
+  }
+  nav.main-nav a {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    transition: color 0.15s ease;
+  }
+  nav.main-nav a.active {
+    color: var(--navy);
+    font-weight: 600;
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 4px;
+  }
+  nav.main-nav a:hover {
+    color: var(--navy);
+  }
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .lang {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+  }
+  .hamburger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--navy);
+    margin: 5px 0;
+  }
+  @media (max-width: 980px) {
+    nav.main-nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
+      flex-direction: column;
+      gap: 0;
+      padding: 8px 32px 16px;
+    }
+    nav.main-nav.open {
+      display: flex;
+    }
+    nav.main-nav a {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    nav.main-nav a.active {
+      border-bottom: 1px solid var(--line);
+    }
+    .hamburger {
+      display: block;
+    }
+  }
+</style>

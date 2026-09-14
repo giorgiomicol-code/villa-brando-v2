@@ -1,0 +1,457 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ContactStrip from '../../components/ContactStrip.astro';
+import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
+import {
+  hero,
+  iconStrip,
+  discover,
+  award,
+  families,
+  explore,
+  footer,
+} from '../../data/home.it.ts';
+---
+
+<BaseLayout
+  title="Villa Brando — Casa Vacanze Esclusiva, Latina"
+  description="Villa Brando: casa vacanze esclusiva a Latina, con giardino privato e biciclette. Vicino a Sabaudia, Circeo e Roma."
+  lang="it"
+  canonicalPath="/it/"
+  alternates={[{ lang: 'it', path: '/it/' }]}
+>
+  <Header bookingHref={hero.ctaPrimary.href} />
+
+  <section class="hero">
+    <div class="hero-bg">
+      <img src={hero.bgSrc} alt={hero.bgAlt} />
+    </div>
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <div class="eyebrow">{hero.eyebrow}</div>
+        <h1>{hero.title}</h1>
+        <div class="subtitle">{hero.subtitle}</div>
+        <div class="locations">{hero.locations}</div>
+        <div class="hero-actions">
+          <a href={hero.ctaPrimary.href} class="btn btn-gold">{hero.ctaPrimary.label}</a>
+          <a href={hero.ctaSecondary.href} class="btn btn-outline-light" target="_blank" rel="noopener">{hero.ctaSecondary.label}</a>
+        </div>
+        <div class="hero-quote">{hero.quote}</div>
+      </div>
+      <div class="booking-card">
+        <h3>{hero.booking.heading}</h3>
+        <div class="field-row">
+          <div class="field">
+            <label for="checkin">{hero.booking.checkin}</label>
+            <input type="text" id="checkin" name="checkin" placeholder={hero.booking.placeholder} />
+          </div>
+          <div class="field">
+            <label for="checkout">{hero.booking.checkout}</label>
+            <input type="text" id="checkout" name="checkout" placeholder={hero.booking.placeholder} />
+          </div>
+        </div>
+        <a href={hero.ctaPrimary.href} class="btn btn-gold">{hero.booking.cta}</a>
+        <div class="note">{hero.booking.note}</div>
+        <div class="stay">{hero.booking.stay}</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="icon-strip">
+    <div class="wrap icon-row">
+      {iconStrip.map((item) => (
+        <div class="icon-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" aria-hidden="true" set:html={item.markup} />
+          <div>
+            <h4>{item.title}</h4>
+            <span>{item.text}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <section id="villa">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow navy">{discover.eyebrow}</div>
+        <h2>{discover.title}</h2>
+        <p>{discover.text}</p>
+      </div>
+      <div class="discover-grid">
+        {discover.cards.map((card) => (
+          <a href={card.href} class="discover-card" id={card.id}>
+            <img src={card.imgSrc} alt={card.imgAlt} loading="lazy" />
+            <h3>{card.title} <span class="arrow">→</span></h3>
+            <div class="sub">{card.sub}</div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section style="padding-top:0;">
+    <div class="wrap">
+      <div class="award-banner">
+        <div class="award-left">
+          <div class="eyebrow">{award.eyebrow}</div>
+          <h3>{award.title}</h3>
+          <span>{award.detail}</span>
+        </div>
+        <div class="award-right">
+          <p>{award.quote}</p>
+          <a href={award.cta.href} class="btn btn-outline-light">{award.cta.label}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap families-grid">
+      <div>
+        <div class="eyebrow navy">{families.eyebrow}</div>
+        <h2 style="margin-top:10px;">{families.title}</h2>
+        <p>{families.text}</p>
+        <a href={families.cta.href} class="btn btn-outline">{families.cta.label}</a>
+      </div>
+      <div class="media">
+        <img src={families.media.imgSrc} alt={families.media.imgAlt} loading="lazy" />
+        <div class="tag"><span class="big">{families.media.tagBig}</span>{families.media.tagRest}</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="explore" id="territorio">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow navy">{explore.eyebrow}</div>
+        <h2>{explore.title}</h2>
+        <p>{explore.text}</p>
+      </div>
+      <div class="explore-grid">
+        {explore.cards.map((card) => (
+          <div class="explore-card">
+            <img src={card.imgSrc} alt={card.imgAlt} loading="lazy" />
+            <h4>{card.title}</h4>
+          </div>
+        ))}
+      </div>
+      <div class="explore-actions"><a href={explore.cta.href} class="btn btn-outline">{explore.cta.label}</a></div>
+    </div>
+  </section>
+
+  <ContactStrip />
+
+  <Footer />
+
+  <WhatsAppFloat href={footer.whatsappHref} />
+</BaseLayout>
+
+<style>
+  .hero {
+    position: relative;
+    min-height: 640px;
+    display: flex;
+    align-items: center;
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, rgba(13, 21, 36, 0.72) 0%, rgba(13, 21, 36, 0.38) 45%, rgba(13, 21, 36, 0.08) 72%);
+    z-index: 1;
+  }
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 80px 32px;
+    display: grid;
+    grid-template-columns: 1.4fr 0.9fr;
+    gap: 40px;
+    align-items: start;
+  }
+  .hero-copy .eyebrow {
+    color: var(--gold-soft);
+  }
+  .hero-copy h1 {
+    color: #fff;
+    font-size: clamp(2.6rem, 6vw, 4.4rem);
+    font-weight: 600;
+    line-height: 0.98;
+    margin: 12px 0 10px;
+    letter-spacing: 0.01em;
+  }
+  .hero-copy .subtitle {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: #fff;
+    margin-bottom: 14px;
+  }
+  .hero-copy .locations {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    margin-bottom: 30px;
+  }
+  .hero-actions {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-bottom: 18px;
+  }
+  .hero-quote {
+    color: rgba(255, 255, 255, 0.85);
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+  }
+  .booking-card {
+    background: #fff;
+    border-radius: 6px;
+    padding: 26px 24px;
+    box-shadow: 0 24px 48px rgba(13, 21, 36, 0.28);
+  }
+  .booking-card h3 {
+    font-size: 1.05rem;
+    margin-bottom: 16px;
+  }
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .field label {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .field input {
+    width: 100%;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 8px 10px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    color: var(--ink);
+  }
+  .booking-card .btn-gold {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  .booking-card .note {
+    font-size: 0.76rem;
+    color: var(--ink-soft);
+    margin-bottom: 10px;
+  }
+  .booking-card .stay {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 0.88rem;
+    color: var(--navy);
+  }
+  @media (max-width: 980px) {
+    .hero-inner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .icon-strip {
+    background: var(--cream);
+    padding: 44px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .icon-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+  .icon-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .icon-item svg {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    stroke: var(--gold);
+  }
+  .icon-item h4 {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .icon-item span {
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+  }
+  @media (max-width: 980px) {
+    .icon-row {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .icon-strip {
+      display: none;
+    }
+  }
+
+  .discover-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+  }
+  .discover-card img {
+    aspect-ratio: 4 / 3.4;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .discover-card h3 {
+    font-size: 1.08rem;
+    margin-bottom: 3px;
+  }
+  .discover-card .sub {
+    font-size: 0.76rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+  }
+  .discover-card .arrow {
+    color: var(--gold);
+    font-weight: 700;
+    margin-left: 6px;
+  }
+  @media (max-width: 980px) {
+    .discover-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .award-banner {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    overflow: hidden;
+  }
+  .award-left {
+    padding: 38px 40px;
+  }
+  .award-left .eyebrow {
+    color: var(--gold-soft);
+  }
+  .award-left h3 {
+    color: #fff;
+    font-size: 1.4rem;
+    margin: 10px 0 6px;
+    font-weight: 600;
+  }
+  .award-left span {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.85rem;
+  }
+  .award-right {
+    background: var(--navy-dark);
+    padding: 38px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .award-right p {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    color: var(--gold-soft);
+    font-size: 0.95rem;
+    margin: 0;
+    max-width: 26ch;
+  }
+  @media (max-width: 820px) {
+    .award-banner {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .families-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+  }
+  .families-grid p {
+    color: var(--ink-soft);
+    margin: 18px 0 26px;
+  }
+  .families-grid .media {
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+    aspect-ratio: 5 / 4;
+  }
+  .families-grid .media .tag {
+    position: absolute;
+    left: 20px;
+    bottom: 20px;
+    color: #fff;
+  }
+  .families-grid .media .tag .big {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.6rem;
+    display: block;
+  }
+  .families-grid .media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(13, 21, 36, 0.55), transparent 55%);
+  }
+  @media (max-width: 980px) {
+    .families-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .explore {
+    background: var(--sky);
+  }
+  .explore-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 28px;
+  }
+  .explore-card img {
+    aspect-ratio: 4 / 3.4;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+  .explore-card h4 {
+    font-size: 0.95rem;
+  }
+  .explore-actions {
+    text-align: center;
+  }
+  @media (max-width: 980px) {
+    .explore-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

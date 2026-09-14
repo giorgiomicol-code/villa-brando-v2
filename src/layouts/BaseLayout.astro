@@ -1,0 +1,43 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: 'it' | 'en';
+  canonicalPath: string;
+  alternates?: { lang: string; path: string }[];
+}
+
+const { title, description, lang, canonicalPath, alternates = [] } = Astro.props;
+
+// Ambiente di anteprima: le pagine non devono essere indicizzate finché
+// non approvate e pubblicate (CLAUDE.md, regola 10). Il dominio base è
+// volutamente assente finché non viene scelto e autorizzato un ambiente
+// di anteprima pubblico: i link canonical/hreflang restano quindi relativi.
+const isPreview = true;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalPath} />
+    {alternates.map((alt) => (
+      <link rel="alternate" hreflang={alt.lang} href={alt.path} />
+    ))}
+    {isPreview && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
