@@ -30,8 +30,10 @@ Non serve toccare il codice dei componenti:
 
 | Cosa | File |
 |---|---|
-| Testi della Home | `src/data/home.it.ts` |
-| Menu, footer, contatti, indirizzo, CIN | `src/data/site.it.ts` |
+| Testi della Home italiana | `src/data/home.it.ts` |
+| Testi della Home inglese | `src/data/home.en.ts` |
+| Menu, footer, contatti, indirizzo, CIN | `src/data/site.it.ts` e `site.en.ts` |
+| Colori e font | `src/styles/global.css` (tutto in variabili in cima al file) |
 | Nomi delle camere | `src/data/rooms.it.ts` |
 | Foto | `public/images/` (`hero/`, `rooms/`, `garden/`, `gallery/`, `experiences/`, `logo/`) |
 
@@ -60,10 +62,14 @@ public/         file serviti così come sono (immagini, robots.txt, favicon)
 
 ## Stato attuale
 
-- Home in italiano: fatta, con i testi reali del prototipo approvato.
-- Altre pagine: esistono e sono navigabili, ma segnate "contenuto in arrivo"
-  finché non arrivano i testi reali (vedi `docs/CENSIMENTO_CONTENUTI.md`).
-- Versione inglese: non ancora creata, manca il testo inglese esistente.
+- Home italiana (`/it/`) e inglese (`/en/`): fatte, con palette oro e navy
+  del riferimento approvato.
+- Altre pagine: esistono e sono navigabili in entrambe le lingue, ma segnate
+  "contenuto in arrivo" finché non arrivano i testi reali
+  (vedi `docs/CENSIMENTO_CONTENUTI.md`).
+- **Il testo inglese non è ancora stato verificato contro il sito live**, e
+  l'anno del premio Booking.com è diverso tra italiano e inglese: entrambi i
+  punti sono aperti in `docs/MIGRATION_PLAN.md`.
 - Tutto l'ambiente è impostato per **non essere indicizzato** da Google.
 
 ## Principi operativi

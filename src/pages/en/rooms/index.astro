@@ -4,28 +4,28 @@ import { rooms } from '../../../data/rooms.it.ts';
 ---
 
 <PageLayout
-  title="Camere — Villa Brando"
-  description="Le 4 camere di Villa Brando: Main, Sky, White, Audrey Bedroom. Pagina in costruzione."
-  canonicalPath="/it/camere/"
-  lang="it"
-  altHref="/en/rooms/"
+  title="Rooms — Villa Brando"
+  description="The 4 bedrooms at Villa Brando: Main, Sky, White, Audrey. Page under construction."
+  canonicalPath="/en/rooms/"
+  lang="en"
+  altHref="/it/camere/"
 >
   <section class="rooms-intro">
     <div class="wrap">
       <div class="section-head">
-        <div class="eyebrow">CAMERE</div>
-        <h1>Le Camere di Villa Brando</h1>
+        <div class="eyebrow">ROOMS</div>
+        <h1>Our Rooms</h1>
         <p>
-          4 camere uniche. I contenuti descrittivi di ciascuna camera sono in fase
-          di raccolta e verifica dal sito attuale: qui sotto trovi i collegamenti
-          alle singole pagine, ancora in costruzione.
+          4 unique bedrooms. The descriptive content for each room is still being
+          collected and checked against the current site: below are the links to
+          the individual pages, still under construction.
         </p>
       </div>
       <div class="rooms-grid">
         {rooms.map((room) => (
-          <a href={`/it/camere/${room.slug}/`} class="room-card">
+          <a href={`/en/rooms/${room.slug}/`} class="room-card">
             <h2>{room.name}</h2>
-            <span>Contenuto in arrivo →</span>
+            <span>Coming soon →</span>
           </a>
         ))}
       </div>

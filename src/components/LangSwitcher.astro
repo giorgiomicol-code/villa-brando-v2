@@ -3,21 +3,28 @@
 // attuale la lingua era un nodo di primo livello che raddoppiava l'intero
 // menu (vedi prompt di progetto).
 //
-// L'italiano è l'unica lingua con contenuti reali disponibili: l'inglese
-// resta dichiarato ma non attivabile finché non arriva il testo EN esistente
-// (non va tradotto ex novo). Quando /en/ esisterà, EN diventa un <a>.
+// altHref è la stessa pagina nell'altra lingua. Se manca (pagina che esiste
+// solo in una lingua) l'altra lingua resta visibile ma non attivabile,
+// invece di mandare l'ospite su un indirizzo inesistente.
 
 interface Props {
   current: 'it' | 'en';
+  altHref?: string;
 }
 
-const { current } = Astro.props;
+const { current, altHref } = Astro.props;
+const other = current === 'it' ? 'en' : 'it';
+const pending = current === 'it' ? 'Versione inglese non disponibile per questa pagina' : 'Italian version not available for this page';
 ---
 
-<div class="lang" role="group" aria-label="Lingua del sito">
-  <a href="/it/" class="lang-opt" aria-current={current === 'it' ? 'true' : undefined}>IT</a>
+<div class="lang" role="group" aria-label={current === 'it' ? 'Lingua del sito' : 'Site language'}>
+  <span class="lang-opt" aria-current="true">{current.toUpperCase()}</span>
   <span class="sep" aria-hidden="true">|</span>
-  <span class="lang-opt unavailable" aria-disabled="true" title="Versione inglese in arrivo">EN</span>
+  {altHref ? (
+    <a href={altHref} class="lang-opt" hreflang={other} lang={other}>{other.toUpperCase()}</a>
+  ) : (
+    <span class="lang-opt unavailable" aria-disabled="true" title={pending}>{other.toUpperCase()}</span>
+  )}
 </div>
 
 <style>

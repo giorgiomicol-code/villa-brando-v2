@@ -3,32 +3,42 @@
 // (testo del sito attuale) non è ancora stato fornito/verificato. Per regola
 // di progetto non si inventa testo generico: si dichiara esplicitamente lo
 // stato "contenuto in arrivo". Vedi docs/MIGRATION_PLAN.md.
-import { whatsappHref } from '../data/site.it.ts';
+import { site, type Lang } from '../data/site.ts';
 
 interface Props {
   eyebrow: string;
   title: string;
   note?: string;
   anchorId?: string;
+  lang?: Lang;
 }
 
-const { eyebrow, title, note, anchorId } = Astro.props;
+const { eyebrow, title, note, anchorId, lang = 'it' } = Astro.props;
+const { whatsappHref } = site[lang];
+const copy =
+  lang === 'it'
+    ? {
+        body: 'Questa pagina è in fase di costruzione: i contenuti reali di questa sezione del sito attuale sono in corso di raccolta e verifica, per non sostituirli con testo generico o inventato.',
+        home: 'Torna alla Home',
+        whatsapp: 'Scrivi su WhatsApp',
+      }
+    : {
+        body: 'This page is being built: the real content for this section is still being collected and checked, so that it is not replaced with generic or invented text.',
+        home: 'Back to Home',
+        whatsapp: 'Message us on WhatsApp',
+      };
 ---
 
 <section class="coming-soon" id={anchorId}>
   <div class="wrap">
     <div class="section-head">
-      <div class="eyebrow navy">{eyebrow}</div>
+      <div class="eyebrow">{eyebrow}</div>
       <h1>{title}</h1>
-      <p>
-        Questa pagina è in fase di costruzione: i contenuti reali di questa sezione
-        del sito attuale sono in corso di raccolta e verifica, per non sostituirli
-        con testo generico o inventato.
-      </p>
+      <p>{copy.body}</p>
       {note && <p class="note">{note}</p>}
       <div class="actions">
-        <a href="/it/" class="btn btn-outline">Torna alla Home</a>
-        <a href={whatsappHref} class="btn btn-gold" target="_blank" rel="noopener">Scrivi su WhatsApp</a>
+        <a href={`/${lang}/`} class="btn btn-outline">{copy.home}</a>
+        <a href={whatsappHref} class="btn btn-gold" target="_blank" rel="noopener">{copy.whatsapp}</a>
       </div>
     </div>
   </div>

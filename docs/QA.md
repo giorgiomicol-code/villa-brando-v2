@@ -19,8 +19,16 @@ di pre-pubblicazione: quella richiede tutte le pagine con contenuto reale.
 
 - [x] Home (`/it/`): IT puro, nessun testo EN mescolato nella pagina
 - [x] Pagine stub: IT puro (messaggi di stato, non contenuto editoriale)
-- [x] Selettore IT|EN sempre visibile nell'header, non annidato in altri menu
-      (EN disattivato finché non esistono i contenuti inglesi)
+- [x] Home inglese (`/en/`): EN puro, nessun testo IT mescolato
+- [x] Selettore IT|EN sempre visibile nell'header, non annidato in altri menu,
+      funzionante in entrambe le direzioni; `hreflang` reciproci e `<html lang>`
+      corretti su ogni pagina
+- [!] **Il testo inglese non è stato verificato contro il sito live.** Proviene
+      dal riferimento visivo prodotto da ChatGPT, che Giorgio ha indicato come
+      tratto dal sito reale, ma questo ambiente non può raggiungere
+      villabrando.com per confermarlo parola per parola. Va ricontrollato
+      prima della pubblicazione. Punto specifico da verificare: "8 bikes
+      available" — il numero 8 non compare nella versione italiana.
 - [!] Eccezione nota: nella Home restano in inglese la citazione
       *"Not a typical villa, it's truly a unique experience."* e la didascalia
       *"Enjoy yourself — May is coming, Summer sun"*, entrambe presenti così
@@ -62,8 +70,9 @@ Camere, Contatti, La Villa. Menu hamburger mobile testato e funzionante
 - [x] Stile di focus visibile (`:focus-visible`) per la navigazione da tastiera
 - [x] Tutte le immagini con `alt` descrittivo
 - [x] Menu mobile operabile da tastiera/click con stato `aria-expanded`/`aria-controls`
-- [x] **Audit automatico axe-core (WCAG 2.0/2.1 A + AA): 0 violazioni** su
-      Home, Camere, Contatti, La Villa e 404
+- [x] **Audit automatico axe-core (WCAG 2.0/2.1 A + AA): 0 violazioni**, in
+      italiano e in inglese, rieseguito dopo il cambio di palette
+- [x] Verifica automatica dei link interni: 24 pagine, nessun link rotto
 - [x] Contrasto verificato: axe aveva rilevato un fallimento reale su
       `.eyebrow.navy` (3.94:1, sotto il minimo di 4.5:1) ereditato dal
       prototipo — corretto portando l'opacità da 0.55 a 0.65 (5.46:1) e

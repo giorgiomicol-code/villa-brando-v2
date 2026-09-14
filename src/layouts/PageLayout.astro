@@ -3,31 +3,39 @@ import BaseLayout from './BaseLayout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppFloat from '../components/WhatsAppFloat.astro';
-import { bookingHref, whatsappHref } from '../data/site.it.ts';
+import { site, type Lang } from '../data/site.ts';
 
 interface Props {
   title: string;
   description: string;
   canonicalPath: string;
+  lang?: Lang;
+  /** Stessa pagina nell'altra lingua, se esiste. */
+  altHref?: string;
   ogImage?: string;
 }
 
-const { title, description, canonicalPath, ogImage } = Astro.props;
+const { title, description, canonicalPath, lang = 'it', altHref, ogImage } = Astro.props;
+const { whatsappHref } = site[lang];
+const skipLabel = lang === 'it' ? 'Vai al contenuto' : 'Skip to content';
+
+const alternates = [{ lang, path: canonicalPath }];
+if (altHref) alternates.push({ lang: lang === 'it' ? 'en' : 'it', path: altHref });
 ---
 
 <BaseLayout
   title={title}
   description={description}
-  lang="it"
+  lang={lang}
   canonicalPath={canonicalPath}
-  alternates={[{ lang: 'it', path: canonicalPath }]}
+  alternates={alternates}
   ogImage={ogImage}
 >
-  <a href="#contenuto" class="skip-link">Vai al contenuto</a>
-  <Header bookingHref={bookingHref} />
+  <a href="#contenuto" class="skip-link">{skipLabel}</a>
+  <Header lang={lang} altHref={altHref} />
   <main id="contenuto">
     <slot />
   </main>
-  <Footer />
+  <Footer lang={lang} />
   <WhatsAppFloat href={whatsappHref} />
 </BaseLayout>

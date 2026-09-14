@@ -5,7 +5,8 @@ Questa tabella governa la sostituzione progressiva delle pagine. Compilarla prim
 | Priorità | Pagina | URL attuale | URL nuovo | Azione URL | Stato | Title e meta acquisiti | Contenuti verificati | Mobile verificato | Redirect 301 | Approvazione |
 |---:|---|---|---|---|---|---|---|---|---|---|
 | 1 | Home (IT) | https://www.villabrando.com/ (Google Sites) | /it/ | Redirect provvisorio "/" → "/it/" attivo in anteprima (non la decisione finale) | In sviluppo | Parziale — title/meta del sito attuale non ancora acquisiti da Search Console/crawl diretto | Sì, testi presi dal prototipo approvato (source of truth dal sito attuale) | Sì (screenshot 390px e 1440px) | Da definire | No |
-| 2 | Home (EN) | Da individuare sul sito attuale | /en/ | Da definire | Da analizzare | No | No — testo inglese esistente non ancora fornito, non tradurre ex novo | No | Da definire | No |
+| 2 | Home (EN) | Da individuare sul sito attuale | /en/ | Da definire | In sviluppo | No | **Parziale — testo preso dal riferimento visivo, NON verificato contro il sito live** | Sì | Da definire | No |
+| 2b | Pagine interne EN (The Villa, Rooms + 4, Gallery, Experiences, Reviews, Contact) | Da individuare | /en/… | Da definire | In sviluppo (stub) | No | No | Sì (stub) | Da definire | No |
 | 3 | La Villa (IT) | Da individuare sul sito attuale (include sezione Giardino) | /it/la-villa/ | Mantenere concetto, URL nuovo pulito | In sviluppo (stub "contenuto in arrivo") | No | No — in attesa di censimento parola per parola | Sì (stub) | Da definire | No |
 | 4 | Camere — indice (IT) | Da individuare (probabilmente 4 pagine distinte sul sito attuale) | /it/camere/ | Consolidare in 1 indice + 4 pagine camera | In sviluppo (stub, elenco camere) | No | No | Sì (stub) | Da definire | No |
 | 5 | Camera Main (IT) | Da individuare (pagina camera dedicata) | /it/camere/main/ | Mantenere concetto, URL nuovo pulito | In sviluppo (stub) | No | No | Sì (stub) | Da definire | No |
@@ -35,32 +36,79 @@ da Giorgio. Modulo pronto da compilare: `docs/CENSIMENTO_CONTENUTI.md`.
 - Foto originali in alta risoluzione (oggi tutte hotlinkate dal CDN di
   Google Sites; cartelle pronte in `public/images/`).
 
-## Scostamenti dal prototipo approvato (da confermare)
+## Cambio di direzione grafica — palette oro + navy
 
-Modifiche minime fatte rispetto al prototipo, ciascuna con una motivazione
-legata alle regole inderogabili di CLAUDE.md. Vanno confermate da Giorgio.
+**Decisione di Giorgio (esplicita), che supera la regola precedente.** Il
+brief iniziale prescriveva una palette bordeaux con "niente oro, niente
+blu/navy". Giorgio ha poi fornito un riferimento visivo (mockup prodotto da
+ChatGPT) con palette **oro + navy** e ha indicato di attenersi a quello.
+Il sito è stato quindi rivestito su quella direzione:
 
-1. **Contrasto delle etichette di sezione** (`.eyebrow.navy`, es. "SCOPRI",
-   "ESPLORA"): il prototipo usa `opacity: 0.55`, che dà un contrasto di
-   **3.94:1** su bianco — sotto il minimo WCAG AA di 4.5:1 per testo piccolo
-   (rilevato da axe-core, non a occhio). Portato a `0.65` = **5.46:1**.
-   Stessa tinta, resa quasi identica, contrasto conforme.
-2. **Menu mobile funzionante**: nel prototipo l'hamburger era decorativo e su
+- oro `#C3A24B` per pulsanti, icone e filetti;
+- navy `#1C3557` per titoli, pulsante di ricerca e footer;
+- fondo bianco, fascia crema `#FBF8F2` per "Scopri", azzurro `#E9F2F9` per
+  "Esplora";
+- blu Booking.com `#003580` per il banner premio (colore del marchio
+  Booking, non della palette del sito, come il verde di WhatsApp);
+- accenti manoscritti (font Caveat) per sottotitolo hero, titolo "Ideale per
+  famiglie…", soggiorno minimo e citazione del banner.
+
+La vecchia regola "niente oro, niente blu/navy" in `CLAUDE.md` è quindi
+**superata** da questa decisione. Se non era l'intenzione, va detto ora:
+tornare indietro costa poco perché i colori sono tutti in variabili CSS.
+
+## Scostamenti dal riferimento (da confermare)
+
+Modifiche minime rispetto al riferimento visivo, ciascuna motivata da una
+regola inderogabile di CLAUDE.md. Vanno confermate da Giorgio.
+
+1. **Testo dei pulsanti oro**: nel riferimento è bianco su oro chiaro, che dà
+   **2.44:1** — molto sotto il minimo WCAG AA di 4.5:1. Mantenuto lo stesso
+   oro, testo navy: **5.06:1**.
+2. **Oro delle scritte piccole**: l'oro dei pulsanti usato come colore di
+   testo non passa su nessuno dei tre sfondi del sito. Le etichette usano un
+   oro più profondo `#806419` (bianco 5.59:1, crema 5.28:1, azzurro 4.94:1).
+   L'oro chiaro resta per sfondi, icone e filetti.
+3. **Grigio del testo secondario** portato a `#656D72` per passare anche
+   sulla sezione azzurra (4.65:1; prima era 4.26:1).
+4. **Menu mobile funzionante**: nel prototipo l'hamburger era decorativo e su
    mobile la navigazione risultava irraggiungibile. Ora apre e chiude il menu,
    con stato `aria-expanded` per screen reader.
-3. **Selettore lingua reale**: il prototipo mostra un'etichetta statica
-   "🇮🇹 IT". Sostituita da un vero selettore IT|EN sempre visibile, con EN
-   disattivato e segnalato come "in arrivo" finché non esistono i contenuti
-   inglesi.
+5. **Selettore lingua reale**: il riferimento mostra un menu a tendina
+   "English ⌄". Realizzato come selettore **IT | EN** sempre visibile, che
+   porta alla stessa pagina nell'altra lingua; se una pagina esiste in una
+   sola lingua, l'altra resta visibile ma non cliccabile invece di portare a
+   un indirizzo inesistente.
+
+Tutte le pagine verificate con axe-core (WCAG 2.1 AA) dopo il cambio di
+palette: **0 violazioni**, in italiano e in inglese.
+
+## Elementi del riferimento non ancora realizzati
+
+- **Video** nella sezione "Ideale per famiglie": nel riferimento c'è un player
+  YouTube. Manca l'indirizzo del video — da fornire.
+- **Carosello** con frecce nella sezione "Esplora": oggi è una griglia fissa
+  di 4 card. Da decidere se serve davvero il carosello (su desktop le 4 card
+  si vedono comunque tutte).
+- **Foto del riferimento**: sono diverse da quelle attualmente hotlinkate dal
+  sito Google Sites. Non conosciamo gli indirizzi originali di quelle nuove.
+- **Logo**: nel riferimento è un logotipo oro con disegno della villa. Quello
+  attuale è hotlinkato dal sito vecchio e la favicon è ancora un segnaposto.
 
 ## DA VERIFICARE (non risolto autonomamente)
 
-1. **Premio Booking.com**: formulazioni diverse trovate sul sito attuale —
-   "Traveller Award 2024", "Traveller Review Awards 2024 & 2025" — e nel
-   riferimento visivo del proprietario "Traveller Review Awards 2026, 10 su
-   10". Il prototipo Home usa "Traveller Review Awards 2024 & 2025" come da
-   riferimento approvato, ma anno e punteggio esatti vanno confermati da
-   Giorgio prima della pubblicazione.
+1. **Premio Booking.com — PRIORITÀ ALTA, oggi il sito si contraddice.**
+   Le due lingue riportano anni diversi, perché riportano fedelmente due
+   fonti diverse:
+   - Home **italiana**: "Booking.com Traveller Review Awards 2024 & 2025 ·
+     5★ su Airbnb · 9.9/10 su Booking.com" (dal prototipo approvato);
+   - Home **inglese**: "Booking.com Traveller Review Awards 2026" (dal
+     riferimento visivo).
+
+   Non è stato scelto un anno in autonomia: sarebbe stato inventare un dato.
+   Serve la formulazione corretta **di oggi**, che poi va allineata su
+   entrambe le lingue. Finché non arriva, il sito non può essere pubblicato
+   così.
 2. **Bandiere Blu**: "10 Blue Flags (FEE) in 2024" vs "...in 2023" in punti
    diversi del sito attuale — non presente nel prototipo Home, ma da
    verificare prima di usarlo in altre pagine (es. La Villa, Territorio).

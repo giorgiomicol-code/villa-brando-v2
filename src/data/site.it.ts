@@ -31,11 +31,11 @@ export const bookingHref = 'https://direct-book.com/properties/villabrando';
 export const whatsappHref = 'https://wa.me/393519768732';
 
 export const contactStrip = [
-  { label: 'Chiama', href: 'tel:+393519768732' },
-  { label: 'WhatsApp', href: whatsappHref },
-  { label: 'Email', href: 'mailto:villabrando.italy@gmail.com' },
+  { icon: 'phone', label: 'Chiama', href: 'tel:+393519768732' },
+  { icon: 'whatsapp', label: 'WhatsApp', href: whatsappHref },
+  { icon: 'email', label: 'Email', href: 'mailto:villabrando.italy@gmail.com' },
   // Link "Indicazioni" verso Google Maps da confermare (vedi DA VERIFICARE).
-  { label: 'Indicazioni', href: '#' },
+  { icon: 'directions', label: 'Indicazioni', href: '#' },
 ];
 
 export const footer = {

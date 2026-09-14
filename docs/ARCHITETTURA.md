@@ -62,11 +62,16 @@ futuro senza toccare il codice dei componenti.
 
 ### Stato attuale
 
-Solo lo scaffolding e la Home page (`/it/`) sono stati implementati in questa
-fase, in linea con il flusso di lavoro "una pagina alla volta" di CLAUDE.md.
-Le pagine interne (Camere, Gallery, Esperienze/Territorio, Recensioni,
-Contatti, Privacy) restano da implementare quando sarà disponibile il
-censimento contenuti parola-per-parola indicato come mancante nel prompt di
-progetto. La versione inglese della Home (`/en/`) non è stata creata perché
-il testo inglese esistente sul sito attuale non è ancora stato fornito/
-verificato: va richiesto al proprietario, non tradotto ex novo.
+Sono implementate la Home italiana (`/it/`) e quella inglese (`/en/`), più
+una pagina per ogni sezione dell'IA approvata in entrambe le lingue, segnata
+"contenuto in arrivo" finché non arriva il censimento parola-per-parola.
+
+I contenuti condivisi (menu, footer, contatti) stanno in `site.it.ts` e
+`site.en.ts`; i componenti comuni li scelgono tramite `site.ts` in base a una
+prop `lang`, così header, footer e striscia contatti non sono duplicati per
+lingua. Ogni pagina dichiara `altHref`, cioè la stessa pagina nell'altra
+lingua: da lì derivano sia il selettore IT|EN sia gli `hreflang` reciproci.
+
+Il testo inglese proviene dal riferimento visivo approvato e **non è ancora
+stato verificato contro il sito live** (non raggiungibile da questo ambiente):
+vedi `docs/MIGRATION_PLAN.md`.

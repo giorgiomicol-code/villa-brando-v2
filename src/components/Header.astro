@@ -1,25 +1,33 @@
 ---
-import { nav, brand } from '../data/site.it.ts';
+import { site, type Lang } from '../data/site.ts';
 import LangSwitcher from './LangSwitcher.astro';
 
 interface Props {
-  bookingHref: string;
+  lang: Lang;
+  altHref?: string;
 }
 
-const { bookingHref } = Astro.props;
+const { lang, altHref } = Astro.props;
+const { nav, brand, bookingHref } = site[lang];
+const bookLabel = lang === 'it' ? 'Prenota' : site.en.bookLabel;
+const home = `/${lang}/`;
+const labels =
+  lang === 'it'
+    ? { nav: 'Navigazione principale', open: 'Apri menu', close: 'Chiudi menu' }
+    : { nav: 'Main navigation', open: 'Open menu', close: 'Close menu' };
 const currentPath = Astro.url.pathname;
 ---
 
 <header>
   <div class="nav-row">
-    <a href="/it/" class="brand">
+    <a href={home} class="brand">
       <img src={brand.logoSrc} alt={`Logo ${brand.name}`} width="38" height="38" />
       <span class="word">{brand.name}<small>{brand.tagline}</small></span>
     </a>
-    <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
+    <nav class="main-nav" id="main-nav" aria-label={labels.nav}>
       {nav.map((item) => {
         const isActive =
-          item.href !== '#' && (item.href === '/it/' ? currentPath === '/it/' : currentPath.startsWith(item.href));
+          item.href !== '#' && (item.href === home ? currentPath === home : currentPath.startsWith(item.href));
         return (
           <a href={item.href} class={isActive ? 'active' : undefined} aria-current={isActive ? 'page' : undefined}>
             {item.label}
@@ -28,9 +36,17 @@ const currentPath = Astro.url.pathname;
       })}
     </nav>
     <div class="nav-actions">
-      <LangSwitcher current="it" />
-      <a href={bookingHref} class="btn btn-gold">Prenota</a>
-      <button class="hamburger" id="nav-toggle" aria-label="Apri menu" aria-expanded="false" aria-controls="main-nav">
+      <LangSwitcher current={lang} altHref={altHref} />
+      <a href={bookingHref} class="btn btn-gold">{bookLabel}</a>
+      <button
+        class="hamburger"
+        id="nav-toggle"
+        aria-label={labels.open}
+        data-label-open={labels.open}
+        data-label-close={labels.close}
+        aria-expanded="false"
+        aria-controls="main-nav"
+      >
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -40,16 +56,18 @@ const currentPath = Astro.url.pathname;
 <script>
   const toggle = document.getElementById('nav-toggle');
   const menu = document.getElementById('main-nav');
+  const labelOpen = toggle?.dataset.labelOpen ?? 'Apri menu';
+  const labelClose = toggle?.dataset.labelClose ?? 'Chiudi menu';
   toggle?.addEventListener('click', () => {
     const isOpen = menu?.classList.toggle('open');
     toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
-    toggle.setAttribute('aria-label', isOpen ? 'Chiudi menu' : 'Apri menu');
+    toggle.setAttribute('aria-label', isOpen ? labelClose : labelOpen);
   });
   menu?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', () => {
       menu.classList.remove('open');
       toggle?.setAttribute('aria-expanded', 'false');
-      toggle?.setAttribute('aria-label', 'Apri menu');
+      toggle?.setAttribute('aria-label', labelOpen);
     });
   });
 </script>

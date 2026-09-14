@@ -1,16 +1,28 @@
-/* Design system approvato — Villa Brando V2 (da prototipo Home) */
+/* Design system — Villa Brando V2
+   Palette oro + navy, da riferimento visivo approvato da Giorgio
+   (sostituisce la precedente palette bordeaux: vedi docs/MIGRATION_PLAN.md,
+   "Scostamenti dal prototipo approvato"). */
 :root {
-  --navy: #3a0e17;
-  --navy-dark: #230810;
-  --gold: #8c1f32;
-  --gold-soft: #d98ca0;
-  --cream: #ffffff;
+  --navy: #1c3557;
+  --navy-dark: #132440;
+  --gold: #c3a24b;
+  --gold-dark: #ab8a37;
+  /* Oro per il TESTO: quello chiaro non raggiunge il contrasto minimo sulle
+     scritte piccole. Questo passa su tutti e tre gli sfondi del sito —
+     bianco 5.59:1, crema 5.28:1, azzurro 4.94:1. */
+  --gold-text: #806419;
+  --gold-soft: #e6d3a3;
+  --booking-blue: #003580;
+  --bg: #ffffff;
+  --cream: #fbf8f2;
   --surface: #ffffff;
-  --sky: #f8e9ec;
-  --ink: #2a2020;
-  --ink-soft: #6b5b5d;
-  --line: rgba(58, 14, 23, 0.14);
+  --sky: #e9f2f9;
+  --ink: #333a3f;
+  /* Passa anche sul fondo azzurro della sezione "Esplora" (4.65:1). */
+  --ink-soft: #656d72;
+  --line: rgba(28, 53, 87, 0.14);
   --maxw: 1220px;
+  --font-script: 'Caveat', 'Segoe Script', cursive;
 }
 
 *, *::before, *::after {
@@ -23,7 +35,7 @@ html {
 
 body {
   margin: 0;
-  background: var(--cream);
+  background: var(--bg);
   color: var(--ink);
   font-family: 'Inter', sans-serif;
   font-size: 16px;
@@ -57,21 +69,41 @@ img {
   padding: 0 32px;
 }
 
+/* Etichetta di sezione: nel riferimento è oro, maiuscolo e spaziato, tra due
+   filetti sottili. Usa --gold-text, non --gold: l'oro chiaro su fondo chiaro
+   non raggiunge il contrasto minimo per il testo piccolo. */
 .eyebrow {
   font-size: 0.78rem;
-  letter-spacing: 0.06em;
-  color: var(--gold);
+  letter-spacing: 0.14em;
+  color: var(--gold-text);
   font-weight: 600;
+  text-transform: uppercase;
 }
 
-/* Il prototipo approvato usa opacity 0.55, che però dà un contrasto di
-   3.94:1 su bianco — sotto il minimo WCAG AA di 4.5:1 per testo piccolo
-   (rilevato da axe-core). Portato a 0.65 = 5.46:1: stessa tinta, resa quasi
-   identica, contrasto conforme. Scostamento minimo dal prototipo, motivato
-   dalla regola inderogabile di accessibilità e segnalato a Giorgio. */
 .eyebrow.navy {
   color: var(--navy);
-  opacity: 0.65;
+}
+
+/* Filetti decorativi ai lati dell'etichetta, come nel riferimento. */
+.section-head .eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.section-head .eyebrow::before,
+.section-head .eyebrow::after {
+  content: '';
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* Accento manoscritto: sottotitolo hero, titoli caldi, note brevi. */
+.script {
+  font-family: var(--font-script);
+  font-weight: 500;
 }
 
 .btn {
@@ -89,19 +121,26 @@ img {
   text-transform: uppercase;
 }
 
+/* Nel riferimento il bottone oro ha il testo bianco, che però dà 2.44:1 —
+   molto sotto il minimo WCAG di 4.5:1. Stesso oro, testo navy: 5.06:1.
+   Vedi docs/MIGRATION_PLAN.md, "Scostamenti dal prototipo approvato". */
 .btn-gold {
   background: var(--gold);
-  color: #fff;
+  color: var(--navy);
 }
 
 .btn-gold:hover {
-  background: var(--navy-dark);
+  background: var(--gold-dark);
 }
 
 .btn-outline {
-  border-color: var(--navy);
+  border-color: var(--gold);
   color: var(--navy);
   background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--cream);
 }
 
 .btn-outline-light {
@@ -117,6 +156,11 @@ section {
   padding: 96px 0;
 }
 
+/* Fascia con fondo crema (sezione "Scopri" + banner premio nel riferimento) */
+.tinted {
+  background: var(--cream);
+}
+
 .section-head {
   text-align: center;
   max-width: 640px;
@@ -125,7 +169,9 @@ section {
 
 .section-head h2 {
   font-size: clamp(1.7rem, 3vw, 2.3rem);
-  margin: 10px 0 12px;
+  margin: 14px 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .section-head p {
