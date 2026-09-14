@@ -9,9 +9,10 @@ interface Props {
   title: string;
   description: string;
   canonicalPath: string;
+  ogImage?: string;
 }
 
-const { title, description, canonicalPath } = Astro.props;
+const { title, description, canonicalPath, ogImage } = Astro.props;
 ---
 
 <BaseLayout
@@ -20,9 +21,13 @@ const { title, description, canonicalPath } = Astro.props;
   lang="it"
   canonicalPath={canonicalPath}
   alternates={[{ lang: 'it', path: canonicalPath }]}
+  ogImage={ogImage}
 >
+  <a href="#contenuto" class="skip-link">Vai al contenuto</a>
   <Header bookingHref={bookingHref} />
-  <slot />
+  <main id="contenuto">
+    <slot />
+  </main>
   <Footer />
   <WhatsAppFloat href={whatsappHref} />
 </BaseLayout>

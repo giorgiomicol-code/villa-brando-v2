@@ -1,9 +1,6 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import Header from '../../components/Header.astro';
-import Footer from '../../components/Footer.astro';
+import PageLayout from '../../layouts/PageLayout.astro';
 import ContactStrip from '../../components/ContactStrip.astro';
-import WhatsAppFloat from '../../components/WhatsAppFloat.astro';
 import {
   hero,
   iconStrip,
@@ -12,21 +9,17 @@ import {
   families,
   explore,
 } from '../../data/home.it.ts';
-import { whatsappHref } from '../../data/site.it.ts';
 ---
 
-<BaseLayout
+<PageLayout
   title="Villa Brando — Casa Vacanze Esclusiva, Latina"
   description="Villa Brando: casa vacanze esclusiva a Latina, con giardino privato e biciclette. Vicino a Sabaudia, Circeo e Roma."
-  lang="it"
   canonicalPath="/it/"
-  alternates={[{ lang: 'it', path: '/it/' }]}
+  ogImage={hero.bgSrc}
 >
-  <Header bookingHref={hero.ctaPrimary.href} />
-
   <section class="hero">
     <div class="hero-bg">
-      <img src={hero.bgSrc} alt={hero.bgAlt} />
+      <img src={hero.bgSrc} alt={hero.bgAlt} fetchpriority="high" decoding="async" />
     </div>
     <div class="hero-inner">
       <div class="hero-copy">
@@ -143,11 +136,7 @@ import { whatsappHref } from '../../data/site.it.ts';
   </section>
 
   <ContactStrip />
-
-  <Footer />
-
-  <WhatsAppFloat href={whatsappHref} />
-</BaseLayout>
+</PageLayout>
 
 <style>
   .hero {

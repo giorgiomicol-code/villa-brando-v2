@@ -7,9 +7,10 @@ interface Props {
   lang: 'it' | 'en';
   canonicalPath: string;
   alternates?: { lang: string; path: string }[];
+  ogImage?: string;
 }
 
-const { title, description, lang, canonicalPath, alternates = [] } = Astro.props;
+const { title, description, lang, canonicalPath, alternates = [], ogImage } = Astro.props;
 
 // Ambiente di anteprima: le pagine non devono essere indicizzate finché
 // non approvate e pubblicate (CLAUDE.md, regola 10). Il dominio base è
@@ -26,10 +27,27 @@ const isPreview = true;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonicalPath} />
+    {/* Favicon provvisoria: sostituire con il logo reale quando disponibile. */}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     {alternates.map((alt) => (
       <link rel="alternate" hreflang={alt.lang} href={alt.path} />
     ))}
     {isPreview && <meta name="robots" content="noindex, nofollow" />}
+
+    {/* Open Graph — solo contenuti già verificati. og:url e un canonical
+        assoluto richiedono il dominio finale, non ancora deciso: vedi
+        docs/MIGRATION_PLAN.md. */}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Villa Brando" />
+    <meta property="og:locale" content={lang === 'it' ? 'it_IT' : 'en_GB'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImage && <meta name="twitter:image" content={ogImage} />}
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

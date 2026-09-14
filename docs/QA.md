@@ -47,7 +47,11 @@ Camere, Contatti, La Villa. Menu hamburger mobile testato e funzionante
 
 ## Accessibilità (controlli manuali eseguiti)
 
-- [x] HTML semantico (`header`, `nav`, `section`, `footer`)
+- [x] HTML semantico (`header`, `nav`, `main`, `section`, `footer`)
+- [x] Landmark `<main id="contenuto">` su tutte le pagine
+- [x] Link "Vai al contenuto" (skip link), verificato: è il primo elemento
+      raggiunto con Tab e diventa visibile al focus
+- [x] Stile di focus visibile (`:focus-visible`) per la navigazione da tastiera
 - [x] Tutte le immagini con `alt` descrittivo
 - [x] Menu mobile operabile da tastiera/click con stato `aria-expanded`/`aria-controls`
 - [x] Contrasto testo su sfondo bordeaux/bianco coerente col design approvato
@@ -56,10 +60,25 @@ Camere, Contatti, La Villa. Menu hamburger mobile testato e funzionante
 ## Prestazioni
 
 - [x] Build statica, JS minimo (solo il toggle del menu mobile)
+- [x] Immagine hero con `fetchpriority="high"` (candidata LCP) e immagini
+      sotto la piega con `loading="lazy"`
+- [x] Nessun 404 di risorse (favicon provvisoria aggiunta: prima ogni pagina
+      generava una richiesta fallita)
 - [ ] Core Web Vitals non misurati (richiede ambiente di anteprima pubblico
       o hosting locale con Lighthouse)
 - [ ] Immagini ancora hotlinkate dal CDN del sito attuale, non ancora
       ottimizzate/servite localmente
+
+## SEO tecnica
+
+- [x] `title` e `meta description` distinti per pagina
+- [x] `canonical` e `hreflang` per pagina (relativi finché non c'è un dominio)
+- [x] Open Graph e Twitter Card (titolo, descrizione, foto reale della villa)
+- [x] `noindex, nofollow` + `robots.txt` bloccante su tutto l'ambiente di anteprima
+- [ ] `og:url` e canonical assoluti: richiedono il dominio definitivo
+- [ ] Sitemap: richiede il dominio definitivo
+- [ ] Dati strutturati (JSON-LD): tipo e proprietà da confermare con Giorgio
+      prima di implementarli, per non dichiarare dati non verificati
 
 ## Cosa manca prima di qualunque pubblicazione
 

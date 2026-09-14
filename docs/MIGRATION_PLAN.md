@@ -19,6 +19,22 @@ Questa tabella governa la sostituzione progressiva delle pagine. Compilarla prim
 | 13 | Privacy (IT) | Da individuare sul sito attuale | /it/privacy/ | Da definire | Da analizzare | No | No | No | Da definire | No |
 | 14 | House Rules (IT) | Pagina esterna su Google Sites (link da recuperare) | Da definire — resta esterna o si porta in questo sito? | Da definire | Da analizzare | No | No | No | N/A se resta esterna | No |
 
+## Vincolo operativo — crawl non eseguibile da Claude Code
+
+L'ambiente in cui gira Claude Code **non può raggiungere `www.villabrando.com`**
+né il CDN delle immagini (`lh3.googleusercontent.com`): la policy di rete
+blocca entrambi, sia da richiesta diretta sia da fetch lato server. Di
+conseguenza title, meta description, H1, testi e dati strutturati delle
+pagine attuali non possono essere acquisiti automaticamente: vanno forniti
+da Giorgio. Modulo pronto da compilare: `docs/CENSIMENTO_CONTENUTI.md`.
+
+## Asset mancanti
+
+- Logo originale Villa Brando (in attesa: `public/favicon.svg` è un
+  **segnaposto provvisorio**, non il logo ufficiale, e va sostituito).
+- Foto originali in alta risoluzione (oggi tutte hotlinkate dal CDN di
+  Google Sites; cartelle pronte in `public/images/`).
+
 ## DA VERIFICARE (non risolto autonomamente)
 
 1. **Premio Booking.com**: formulazioni diverse trovate sul sito attuale —
