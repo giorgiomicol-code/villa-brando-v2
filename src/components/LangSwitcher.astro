@@ -1,0 +1,48 @@
+---
+// Selettore lingua sempre visibile e non annidato in altri menu: sul sito
+// attuale la lingua era un nodo di primo livello che raddoppiava l'intero
+// menu (vedi prompt di progetto).
+//
+// L'italiano è l'unica lingua con contenuti reali disponibili: l'inglese
+// resta dichiarato ma non attivabile finché non arriva il testo EN esistente
+// (non va tradotto ex novo). Quando /en/ esisterà, EN diventa un <a>.
+
+interface Props {
+  current: 'it' | 'en';
+}
+
+const { current } = Astro.props;
+---
+
+<div class="lang" role="group" aria-label="Lingua del sito">
+  <a href="/it/" class="lang-opt" aria-current={current === 'it' ? 'true' : undefined}>IT</a>
+  <span class="sep" aria-hidden="true">|</span>
+  <span class="lang-opt unavailable" aria-disabled="true" title="Versione inglese in arrivo">EN</span>
+</div>
+
+<style>
+  .lang {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .lang-opt {
+    color: var(--ink-soft);
+    padding: 2px 2px;
+  }
+  .lang-opt[aria-current='true'] {
+    color: var(--navy);
+    border-bottom: 2px solid var(--gold);
+  }
+  .lang-opt.unavailable {
+    color: var(--ink-soft);
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  .sep {
+    color: var(--line);
+  }
+</style>

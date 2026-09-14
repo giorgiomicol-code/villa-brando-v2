@@ -35,6 +35,24 @@ da Giorgio. Modulo pronto da compilare: `docs/CENSIMENTO_CONTENUTI.md`.
 - Foto originali in alta risoluzione (oggi tutte hotlinkate dal CDN di
   Google Sites; cartelle pronte in `public/images/`).
 
+## Scostamenti dal prototipo approvato (da confermare)
+
+Modifiche minime fatte rispetto al prototipo, ciascuna con una motivazione
+legata alle regole inderogabili di CLAUDE.md. Vanno confermate da Giorgio.
+
+1. **Contrasto delle etichette di sezione** (`.eyebrow.navy`, es. "SCOPRI",
+   "ESPLORA"): il prototipo usa `opacity: 0.55`, che dà un contrasto di
+   **3.94:1** su bianco — sotto il minimo WCAG AA di 4.5:1 per testo piccolo
+   (rilevato da axe-core, non a occhio). Portato a `0.65` = **5.46:1**.
+   Stessa tinta, resa quasi identica, contrasto conforme.
+2. **Menu mobile funzionante**: nel prototipo l'hamburger era decorativo e su
+   mobile la navigazione risultava irraggiungibile. Ora apre e chiude il menu,
+   con stato `aria-expanded` per screen reader.
+3. **Selettore lingua reale**: il prototipo mostra un'etichetta statica
+   "🇮🇹 IT". Sostituita da un vero selettore IT|EN sempre visibile, con EN
+   disattivato e segnalato come "in arrivo" finché non esistono i contenuti
+   inglesi.
+
 ## DA VERIFICARE (non risolto autonomamente)
 
 1. **Premio Booking.com**: formulazioni diverse trovate sul sito attuale —

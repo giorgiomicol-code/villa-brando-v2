@@ -64,9 +64,14 @@ img {
   font-weight: 600;
 }
 
+/* Il prototipo approvato usa opacity 0.55, che però dà un contrasto di
+   3.94:1 su bianco — sotto il minimo WCAG AA di 4.5:1 per testo piccolo
+   (rilevato da axe-core). Portato a 0.65 = 5.46:1: stessa tinta, resa quasi
+   identica, contrasto conforme. Scostamento minimo dal prototipo, motivato
+   dalla regola inderogabile di accessibilità e segnalato a Giorgio. */
 .eyebrow.navy {
   color: var(--navy);
-  opacity: 0.55;
+  opacity: 0.65;
 }
 
 .btn {

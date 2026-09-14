@@ -13,6 +13,59 @@ Realizzare e verificare le nuove pagine in un ambiente di prova, per poi sostitu
 - Dominio principale: non collegato al nuovo progetto
 - Pubblicazione: solo ambiente di anteprima fino ad approvazione esplicita
 
+## Come si avvia
+
+Serve [Node.js](https://nodejs.org/) 18 o superiore.
+
+```bash
+npm install     # una volta sola
+npm run dev     # sviluppo, con ricarica automatica → http://localhost:4321
+npm run build   # genera il sito statico nella cartella dist/
+npm run preview # guarda il sito generato come sarà online
+```
+
+## Dove si modificano testi e foto
+
+Non serve toccare il codice dei componenti:
+
+| Cosa | File |
+|---|---|
+| Testi della Home | `src/data/home.it.ts` |
+| Menu, footer, contatti, indirizzo, CIN | `src/data/site.it.ts` |
+| Nomi delle camere | `src/data/rooms.it.ts` |
+| Foto | `public/images/` (`hero/`, `rooms/`, `garden/`, `gallery/`, `experiences/`, `logo/`) |
+
+Le foto oggi sono ancora collegate al CDN del sito attuale su Google Sites.
+Per sostituirle: mettere il file in `public/images/...` e cambiare l'indirizzo
+nel file dati corrispondente (es. `/images/hero/villa.jpg`).
+
+## Struttura
+
+```
+src/
+  pages/it/     una cartella per pagina → l'indirizzo del sito segue le cartelle
+  layouts/      struttura comune delle pagine (head, header, footer)
+  components/   pezzi riusati ovunque (header, footer, contatti, WhatsApp)
+  data/         testi e link, separati dalla grafica
+  styles/       colori e stili condivisi
+public/         file serviti così come sono (immagini, robots.txt, favicon)
+```
+
+## Documenti di lavoro
+
+- `docs/MIGRATION_PLAN.md` — matrice di migrazione, punti DA VERIFICARE, asset mancanti
+- `docs/CENSIMENTO_CONTENUTI.md` — **modulo da compilare** con i testi delle pagine mancanti
+- `docs/QA.md` — stato di contenuti, accessibilità, prestazioni e SEO tecnica
+- `docs/ARCHITETTURA.md` — perché è stato scelto Astro
+
+## Stato attuale
+
+- Home in italiano: fatta, con i testi reali del prototipo approvato.
+- Altre pagine: esistono e sono navigabili, ma segnate "contenuto in arrivo"
+  finché non arrivano i testi reali (vedi `docs/CENSIMENTO_CONTENUTI.md`).
+- Versione inglese: non ancora creata, manca il testo inglese esistente.
+- Tutto l'ambiente è impostato per **non essere indicizzato** da Google.
+
 ## Principi operativi
 
 - Una pagina alla volta, con verifica mobile e desktop.

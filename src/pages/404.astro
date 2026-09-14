@@ -1,0 +1,61 @@
+---
+// Pagina 404. Utile soprattutto durante la migrazione degli URL: se un
+// indirizzo del vecchio sito non viene intercettato da un redirect, l'ospite
+// trova comunque una via di uscita invece di un errore secco.
+import PageLayout from '../layouts/PageLayout.astro';
+import { nav } from '../data/site.it.ts';
+
+const destinations = nav.filter((item) => item.href !== '#' && item.href !== '/it/');
+---
+
+<PageLayout
+  title="Pagina non trovata — Villa Brando"
+  description="La pagina cercata non esiste o è stata spostata."
+  canonicalPath="/404/"
+>
+  <section class="not-found">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow navy">ERRORE 404</div>
+        <h1>Pagina non trovata</h1>
+        <p>La pagina che stai cercando non esiste o è stata spostata.</p>
+        <div class="actions">
+          <a href="/it/" class="btn btn-gold">Torna alla Home</a>
+        </div>
+      </div>
+      <nav class="destinations" aria-label="Sezioni del sito">
+        {destinations.map((item) => (
+          <a href={item.href}>{item.label}</a>
+        ))}
+      </nav>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .not-found {
+    padding: 120px 0;
+  }
+  .not-found h1 {
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    margin: 10px 0 16px;
+  }
+  .actions {
+    margin-top: 24px;
+  }
+  .destinations {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 28px;
+    border-top: 1px solid var(--line);
+    padding-top: 28px;
+  }
+  .destinations a {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+  }
+  .destinations a:hover {
+    color: var(--navy);
+  }
+</style>

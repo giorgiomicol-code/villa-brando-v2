@@ -1,5 +1,6 @@
 ---
 import { nav, brand } from '../data/site.it.ts';
+import LangSwitcher from './LangSwitcher.astro';
 
 interface Props {
   bookingHref: string;
@@ -27,7 +28,7 @@ const currentPath = Astro.url.pathname;
       })}
     </nav>
     <div class="nav-actions">
-      <span class="lang" aria-label="Lingua corrente: italiano">🇮🇹 IT</span>
+      <LangSwitcher current="it" />
       <a href={bookingHref} class="btn btn-gold">Prenota</a>
       <button class="hamburger" id="nav-toggle" aria-label="Apri menu" aria-expanded="false" aria-controls="main-nav">
         <span></span><span></span><span></span>
@@ -117,13 +118,6 @@ const currentPath = Astro.url.pathname;
     display: flex;
     align-items: center;
     gap: 16px;
-  }
-  .lang {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.85rem;
-    color: var(--ink-soft);
   }
   .hamburger {
     display: none;

@@ -19,6 +19,14 @@ di pre-pubblicazione: quella richiede tutte le pagine con contenuto reale.
 
 - [x] Home (`/it/`): IT puro, nessun testo EN mescolato nella pagina
 - [x] Pagine stub: IT puro (messaggi di stato, non contenuto editoriale)
+- [x] Selettore IT|EN sempre visibile nell'header, non annidato in altri menu
+      (EN disattivato finché non esistono i contenuti inglesi)
+- [!] Eccezione nota: nella Home restano in inglese la citazione
+      *"Not a typical villa, it's truly a unique experience."* e la didascalia
+      *"Enjoy yourself — May is coming, Summer sun"*, entrambe presenti così
+      nel prototipo approvato. Sono citazioni/didascalie originali, non
+      traduzioni: lasciate invariate per la regola di conservazione dei
+      contenuti. Da confermare se vanno mantenute anche nella versione IT.
 - [ ] Versione EN: non creata. Nessun testo inglese esistente è stato fornito
       in questa sessione, quindi non c'è ancora nulla da verificare per la
       purezza linguistica lato EN — va prodotta quando il testo reale arriva.
@@ -54,8 +62,13 @@ Camere, Contatti, La Villa. Menu hamburger mobile testato e funzionante
 - [x] Stile di focus visibile (`:focus-visible`) per la navigazione da tastiera
 - [x] Tutte le immagini con `alt` descrittivo
 - [x] Menu mobile operabile da tastiera/click con stato `aria-expanded`/`aria-controls`
-- [x] Contrasto testo su sfondo bordeaux/bianco coerente col design approvato
-- [ ] Audit automatico (Lighthouse/axe) non eseguito in questa sessione
+- [x] **Audit automatico axe-core (WCAG 2.0/2.1 A + AA): 0 violazioni** su
+      Home, Camere, Contatti, La Villa e 404
+- [x] Contrasto verificato: axe aveva rilevato un fallimento reale su
+      `.eyebrow.navy` (3.94:1, sotto il minimo di 4.5:1) ereditato dal
+      prototipo — corretto portando l'opacità da 0.55 a 0.65 (5.46:1) e
+      segnalato tra gli "Scostamenti dal prototipo approvato"
+- [ ] Audit su tutte le pagine (testate 5 su 12) e con screen reader reale
 
 ## Prestazioni
 
