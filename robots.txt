@@ -1,0 +1,4 @@
+# Ambiente di anteprima — non indicizzare.
+# Rimuovere questo blocco solo dopo l'approvazione esplicita della pubblicazione (CLAUDE.md, regola 10).
+User-agent: *
+Disallow: /

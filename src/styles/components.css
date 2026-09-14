@@ -1,0 +1,139 @@
+/* Stili dei componenti condivisi (header, footer, CTA) — mobile-first */
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Header */
+.site-header {
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: var(--space-3);
+}
+
+.site-header__logo {
+  font-family: var(--font-heading);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--color-text);
+}
+
+.site-header__toggle {
+  background: none;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: var(--space-2) var(--space-3);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.site-header__nav {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4);
+}
+
+.site-header__nav.is-open {
+  display: block;
+}
+
+.site-header__nav ul {
+  list-style: none;
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.site-header__nav a {
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .site-header__toggle {
+    display: none;
+  }
+
+  .site-header__nav {
+    display: flex;
+    position: static;
+    border: none;
+    padding: 0;
+    align-items: center;
+    gap: var(--space-6);
+    background: transparent;
+  }
+
+  .site-header__nav ul {
+    flex-direction: row;
+    margin: 0;
+  }
+}
+
+/* CTA prenotazione */
+.booking-cta {
+  display: inline-block;
+  background: var(--color-primary);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.booking-cta:hover,
+.booking-cta:focus-visible {
+  background: var(--color-primary-dark);
+  color: #fff;
+}
+
+/* Footer */
+.site-footer {
+  background: var(--color-primary-dark);
+  color: #fff;
+  margin-top: var(--space-16);
+}
+
+.site-footer a {
+  color: #fff;
+}
+
+.site-footer__inner {
+  padding-block: var(--space-12);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.site-footer__copy {
+  opacity: 0.8;
+  font-size: 0.875rem;
+  margin: 0;
+}

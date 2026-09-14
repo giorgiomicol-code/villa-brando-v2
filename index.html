@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Villa Brando — [anteprima, non pubblicato]</title>
+    <meta
+      name="description"
+      content="[Meta description provvisoria — da sostituire con testo approvato prima della pubblicazione]"
+    />
+
+    <!-- Ambiente di anteprima: nessuna indicizzazione finché non approvato (CLAUDE.md, regola 10) -->
+    <meta name="robots" content="noindex, nofollow" />
+
+    <link rel="stylesheet" href="/src/styles/tokens.css" />
+    <link rel="stylesheet" href="/src/styles/base.css" />
+    <link rel="stylesheet" href="/src/styles/components.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Vai al contenuto principale</a>
+
+    <site-header></site-header>
+
+    <main id="main-content">
+      <section class="container" style="padding-block: var(--space-12);">
+        <h1>Villa Brando [titolo provvisorio]</h1>
+        <p>
+          [Testo segnaposto — questa homepage è uno scaffold di progetto, non contenuto
+          approvato. Sostituire con i testi definitivi seguendo il flusso descritto in
+          <code>CLAUDE.md</code> § "Flusso di lavoro per ogni pagina" prima di qualsiasi
+          pubblicazione.]
+        </p>
+        <booking-cta label="Prenota ora" href="#contatti"></booking-cta>
+      </section>
+    </main>
+
+    <site-footer></site-footer>
+
+    <script type="module" src="/src/components/site-header.js"></script>
+    <script type="module" src="/src/components/site-footer.js"></script>
+    <script type="module" src="/src/components/booking-cta.js"></script>
+  </body>
+</html>
