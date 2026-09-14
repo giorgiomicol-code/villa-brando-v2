@@ -1,0 +1,88 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import { footer, whatsappHref, bookingHref } from '../../../data/site.it.ts';
+---
+
+<PageLayout
+  title="Contatti — Villa Brando"
+  description="Contatti di Villa Brando: telefono, WhatsApp, email e indirizzo. Latina (LT), Italia."
+  canonicalPath="/it/contatti/"
+>
+  <section class="contact-page" id="contatti">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="eyebrow navy">CONTATTI</div>
+        <h1>Contatti</h1>
+        <p>
+          I recapiti sotto sono quelli attualmente in uso. Il testo descrittivo
+          completo di questa pagina (dal sito attuale) è ancora da fornire — qui
+          sono riportati solo i dati verificati.
+        </p>
+      </div>
+      <div class="contact-grid">
+        <a href={footer.phoneHref} class="contact-card">
+          <h2>Telefono</h2>
+          <span>{footer.phone}</span>
+        </a>
+        <a href={whatsappHref} class="contact-card" target="_blank" rel="noopener">
+          <h2>WhatsApp</h2>
+          <span>{footer.phone}</span>
+        </a>
+        <a href={`mailto:${footer.email}`} class="contact-card">
+          <h2>Email</h2>
+          <span>{footer.email}</span>
+        </a>
+        <div class="contact-card static">
+          <h2>Indirizzo</h2>
+          <span>{footer.address}</span>
+        </div>
+        <div class="contact-card static">
+          <h2>CIN</h2>
+          <span>{footer.cinCode}</span>
+        </div>
+      </div>
+      <div class="actions">
+        <a href={bookingHref} class="btn btn-gold">Prenota direttamente con noi</a>
+      </div>
+    </div>
+  </section>
+</PageLayout>
+
+<style>
+  .contact-page {
+    padding: 96px 0;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 40px;
+  }
+  .contact-card {
+    display: block;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .contact-card h2 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+  .contact-card span {
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    color: var(--navy);
+  }
+  .actions {
+    text-align: center;
+  }
+  @media (max-width: 700px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

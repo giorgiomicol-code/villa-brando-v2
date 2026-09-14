@@ -1,11 +1,12 @@
 ---
-import { nav, brand } from '../data/home.it.ts';
+import { nav, brand } from '../data/site.it.ts';
 
 interface Props {
   bookingHref: string;
 }
 
 const { bookingHref } = Astro.props;
+const currentPath = Astro.url.pathname;
 ---
 
 <header>
@@ -15,11 +16,15 @@ const { bookingHref } = Astro.props;
       <span class="word">{brand.name}<small>{brand.tagline}</small></span>
     </a>
     <nav class="main-nav" id="main-nav" aria-label="Navigazione principale">
-      {nav.map((item) => (
-        <a href={item.href} class={item.active ? 'active' : undefined} aria-current={item.active ? 'page' : undefined}>
-          {item.label}
-        </a>
-      ))}
+      {nav.map((item) => {
+        const isActive =
+          item.href !== '#' && (item.href === '/it/' ? currentPath === '/it/' : currentPath.startsWith(item.href));
+        return (
+          <a href={item.href} class={isActive ? 'active' : undefined} aria-current={isActive ? 'page' : undefined}>
+            {item.label}
+          </a>
+        );
+      })}
     </nav>
     <div class="nav-actions">
       <span class="lang" aria-label="Lingua corrente: italiano">🇮🇹 IT</span>

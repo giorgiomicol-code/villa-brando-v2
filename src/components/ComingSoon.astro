@@ -1,0 +1,56 @@
+---
+// Pagina segnaposto per una sezione della IA approvata il cui contenuto reale
+// (testo del sito attuale) non è ancora stato fornito/verificato. Per regola
+// di progetto non si inventa testo generico: si dichiara esplicitamente lo
+// stato "contenuto in arrivo". Vedi docs/MIGRATION_PLAN.md.
+import { whatsappHref } from '../data/site.it.ts';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  note?: string;
+  anchorId?: string;
+}
+
+const { eyebrow, title, note, anchorId } = Astro.props;
+---
+
+<section class="coming-soon" id={anchorId}>
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow navy">{eyebrow}</div>
+      <h1>{title}</h1>
+      <p>
+        Questa pagina è in fase di costruzione: i contenuti reali di questa sezione
+        del sito attuale sono in corso di raccolta e verifica, per non sostituirli
+        con testo generico o inventato.
+      </p>
+      {note && <p class="note">{note}</p>}
+      <div class="actions">
+        <a href="/it/" class="btn btn-outline">Torna alla Home</a>
+        <a href={whatsappHref} class="btn btn-gold" target="_blank" rel="noopener">Scrivi su WhatsApp</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .coming-soon {
+    padding: 120px 0;
+  }
+  .coming-soon h1 {
+    font-size: clamp(1.9rem, 4vw, 2.6rem);
+    margin: 10px 0 16px;
+  }
+  .coming-soon .note {
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+  }
+  .coming-soon .actions {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+</style>

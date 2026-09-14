@@ -11,8 +11,8 @@ import {
   award,
   families,
   explore,
-  footer,
 } from '../../data/home.it.ts';
+import { whatsappHref } from '../../data/site.it.ts';
 ---
 
 <BaseLayout
@@ -146,7 +146,7 @@ import {
 
   <Footer />
 
-  <WhatsAppFloat href={footer.whatsappHref} />
+  <WhatsAppFloat href={whatsappHref} />
 </BaseLayout>
 
 <style>
