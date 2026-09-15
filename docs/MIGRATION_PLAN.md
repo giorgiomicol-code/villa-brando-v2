@@ -95,6 +95,13 @@ regola inderogabile di CLAUDE.md. Vanno confermate da Giorgio.
 8. **Pagina 404 bilingue**: è l'unica pagina fuori da `/it/` e `/en/`, quindi
    non si può sapere in che lingua sia chi ci arriva. Mostra entrambe le
    lingue affiancate invece di indovinare.
+9. **Hero più luminoso** (richiesta esplicita di Giorgio): il velo scuro sopra
+   la foto era ereditato dal prototipo bordeaux e copriva il lato sinistro al
+   72%. Portato a 58% → 24% → 0% a due terzi della larghezza, con tinta navy
+   invece che nera, più un'ombra sul testo che ne regge la leggibilità senza
+   riscurire la foto. **Da ricontrollare con la foto vera**: la verifica è
+   stata fatta simulando un'immagine molto più chiara del reale, perché il CDN
+   delle foto non è raggiungibile da questo ambiente.
 
 Tutte le pagine verificate con axe-core (WCAG 2.1 AA) dopo il cambio di
 palette: **0 violazioni**, in italiano e in inglese.
