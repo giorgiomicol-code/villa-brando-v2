@@ -79,6 +79,22 @@ regola inderogabile di CLAUDE.md. Vanno confermate da Giorgio.
    porta alla stessa pagina nell'altra lingua; se una pagina esiste in una
    sola lingua, l'altra resta visibile ma non cliccabile invece di portare a
    un indirizzo inesistente.
+6. **Striscia dei fatti chiave visibile su mobile**: il prototipo la nascondeva
+   del tutto sotto i 980px (`display: none`). Ma sono le informazioni che un
+   ospite cerca per prime — posti letto, giardino, biciclette, animali ammessi,
+   posizione — e il sito è mobile-first: nasconderle proprio sul dispositivo
+   più usato va contro l'obiettivo. Ora restano visibili su due colonne (una
+   sola sotto i 420px).
+7. **Campi data reali**: check-in e check-out erano campi di testo con
+   scritta "gg/mm/aaaa". Nel riferimento hanno l'icona del calendario, cioè
+   sono selettori data nativi: ora sono `<input type="date">`, quindi su
+   telefono si apre il calendario di sistema. **Resta aperto**: le date
+   scelte non vengono ancora passate al motore di prenotazione, perché non
+   conosciamo i parametri URL di direct-book.com. Oggi il pulsante porta al
+   motore ignorando le date inserite.
+8. **Pagina 404 bilingue**: è l'unica pagina fuori da `/it/` e `/en/`, quindi
+   non si può sapere in che lingua sia chi ci arriva. Mostra entrambe le
+   lingue affiancate invece di indovinare.
 
 Tutte le pagine verificate con axe-core (WCAG 2.1 AA) dopo il cambio di
 palette: **0 violazioni**, in italiano e in inglese.

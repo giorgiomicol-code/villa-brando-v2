@@ -24,7 +24,6 @@ export const hero = {
     heading: 'Find Your Perfect Date',
     checkin: 'Check-in',
     checkout: 'Check-out',
-    placeholder: 'gg/mm/aaaa',
     cta: 'Search',
     note: 'Please ensure the exact number of adults and children is specified at the time of booking.',
     stay: 'Minimum Stay: 3 nights · 🐾 animal friendly',

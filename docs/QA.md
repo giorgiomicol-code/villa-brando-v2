@@ -48,6 +48,7 @@ di pre-pubblicazione: quella richiede tutte le pagine con contenuto reale.
 | Chiama | tel:+393519768732 | Verificato |
 | Email | mailto:villabrando.italy@gmail.com | Verificato |
 | Indicazioni | `#` | Mancante — serve link Google Maps |
+| Cerca disponibilità (card hero) | direct-book.com | **Le date inserite non vengono passate**: servono i parametri URL del motore di prenotazione |
 | La Villa / Camere / Gallery / Esperienze / Contatti (nav + footer) | pagine `/it/...` reali | Verificato — tutte risolvono (build statica, nessun 404) |
 | Info (nav) | `#` | Da definire, vedi DA VERIFICARE |
 | Instagram / Airbnb / Booking.com (footer) | `#` | Mancanti — da recuperare dal sito attuale |
@@ -57,9 +58,11 @@ di pre-pubblicazione: quella richiede tutte le pagine con contenuto reale.
 
 ## Resa mobile/desktop
 
-Verificata con screenshot reali a 390px (mobile) e 1440px (desktop) su Home,
-Camere, Contatti, La Villa. Menu hamburger mobile testato e funzionante
-(apertura/chiusura, `aria-expanded` aggiornato).
+Verificata con screenshot reali a 390px (mobile) e 1440px (desktop) su Home
+(IT e EN), Camere, Contatti, La Villa e 404. Menu hamburger mobile testato e
+funzionante (apertura/chiusura, `aria-expanded` aggiornato). La striscia dei
+fatti chiave, che il prototipo nascondeva su mobile, è ora verificata come
+visibile con tutte e 5 le voci a 390px.
 
 ## Accessibilità (controlli manuali eseguiti)
 

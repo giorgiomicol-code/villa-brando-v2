@@ -19,7 +19,6 @@ export const hero = {
     heading: 'Trova la data perfetta',
     checkin: 'Check-in',
     checkout: 'Check-out',
-    placeholder: 'gg/mm/aaaa',
     cta: 'Cerca disponibilità',
     note: 'Indicare il numero esatto di adulti e bambini al momento della prenotazione.',
     stay: 'Soggiorno minimo: 3 notti · 🐾 pet friendly',
