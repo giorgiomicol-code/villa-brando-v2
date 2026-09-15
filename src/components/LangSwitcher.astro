@@ -1,4 +1,5 @@
 ---
+import { withBase } from '../utils/url.ts';
 // Selettore lingua sempre visibile e non annidato in altri menu: sul sito
 // attuale la lingua era un nodo di primo livello che raddoppiava l'intero
 // menu (vedi prompt di progetto).
@@ -21,7 +22,7 @@ const pending = current === 'it' ? 'Versione inglese non disponibile per questa 
   <span class="lang-opt" aria-current="true">{current.toUpperCase()}</span>
   <span class="sep" aria-hidden="true">|</span>
   {altHref ? (
-    <a href={altHref} class="lang-opt" hreflang={other} lang={other}>{other.toUpperCase()}</a>
+    <a href={withBase(altHref)} class="lang-opt" hreflang={other} lang={other}>{other.toUpperCase()}</a>
   ) : (
     <span class="lang-opt unavailable" aria-disabled="true" title={pending}>{other.toUpperCase()}</span>
   )}

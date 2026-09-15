@@ -1,5 +1,6 @@
 ---
 import { site, type Lang } from '../data/site.ts';
+import { withBase } from '../utils/url.ts';
 
 interface Props {
   lang: Lang;
@@ -29,16 +30,16 @@ const headings =
       </div>
       <div>
         <h4>{headings.navigate}</h4>
-        {footer.navigate.map((item) => <a href={item.href}>{item.label}</a>)}
+        {footer.navigate.map((item) => <a href={withBase(item.href)}>{item.label}</a>)}
       </div>
       <div>
         <h4>{headings.follow}</h4>
-        {footer.social.map((item) => <a href={item.href}>{item.label}</a>)}
+        {footer.social.map((item) => <a href={withBase(item.href)}>{item.label}</a>)}
       </div>
     </div>
     <div class="footer-bottom">
       <span>{footer.copyright}</span>
-      <span><a href={footer.privacyHref}>{headings.privacy}</a></span>
+      <span><a href={withBase(footer.privacyHref)}>{headings.privacy}</a></span>
     </div>
   </div>
 </footer>

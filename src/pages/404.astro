@@ -8,6 +8,7 @@
 // mostriamo entrambe invece di indovinare.
 import PageLayout from '../layouts/PageLayout.astro';
 import { site } from '../data/site.ts';
+import { withBase } from '../utils/url.ts';
 
 const columns = (['it', 'en'] as const).map((lang) => ({
   lang,
@@ -36,10 +37,10 @@ const columns = (['it', 'en'] as const).map((lang) => ({
           <div class="col" lang={col.lang}>
             <h2>{col.title}</h2>
             <p>{col.text}</p>
-            <a href={`/${col.lang}/`} class="btn btn-gold">{col.homeLabel}</a>
+            <a href={withBase(`/${col.lang}/`)} class="btn btn-gold">{col.homeLabel}</a>
             <nav class="destinations" aria-label={col.lang === 'it' ? 'Sezioni del sito' : 'Site sections'}>
               {col.destinations.map((item) => (
-                <a href={item.href}>{item.label}</a>
+                <a href={withBase(item.href)}>{item.label}</a>
               ))}
             </nav>
           </div>

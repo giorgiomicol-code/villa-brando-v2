@@ -1,5 +1,6 @@
 ---
 import { site, type Lang } from '../data/site.ts';
+import { withBase } from '../utils/url.ts';
 
 interface Props {
   lang: Lang;
@@ -23,7 +24,7 @@ const icons: Record<string, string> = {
 <div class="contact-strip" id="contatti">
   <div class="wrap contact-row">
     {contactStrip.map((item) => (
-      <a href={item.href} class="item">
+      <a href={withBase(item.href)} class="item">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6" aria-hidden="true" set:html={icons[item.icon]} />
         {item.label}
       </a>

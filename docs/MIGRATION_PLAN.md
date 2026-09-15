@@ -20,6 +20,32 @@ Questa tabella governa la sostituzione progressiva delle pagine. Compilarla prim
 | 13 | Privacy (IT) | Da individuare sul sito attuale | /it/privacy/ | Da definire | Da analizzare | No | No | No | Da definire | No |
 | 14 | House Rules (IT) | Pagina esterna su Google Sites (link da recuperare) | Da definire — resta esterna o si porta in questo sito? | Da definire | Da analizzare | No | No | No | N/A se resta esterna | No |
 
+## Ambiente di anteprima — GitHub Pages
+
+L'anteprima è pubblicata su GitHub Pages dal branch
+`claude/villa-brando-prototype-scqsva`, tramite il workflow
+`.github/workflows/deploy-pages.yml`. Indirizzo:
+`https://giorgiomicol-code.github.io/villa-brando-v2/`
+
+Cose da sapere:
+
+- **Il repository è stato reso pubblico** per poter usare Pages con un piano
+  gratuito. Sono quindi leggibili da chiunque anche i documenti in `docs/`,
+  incluse le note su incongruenze e contenuti mancanti.
+- **Il sito non sta sulla radice** ma sotto `/villa-brando-v2/`. Tutti i link
+  interni passano dalla funzione `withBase()` (`src/utils/url.ts`), che
+  aggiunge il prefisso solo quando la variabile `PAGES_BASE` è impostata dal
+  workflow. In locale, su Vercel e sul dominio finale non cambia nulla e non
+  c'è niente da disattivare.
+- **`robots.txt` non protegge su Pages**: i motori lo leggono solo dalla
+  radice del dominio `giorgiomicol-code.github.io`, che non controlliamo.
+  La protezione effettiva è il `noindex` presente su ogni pagina — verificato
+  in build.
+- **L'anteprima è raggiungibile da chiunque ne conosca l'indirizzo**: non è
+  protetta da password. Non è indicizzata, ma non è segreta.
+- **Non tocca in alcun modo `villabrando.com`**, che resta il sito pubblico
+  invariato su Google Sites.
+
 ## Vincolo operativo — crawl non eseguibile da Claude Code
 
 L'ambiente in cui gira Claude Code **non può raggiungere `www.villabrando.com`**

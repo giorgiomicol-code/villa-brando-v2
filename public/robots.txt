@@ -1,4 +1,11 @@
 # Ambiente di anteprima — Villa Brando V2
 # Non indicizzare finché la pubblicazione non è approvata (CLAUDE.md, regola 10).
+#
+# ATTENZIONE: su GitHub Pages il sito sta sotto /villa-brando-v2/, mentre i
+# motori di ricerca leggono robots.txt SOLO dalla radice del dominio
+# (giorgiomicol-code.github.io/robots.txt), che non è sotto il nostro
+# controllo. Lì questo file viene quindi ignorato: la protezione che conta è
+# il <meta name="robots" content="noindex, nofollow"> presente su OGNI pagina.
+# Questo file torna efficace quando il sito passerà sul proprio dominio.
 User-agent: *
 Disallow: /

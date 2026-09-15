@@ -1,6 +1,7 @@
 ---
 import PageLayout from '../../../layouts/PageLayout.astro';
 import { rooms } from '../../../data/rooms.it.ts';
+import { withBase } from '../../../utils/url.ts';
 ---
 
 <PageLayout
@@ -23,7 +24,7 @@ import { rooms } from '../../../data/rooms.it.ts';
       </div>
       <div class="rooms-grid">
         {rooms.map((room) => (
-          <a href={`/it/camere/${room.slug}/`} class="room-card">
+          <a href={withBase(`/it/camere/${room.slug}/`)} class="room-card">
             <h2>{room.name}</h2>
             <span>Contenuto in arrivo →</span>
           </a>

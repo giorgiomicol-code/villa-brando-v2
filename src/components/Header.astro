@@ -1,6 +1,7 @@
 ---
 import { site, type Lang } from '../data/site.ts';
 import LangSwitcher from './LangSwitcher.astro';
+import { withBase } from '../utils/url.ts';
 
 interface Props {
   lang: Lang;
@@ -20,7 +21,7 @@ const currentPath = Astro.url.pathname;
 
 <header>
   <div class="nav-row">
-    <a href={home} class="brand">
+    <a href={withBase(home)} class="brand">
       <img src={brand.logoSrc} alt={`Logo ${brand.name}`} width="38" height="38" />
       <span class="word">{brand.name}<small>{brand.tagline}</small></span>
     </a>
@@ -29,7 +30,7 @@ const currentPath = Astro.url.pathname;
         const isActive =
           item.href !== '#' && (item.href === home ? currentPath === home : currentPath.startsWith(item.href));
         return (
-          <a href={item.href} class={isActive ? 'active' : undefined} aria-current={isActive ? 'page' : undefined}>
+          <a href={withBase(item.href)} class={isActive ? 'active' : undefined} aria-current={isActive ? 'page' : undefined}>
             {item.label}
           </a>
         );

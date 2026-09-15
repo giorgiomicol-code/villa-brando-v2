@@ -1,0 +1,4 @@
+Cartella per le foto: rooms
+Mettere qui i file originali in alta risoluzione, poi aggiornare l'indirizzo
+nel file dati corrispondente in src/data/ (es. /images/rooms/nome-file.jpg).
+Oggi le foto sono ancora collegate al CDN del vecchio sito su Google Sites.

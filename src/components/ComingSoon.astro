@@ -4,6 +4,7 @@
 // di progetto non si inventa testo generico: si dichiara esplicitamente lo
 // stato "contenuto in arrivo". Vedi docs/MIGRATION_PLAN.md.
 import { site, type Lang } from '../data/site.ts';
+import { withBase } from '../utils/url.ts';
 
 interface Props {
   eyebrow: string;
@@ -37,7 +38,7 @@ const copy =
       <p>{copy.body}</p>
       {note && <p class="note">{note}</p>}
       <div class="actions">
-        <a href={`/${lang}/`} class="btn btn-outline">{copy.home}</a>
+        <a href={withBase(`/${lang}/`)} class="btn btn-outline">{copy.home}</a>
         <a href={whatsappHref} class="btn btn-gold" target="_blank" rel="noopener">{copy.whatsapp}</a>
       </div>
     </div>

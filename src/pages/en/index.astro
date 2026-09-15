@@ -2,6 +2,7 @@
 import PageLayout from '../../layouts/PageLayout.astro';
 import ContactStrip from '../../components/ContactStrip.astro';
 import '../../styles/home.css';
+import { withBase } from '../../utils/url.ts';
 import {
   hero,
   iconStrip,
@@ -78,7 +79,7 @@ import {
       </div>
       <div class="discover-grid">
         {discover.cards.map((card) => (
-          <a href={card.href} class="discover-card" id={card.id}>
+          <a href={withBase(card.href)} class="discover-card" id={card.id}>
             <img src={card.imgSrc} alt={card.imgAlt} loading="lazy" />
             <h3>{card.title} <span class="arrow">→</span></h3>
             <div class="sub">{card.sub}</div>
@@ -98,7 +99,7 @@ import {
         </div>
         <div class="award-right">
           <p>{award.quote}</p>
-          <a href={award.cta.href} class="btn btn-outline">{award.cta.label}</a>
+          <a href={withBase(award.cta.href)} class="btn btn-outline">{award.cta.label}</a>
         </div>
       </div>
     </div>
@@ -110,7 +111,7 @@ import {
         <div class="eyebrow">{families.eyebrow}</div>
         <h2 class="script-title">{families.title}</h2>
         <p>{families.text}</p>
-        <a href={families.cta.href} class="btn btn-outline">{families.cta.label}</a>
+        <a href={withBase(families.cta.href)} class="btn btn-outline">{families.cta.label}</a>
       </div>
       <div class="media">
         <img src={families.media.imgSrc} alt={families.media.imgAlt} loading="lazy" />
@@ -134,7 +135,7 @@ import {
           </div>
         ))}
       </div>
-      <div class="explore-actions"><a href={explore.cta.href} class="btn btn-outline">{explore.cta.label}</a></div>
+      <div class="explore-actions"><a href={withBase(explore.cta.href)} class="btn btn-outline">{explore.cta.label}</a></div>
     </div>
   </section>
 

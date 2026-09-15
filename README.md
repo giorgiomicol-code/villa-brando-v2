@@ -60,6 +60,16 @@ public/         file serviti così come sono (immagini, robots.txt, favicon)
 - `docs/QA.md` — stato di contenuti, accessibilità, prestazioni e SEO tecnica
 - `docs/ARCHITETTURA.md` — perché è stato scelto Astro
 
+## Anteprima online
+
+Pubblicata su GitHub Pages dal branch `claude/villa-brando-prototype-scqsva`:
+
+**https://giorgiomicol-code.github.io/villa-brando-v2/**
+
+Si aggiorna da sola a ogni modifica sul branch. Non è indicizzata da Google
+(ogni pagina ha `noindex`), ma è raggiungibile da chiunque conosca
+l'indirizzo. Non tocca in alcun modo `villabrando.com`.
+
 ## Stato attuale
 
 - Home italiana (`/it/`) e inglese (`/en/`): fatte, con palette oro e navy

@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { withBase } from '../utils/url.ts';
 
 interface Props {
   title: string;
@@ -26,11 +27,11 @@ const isPreview = true;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonicalPath} />
+    <link rel="canonical" href={withBase(canonicalPath)} />
     {/* Favicon provvisoria: sostituire con il logo reale quando disponibile. */}
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/svg+xml" href={withBase("/favicon.svg")} />
     {alternates.map((alt) => (
-      <link rel="alternate" hreflang={alt.lang} href={alt.path} />
+      <link rel="alternate" hreflang={alt.lang} href={withBase(alt.path)} />
     ))}
     {isPreview && <meta name="robots" content="noindex, nofollow" />}
 
