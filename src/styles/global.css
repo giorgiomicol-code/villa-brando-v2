@@ -56,10 +56,14 @@ a {
   text-decoration: none;
 }
 
+/* Niente "height: 100%" globale: dentro una card la foto riempiva tutta
+   l'altezza e il titolo finiva FUORI dal riquadro, sovrapponendosi a quello
+   che seguiva (era il caso del pulsante "Tutte le esperienze"). L'altezza la
+   decide l'aspect-ratio di ciascuna foto; dove serve riempire un contenitore
+   l'altezza è dichiarata sul posto. */
 img {
   display: block;
-  width: 100%;
-  height: 100%;
+  max-width: 100%;
   object-fit: cover;
 }
 
