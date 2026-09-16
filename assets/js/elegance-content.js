@@ -1,48 +1,100 @@
 /*
- * Verified copy for the "Elegance" homepage proposal, transcribed from the
- * live ChatGPT Site projection (villa-brando-new.giorgiomicol.chatgpt.site/elegance/it/)
- * on 2026-09-16. No prices, services or claims were invented here.
- * The 2026 "Traveller Review Awards" mention seen on that projection is NOT
- * yet verified, so this copy keeps the confirmed 2024/2025 Booking.com award
- * already used on the current site instead.
+ * Copy for the "Elegance" homepage proposal. Two sources, both real:
+ * 1) content_elegance_it.md, transcribed from the live ChatGPT Site text
+ *    projection on 2026-09-16 (used for villa/camere/giardino/territorio/tailored/contact).
+ * 2) A screenshot Giorgio shared on 2026-09-16 showing the actual hero,
+ *    booking card and feature strip design — used as the higher-fidelity
+ *    source for those sections since it's a direct visual capture, not a
+ *    text transcript. Its "Not a typical villa..." / "Minimum stay: 3
+ *    nights" strings match the already-verified copy in content.js, so
+ *    they're reused from window.VB_CONTENT.it rather than retyped.
+ * The unverified 2026 "Traveller Review Awards" mention seen earlier was
+ * dropped in favour of the confirmed 2024/2025 Booking.com award.
  * English copy has not been captured yet — see docs/MIGRATION_PLAN.md.
  */
 window.VB_ELEGANCE_IT = {
   nav: {
     tagline: 'CASA VACANZE ESCLUSIVA',
     links: [
-      { label: 'LA VILLA', href: '#villa' },
-      { label: 'CAMERE', href: '#camere' },
-      { label: 'GIARDINO', href: '#giardino' },
-      { label: 'TERRITORIO', href: '#territorio' },
-      { label: 'CONTATTI', href: '#contatti' }
+      { label: 'Home', href: '#top' },
+      { label: 'La Villa', href: '#villa' },
+      { label: 'Camere', href: '#camere' },
+      { label: 'Giardino', href: '#giardino' },
+      { label: 'Territorio', href: '#territorio' },
+      { label: 'Contatti', href: '#contatti' }
     ],
-    book: 'PRENOTA'
+    book: 'PRENOTA IL TUO SOGGIORNO'
   },
   hero: {
-    eyebrow: 'LATINA · LAZIO · ITALIA',
-    title: 'Dove la costa ricorda Ulisse.',
-    lead: 'Casa vacanze con giardino e biciclette, vicina al mare, a Sabaudia e al Parco Nazionale del Circeo.',
-    ctaPrimary: 'VERIFICA DISPONIBILITÀ',
-    ctaSecondary: 'SCOPRI LA VILLA',
-    explore: 'ESPLORA',
+    eyebrow: 'CASA VACANZE ESCLUSIVA',
+    title: 'Villa Brando',
+    script: 'Casa vacanze con giardino e biciclette',
+    location: 'LATINA · SABAUDIA · CIRCEO · ROMA',
+    ctaPrimary: 'PRENOTA DIRETTAMENTE CON NOI',
+    quote: 'Non è la solita villa, è davvero un’esperienza unica.',
     imageAlt: 'Tavola apparecchiata nel giardino di Villa Brando'
   },
-  booking: { arrivo: 'ARRIVO', partenza: 'PARTENZA', ospiti: 'OSPITI', cerca: 'CERCA', note: 'La ricerca ti porta sul nostro canale di prenotazione diretta.' },
-  stats: {
-    statement: 'Spazi autentici, personalità architettonica e la libertà di sentirsi a casa.',
-    items: [
-      { n: '9', l: 'OSPITI' },
-      { n: '4', l: 'CAMERE' },
-      { n: '4', l: 'BAGNI' },
-      { n: '3', l: 'SALONI' }
+  booking: {
+    heading: 'Trova la data perfetta',
+    checkin: 'CHECK-IN',
+    checkout: 'CHECK-OUT',
+    adults: 'ADULTI',
+    children: 'BAMBINI',
+    submit: 'CERCA',
+    note: 'Le date e il numero di ospiti inseriti verranno riportati nel motore di prenotazione ufficiale.',
+    minStay: 'Soggiorno minimo: 3 notti',
+    petNote: 'animali ammessi'
+  },
+  features: [
+    { icon: 'home', title: 'Fino a 9 ospiti', sub: '4 camere · 4 bagni' },
+    { icon: 'leaf', title: 'Giardino privato', sub: 'Relax in totale privacy' },
+    { icon: 'bike', title: '8 biciclette disponibili', sub: 'Per esplorare i dintorni' },
+    { icon: 'paw', title: 'Pet friendly', sub: 'Animali piccoli e ben educati' },
+    { icon: 'pin', title: 'Posizione strategica', sub: 'Vicino al mare, alla natura e a Roma' }
+  ],
+  discover: {
+    kicker: 'SCOPRI',
+    heading: 'Una villa dalla personalità autentica',
+    subtitle: 'Interni spaziosi, un giardino bellissimo e tutto il comfort di cui hai bisogno.',
+    cards: [
+      { title: 'La Villa', sub: 'Interni e spazi', href: '#villa', image: 18 },
+      { title: 'Il Giardino', sub: 'Natura e relax', href: '#giardino', image: 2 },
+      { title: 'Le Camere', sub: '4 camere uniche', href: '#camere', image: 14 },
+      { title: 'Galleria', sub: 'Foto e video', href: '#galleria', image: 9 }
     ]
   },
+  banner: {
+    awardsTitle: 'Le tue recensioni eccellenti hanno ottenuto questi riconoscimenti',
+    awardsSub: 'Booking.com · Traveller Review Awards 2024 e 2025',
+    filmText: 'Cerchi una location per un film? Contattaci per un’offerta personalizzata.',
+    filmCta: 'FILM ED EVENTI'
+  },
+  authentic: {
+    script: 'Spazi autentici. Soggiorni indimenticabili.',
+    text: 'Villa Brando è una casa vacanze vicina a Sabaudia, Roma e alle rinomate spiagge della Costa Laziale. Offre interni spaziosi, camere curate nei dettagli e un rigoglioso giardino, preservando il carattere autentico della sua architettura anni ’70.',
+    cta: 'VERIFICA DISPONIBILITÀ'
+  },
+  explore: {
+    kicker: 'ESPLORA',
+    title: 'La costa italiana, tra natura e storia',
+    subtitle: 'Spiagge, borghi, laghi, parchi ed esperienze autentiche a pochi minuti.',
+    destinations: [
+      { label: 'Sabaudia e Circeo', image: 21 },
+      { label: 'Terracina e Gaeta', image: 22 },
+      { label: 'Giardino di Ninfa', image: 23 },
+      { label: 'Roma', image: 24 }
+    ],
+    cta: 'TUTTE LE ESPERIENZE'
+  },
+  contactIcons: [
+    { icon: 'phone', label: 'Chiamaci', href: 'tel:+393519768732' },
+    { icon: 'whatsapp', label: 'WhatsApp', href: null },
+    { icon: 'mail', label: 'Email', href: null },
+    { icon: 'pin', label: 'Indicazioni', href: null }
+  ],
   villa: {
-    kicker: 'UNA VILLA ITALIANA AUTENTICA',
     title: 'Personalità, spazio e quiete.',
-    text: 'Villa Brando è un autentico esempio di architettura italiana degli anni Settanta, rinnovato preservandone il carattere originale: una scelta per chi preferisce la personalità alla standardizzazione. Si sviluppa su tre livelli ed è circondata da un giardino riservato. Gli ambienti sono ampi, arredati con cura e dotati di tecnologia smart home e serrature elettroniche.',
-    cta: 'ESPLORA GLI AMBIENTI'
+    text: 'Villa Brando è un autentico esempio di architettura italiana degli anni Settanta, rinnovato preservandone il carattere originale: una scelta per chi preferisce la personalità alla standardizzazione. Si sviluppa su tre livelli ed è circondata da un giardino riservato. Gli ambienti sono ampi, arredati con cura e dotati di tecnologia smart home e serrature elettroniche.'
   },
   camere: {
     kicker: 'LE CAMERE',
