@@ -6,10 +6,8 @@
   const savedLang = (() => { try { return localStorage.getItem('villaBrandoLang'); } catch (_) { return null; } })();
   let lang = savedLang === 'it' || savedLang === 'en' ? savedLang : fallbackLang;
 
-  const esc = (value = '') => String(value).replace(/[&<>'"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[ch]));
+  const { esc, img } = window.VB_UTILS;
   const paragraphs = items => items.map(text => `<p>${text}</p>`).join('');
-  const resolveImage = src => src && src.includes('lh3.googleusercontent.com') ? `/api/image?url=${encodeURIComponent(src)}` : src;
-  const img = (src, alt = '', eager = false) => `<img src="${resolveImage(src)}" alt="${esc(alt)}" loading="${eager ? 'eager' : 'lazy'}" decoding="async">`;
   const gallery = (items, label) => `<div class="gallery" aria-label="${esc(label)}">${items.map((src,i) => `<figure>${img(src, `${label} ${i+1}`)}</figure>`).join('')}</div>`;
   const video = item => `<div class="video-card" data-video="${esc(item.id)}"><button type="button" aria-label="${esc(item.label)}">▶ ${esc(item.label)}</button></div>`;
 
