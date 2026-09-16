@@ -7,22 +7,18 @@
   const heroSection = `
     <section class="e-hero">
       ${img(s.images[0], c.hero.imageAlt, true)}
-      <div class="e-wrap e-hero-inner">
-        <p class="e-eyebrow">${esc(c.hero.eyebrow)}</p>
-        <h1>${esc(c.hero.title)}</h1>
-        <p class="e-hero-script">${esc(c.hero.script)}</p>
-        <p class="e-hero-location">${esc(c.hero.location)}</p>
-        <div class="e-cta-row">
-          <a class="e-btn e-gold" href="${esc(s.links.booking)}" target="_blank" rel="noopener">${esc(c.hero.ctaPrimary)} →</a>
+      <div class="e-wrap e-hero-layout">
+        <div class="e-hero-copy">
+          <p class="e-eyebrow">${esc(c.hero.eyebrow)}</p>
+          <h1>${c.hero.title.split(' ').map(esc).join('<br>')}</h1>
+          <p class="e-hero-script">${esc(c.hero.script)}</p>
+          <p class="e-hero-location">${esc(c.hero.location)}</p>
+          <div class="e-cta-row">
+            <a class="e-btn e-gold" href="${esc(s.links.booking)}" target="_blank" rel="noopener">${esc(c.hero.ctaPrimary)} →</a>
+          </div>
+          <p class="e-hero-quote">★ ${esc(c.hero.quote)}</p>
         </div>
-        <p class="e-hero-quote">★ ${esc(c.hero.quote)}</p>
-      </div>
-    </section>`;
-
-  const bookingSection = `
-    <section class="e-booking" id="prenota-cta">
-      <div class="e-wrap">
-        <form class="e-booking-card" action="${esc(s.links.booking)}" target="_blank" rel="noopener">
+        <form class="e-booking-card" id="prenota-cta" action="${esc(s.links.booking)}" target="_blank" rel="noopener">
           <h2 class="e-booking-heading">${esc(c.booking.heading)}</h2>
           <div class="e-booking-grid">
             <div class="e-booking-field">
@@ -88,7 +84,8 @@
     imageAlt: c.authentic.script,
     videoId: s.videos[0].id,
     videoLabel: s.videos[0].label,
-    cta: { href: '#prenota-cta', label: c.authentic.cta }
+    cta: { href: '#prenota-cta', label: c.authentic.cta },
+    imageFirst: false
   });
 
   const exploreSection = E.blocks.destinationRow({
@@ -101,7 +98,6 @@
     ${E.renderHeader('./', 'home')}
     <main id="e-main">
       ${heroSection}
-      ${bookingSection}
       ${featuresSection}
       ${discoverSection}
       ${bannerSection}

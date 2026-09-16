@@ -142,20 +142,24 @@ window.VB_ELEGANCE = (() => {
         </div>
       </section>`,
 
-    scriptSplit: ({ script, title, text, image, imageAlt, cta, videoId, videoLabel }) => `
+    scriptSplit: ({ script, title, text, image, imageAlt, cta, videoId, videoLabel, imageFirst = true }) => {
+      const media = videoId
+        ? `<div class="e-video-card" data-video="${esc(videoId)}">${img(image, imageAlt || title)}<button type="button" aria-label="${esc(videoLabel || title)}">${icon('play')}</button></div>`
+        : img(image, imageAlt || title);
+      const copy = `
+        <div>
+          <p class="e-hero-script e-script-small">${esc(script)}</p>
+          <h2 class="e-title">${esc(title)}</h2>
+          <div class="e-text">${(Array.isArray(text) ? text : [text]).map(p => `<p>${esc(p)}</p>`).join('')}</div>
+          ${cta ? `<div class="e-cta-row" style="margin-top:22px"><a class="e-btn e-gold" href="${esc(cta.href)}"${cta.external ? ' target="_blank" rel="noopener"' : ''}>${esc(cta.label)} →</a></div>` : ''}
+        </div>`;
+      return `
       <section class="e-section">
         <div class="e-wrap e-split">
-          ${videoId
-            ? `<div class="e-video-card" data-video="${esc(videoId)}">${img(image, imageAlt || title)}<button type="button" aria-label="${esc(videoLabel || title)}">${icon('play')}</button></div>`
-            : img(image, imageAlt || title)}
-          <div>
-            <p class="e-hero-script e-script-small">${esc(script)}</p>
-            <h2 class="e-title">${esc(title)}</h2>
-            <div class="e-text">${(Array.isArray(text) ? text : [text]).map(p => `<p>${esc(p)}</p>`).join('')}</div>
-            ${cta ? `<div class="e-cta-row" style="margin-top:22px"><a class="e-btn e-gold" href="${esc(cta.href)}"${cta.external ? ' target="_blank" rel="noopener"' : ''}>${esc(cta.label)} →</a></div>` : ''}
-          </div>
+          ${imageFirst ? media + copy : copy + media}
         </div>
-      </section>`,
+      </section>`;
+    },
 
     amenities: ({ kicker, title, items, centered }) => `
       <section class="e-section${centered ? '' : ''}">

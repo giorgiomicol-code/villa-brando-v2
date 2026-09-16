@@ -49,19 +49,19 @@
 .e-btn.e-outline-navy{background:transparent;color:var(--e-navy);border:1px solid var(--e-navy)}
 
 /* Hero (home) */
-.e-hero{position:relative;min-height:78vh;display:flex;align-items:flex-end;overflow:hidden;color:#fff}
+.e-hero{position:relative;min-height:70vh;overflow:hidden;color:#fff}
 .e-hero img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.e-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,30,.1) 0%,rgba(10,20,30,.3) 55%,rgba(10,20,30,.78) 100%)}
-.e-hero-inner{position:relative;padding:56px 0 40px;width:100%}
+.e-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,30,.15) 0%,rgba(10,20,30,.32) 55%,rgba(10,20,30,.8) 100%)}
+.e-hero-layout{position:relative;min-height:70vh;display:flex;flex-direction:column;justify-content:flex-end;gap:28px;padding:52px 0 40px}
+.e-hero-copy{max-width:640px}
 .e-eyebrow{font-size:.72rem;text-transform:uppercase;letter-spacing:.22em;opacity:.92;margin:0 0 14px;font-weight:600}
-.e-hero h1{font-family:var(--e-serif);font-weight:600;font-size:clamp(2.6rem,8vw,5.4rem);line-height:.98;margin:0}
-.e-hero-script{font-family:var(--e-script);font-size:clamp(1.5rem,4vw,2.4rem);color:#fff;margin:6px 0 4px}
+.e-hero h1{font-family:var(--e-serif);font-weight:600;font-size:clamp(2.8rem,11vw,5.6rem);line-height:.96;margin:0;text-transform:uppercase}
+.e-hero-script{font-family:var(--e-script);font-size:clamp(1.5rem,4vw,2.2rem);color:#fff;margin:8px 0 4px}
 .e-hero-location{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;margin:0 0 22px;opacity:.9}
 .e-hero-quote{margin:16px 0 0;font-size:.86rem;opacity:.9}
 
 /* Booking widget */
-.e-booking{position:relative;margin-top:-58px;z-index:5}
-.e-booking-card{background:#fff;box-shadow:0 22px 46px rgba(15,20,30,.22);border-radius:10px;padding:22px 22px 20px}
+.e-booking-card{background:#fff;box-shadow:0 22px 46px rgba(15,20,30,.28);border-radius:10px;padding:22px 22px 20px;position:relative}
 .e-booking-heading{font-family:var(--e-serif);font-weight:600;text-align:center;font-size:1.3rem;margin:0 0 16px;color:var(--e-navy)}
 .e-booking-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 .e-booking-field label{display:block;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--e-muted);margin-bottom:6px}
@@ -69,7 +69,8 @@
 .e-booking-field input:focus,.e-booking-field select:focus{outline:2px solid var(--e-gold);outline-offset:1px}
 .e-booking-submit{margin-top:16px;width:100%;background:linear-gradient(180deg,var(--e-gold),var(--e-gold-dark));color:var(--e-navy-2);border:0;border-radius:6px;text-transform:uppercase;font-weight:600;letter-spacing:.1em;font-size:.8rem;padding:14px;cursor:pointer}
 .e-booking-note{font-size:.72rem;color:var(--e-muted);text-align:center;margin:12px 0 0}
-.e-booking-substay{font-family:var(--e-script);font-size:1.15rem;color:var(--e-navy);text-align:center;margin:6px 0 0;display:flex;align-items:center;justify-content:center;gap:6px}
+.e-booking-substay{font-family:var(--e-script);font-size:1.15rem;color:var(--e-navy);text-align:center;margin:6px 0 0}
+.e-booking-substay .e-icon{display:inline-block;vertical-align:-4px;margin:0 2px}
 
 /* Feature strip */
 .e-features{padding:36px 0 8px}
@@ -118,7 +119,7 @@
 .e-banner-award-title{font-weight:700;font-size:1rem;margin:0 0 6px}
 .e-banner-award-sub{font-size:.82rem;opacity:.8;margin:0}
 .e-banner-film{background:var(--e-stone);padding:26px;display:flex;flex-direction:column;gap:14px;justify-content:center}
-.e-banner-film-text{font-family:var(--e-script);font-size:1.3rem;color:var(--e-navy);margin:0}
+.e-banner-film-text{font-family:var(--e-script);font-size:1.3rem;color:#8a3b2e;margin:0}
 
 /* Amenity grid */
 .e-amenity-grid{display:grid;grid-template-columns:1fr;gap:10px;margin-top:28px}
@@ -194,7 +195,10 @@
 @media(min-width:720px){
   .e-nav{display:flex;gap:26px}
   .e-menu-toggle{display:none}
-  .e-booking-grid{grid-template-columns:repeat(4,1fr)}
+  .e-hero{overflow:visible}
+  .e-hero-layout{flex-direction:row;align-items:flex-end;justify-content:space-between;gap:24px}
+  .e-hero-copy{flex:1 1 auto}
+  .e-booking-card{flex:0 0 340px;margin-bottom:-64px;z-index:5}
   .e-feature-strip{grid-template-columns:repeat(5,1fr)}
   .e-split{grid-template-columns:1fr 1fr}
   .e-card-grid{grid-template-columns:repeat(4,1fr)}
