@@ -146,7 +146,6 @@ const photoCodes = new Map([
   ['/assets/official/booking-garden.webp', 'G02'],
   ['/assets/garden-loungers.webp', 'G03'],
   ['/assets/patio.webp', 'G04'],
-  ['/assets/garden-path.webp', 'G05'],
   ['/assets/official/garden-entrance.webp', 'G06'],
   ['/assets/official/garden-front.webp', 'G07'],
   ['/assets/garden-house-view.webp', 'G08'],
