@@ -149,6 +149,7 @@ const photoCodes = new Map([
   ['/villa-brando-v2/assets/garden-path.webp', 'G05'],
   ['/villa-brando-v2/assets/official/garden-entrance.webp', 'G06'],
   ['/villa-brando-v2/assets/official/garden-front.webp', 'G07'],
+  ['/villa-brando-v2/assets/garden-house-view.webp', 'G08'],
   ['/villa-brando-v2/assets/exterior-front.webp', 'X01'],
   ['/villa-brando-v2/assets/exterior-side.webp', 'X02'],
   ['/villa-brando-v2/assets/gallery-night.webp', 'X03'],
