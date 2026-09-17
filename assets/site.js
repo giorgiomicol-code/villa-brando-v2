@@ -114,7 +114,7 @@ document.querySelectorAll('[data-direct-book]').forEach((form) => {
 });
 
 const reveals = document.querySelectorAll('[data-reveal]');
-if ('IntersectionObserver' in window) {
+if (typeof window.IntersectionObserver === 'function') {
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
