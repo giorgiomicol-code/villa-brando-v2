@@ -1,5 +1,7 @@
 name: Publish Villa Brando Version E
 
+# Publishes the current Version E snapshot.
+
 on:
   push:
     branches:
