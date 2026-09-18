@@ -1,0 +1,60 @@
+---
+import BookingButton from './BookingButton.astro';
+import { siteConfig } from '../config/site';
+
+const navItems = [
+  {
+    en: 'The villa',
+    it: 'La villa',
+    hrefEn: `${siteConfig.currentSiteUrl}/english/gallery`,
+    hrefIt: `${siteConfig.currentSiteUrl}/italiano/gallery`,
+  },
+  {
+    en: 'Explore',
+    it: 'Esplora',
+    hrefEn: `${siteConfig.currentSiteUrl}/english/excursions`,
+    hrefIt: `${siteConfig.currentSiteUrl}/italiano/escursioni`,
+  },
+  {
+    en: 'Contact',
+    it: 'Contatti',
+    hrefEn: `${siteConfig.currentSiteUrl}/english/contacts`,
+    hrefIt: `${siteConfig.currentSiteUrl}/italiano/contatti`,
+  },
+];
+---
+
+<header class="site-header">
+  <div class="header-inner">
+    <a
+      class="brand"
+      href={siteConfig.currentSiteUrl}
+      aria-label="Villa Brando — current website"
+    >
+      <span class="brand-mark" aria-hidden="true">VB</span>
+      <span class="brand-name">Villa Brando</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Current Villa Brando website">
+      {navItems.map((item) => (
+        <a
+          href={item.hrefEn}
+          data-href-en={item.hrefEn}
+          data-href-it={item.hrefIt}
+        >
+          <span data-lang="en">{item.en}</span>
+          <span data-lang="it" hidden>{item.it}</span>
+        </a>
+      ))}
+    </nav>
+
+    <div class="header-actions">
+      <div class="language-switcher" aria-label="Language">
+        <button type="button" data-select-lang="it" aria-pressed="false">IT</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-select-lang="en" aria-pressed="true">EN</button>
+      </div>
+      <BookingButton compact />
+    </div>
+  </div>
+</header>

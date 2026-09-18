@@ -1,0 +1,23 @@
+---
+import { siteConfig } from '../config/site';
+
+interface Props {
+  compact?: boolean;
+  secondary?: boolean;
+}
+
+const { compact = false, secondary = false } = Astro.props;
+---
+
+<a
+  class:list={['booking-button', { compact, secondary }]}
+  href={siteConfig.bookingUrl}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <span data-lang="en">{compact ? 'Book now' : 'Check availability'}</span>
+  <span data-lang="it" hidden>{compact ? 'Prenota' : 'Verifica disponibilità'}</span>
+  <svg aria-hidden="true" viewBox="0 0 24 24">
+    <path d="m9 18 6-6-6-6" />
+  </svg>
+</a>
