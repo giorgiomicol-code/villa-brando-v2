@@ -288,3 +288,70 @@ if (lightboxPhotos.length) {
     if (event.key === 'ArrowRight') showPhoto(activeIndex + 1);
   });
 }
+
+
+// work-shared: unified Italian footer and rooms coverflow
+const initRoomCoverflow = () => {
+  const root = document.querySelector('[data-coverflow]');
+  if (!root) return;
+  const cards = Array.from(root.querySelectorAll('[data-coverflow-card]'));
+  const dots = root.querySelector('[data-coverflow-dots]');
+  let active = 0;
+  const render = () => {
+    cards.forEach((card, index) => {
+      card.classList.remove('is-active','is-prev','is-next','is-far-prev','is-far-next');
+      const raw = (index - active + cards.length) % cards.length;
+      const diff = raw > cards.length / 2 ? raw - cards.length : raw;
+      card.classList.add(diff === 0 ? 'is-active' : diff === -1 ? 'is-prev' : diff === 1 ? 'is-next' : diff < 0 ? 'is-far-prev' : 'is-far-next');
+      card.setAttribute('aria-current', diff === 0 ? 'true' : 'false');
+    });
+    if (dots) Array.from(dots.children).forEach((dot, index) => dot.classList.toggle('is-active', index === active));
+  };
+  if (dots) cards.forEach((_, index) => {
+    const dot = document.createElement('button');
+    dot.type = 'button'; dot.className = 'cv-coverflow-dot'; dot.setAttribute('aria-label', 'Mostra camera ' + (index + 1));
+    dot.addEventListener('click', () => { active = index; render(); });
+    dots.appendChild(dot);
+  });
+  root.querySelector('[data-coverflow-prev]')?.addEventListener('click', () => { active = (active - 1 + cards.length) % cards.length; render(); });
+  root.querySelector('[data-coverflow-next]')?.addEventListener('click', () => { active = (active + 1) % cards.length; render(); });
+  cards.forEach((card,index)=>card.addEventListener('click',()=>{ if(index!==active){active=index;render();} }));
+  render();
+};
+initRoomCoverflow();
+
+const installUnifiedItalianFooter = () => {
+  if (document.documentElement.lang !== 'it' || !document.body.classList.contains('elegance')) return;
+  const oldFooter = document.querySelector('footer');
+  if (!oldFooter) return;
+  const path = window.location.pathname;
+  let explore = [
+    ['La villa','/villa-brando-v2/elegance/it/villa/'],
+    ['Camere','/villa-brando-v2/elegance/it/camere/'],
+    ['Giardino','/villa-brando-v2/elegance/it/giardino/']
+  ];
+  if (path.includes('/camere/')) explore = [
+    ['La villa','/villa-brando-v2/elegance/it/villa/'],
+    ['Giardino','/villa-brando-v2/elegance/it/giardino/'],
+    ['Sala giochi, bici e altri spazi','/villa-brando-v2/elegance/it/gallery/']
+  ];
+  if (path.includes('/villa/')) explore = [
+    ['Camere','/villa-brando-v2/elegance/it/camere/'],
+    ['Giardino','/villa-brando-v2/elegance/it/giardino/'],
+    ['Sala giochi, bici e altri spazi','/villa-brando-v2/elegance/it/gallery/']
+  ];
+  const exploreLinks = explore.map(([label,href]) => `<a href="${href}">${label}</a>`).join('');
+  const footer = document.createElement('footer');
+  footer.className = 'cv-full-footer';
+  footer.innerHTML = `<div class="cv-wrap">
+    <div class="cv-footer-grid">
+      <div><img class="cv-footer-logo" src="/villa-brando-v2/assets/official/villa-brando-logo.png" alt="Villa Brando"><p>Via Torino 19, 04100 Latina, Italia</p><p>CIN IT059011C27L4KEECL</p></div>
+      <div><h3>Esplora</h3>${exploreLinks}</div>
+      <div><h3>Contatti</h3><a href="tel:+393519768732">+39 351 976 8732</a><a href="mailto:villabrando.italy@gmail.com">villabrando.italy@gmail.com</a><a href="https://wa.me/393519768732" target="_blank" rel="noopener">WhatsApp</a><a href="https://maps.google.com/?q=Via+Torino+19+Latina" target="_blank" rel="noopener">Indicazioni</a></div>
+      <div><h3>Informazioni</h3><a href="/villa-brando-v2/elegance/it/info/">Informazioni e regole</a><a href="/villa-brando-v2/elegance/it/prenota/">Prenota</a><a href="https://guide.villabrando.com/" target="_blank" rel="noopener">Guida ospiti</a><a href="https://drive.google.com/file/d/12Sb9yfmVtWZ-HYHYjI4fLyYtEV_YEAKT/view?usp=sharing" target="_blank" rel="noopener">Brochure</a><a href="https://www.instagram.com/villabrando.holidayhome/" target="_blank" rel="noopener">Instagram</a></div>
+    </div>
+    <div class="cv-legal">Aut. Reg. Lazio 15547 del 23/11/2021 · Villa Brando · Latina</div>
+  </div>`;
+  oldFooter.replaceWith(footer);
+};
+installUnifiedItalianFooter();
