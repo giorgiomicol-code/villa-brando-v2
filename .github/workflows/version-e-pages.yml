@@ -3,7 +3,7 @@ name: Villa Brando Version E Preview
 on:
   push:
     branches:
-      - claude/continue-chatgpt-work-d0jo4j
+      - work-shared
   workflow_dispatch:
 
 permissions:
@@ -22,7 +22,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout preview branch
+      - name: Checkout work-shared preview
         uses: actions/checkout@v6
 
       - name: Configure GitHub Pages
