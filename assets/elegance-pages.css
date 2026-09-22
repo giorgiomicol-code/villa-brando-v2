@@ -294,7 +294,3 @@ body.lightbox-open{overflow:hidden}
 .cv-room-preview-count:hover{color:var(--cv-navy)}
 @media (max-width:900px){.cv-room-preview-grid{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:640px){.cv-room-preview-grid{grid-template-columns:1fr}}
-.cv-coverflow[data-coverflow="rooms"] .cv-photo,.cv-coverflow[data-coverflow="rooms"] .cv-photo.wide,.cv-coverflow[data-coverflow="rooms"] .cv-photo.tall{background:#fdfbf6;padding:10px 10px 0;border-radius:2px}
-.cv-coverflow[data-coverflow="rooms"] .cv-photo img{position:absolute;top:10px;left:10px;right:10px;bottom:46px;width:calc(100% - 20px);height:calc(100% - 56px);object-fit:contain}
-.cv-coverflow[data-coverflow="rooms"] .cv-photo .cv-photo-caption{position:absolute;left:0;right:0;bottom:0;height:46px;display:flex;align-items:center;justify-content:center;background:#fdfbf6;color:var(--cv-navy);font-family:var(--cv-serif);font-size:1.05rem;font-weight:600;padding:0;letter-spacing:.01em;opacity:0;transition:opacity .35s ease}
-.cv-coverflow[data-coverflow="rooms"] .cv-photo.is-active .cv-photo-caption{opacity:1}
