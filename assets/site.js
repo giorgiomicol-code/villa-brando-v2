@@ -288,3 +288,155 @@ if (lightboxPhotos.length) {
     if (event.key === 'ArrowRight') showPhoto(activeIndex + 1);
   });
 }
+
+// Cover Flow 3D: galleria fotografica con effetto prospettico (bagni, camere, sala giochi & bici)
+const initializeCoverflow = (coverflowGallery) => {
+  const slides = Array.from(coverflowGallery.querySelectorAll(':scope > .cv-photo'));
+  if (!slides.length) return;
+
+  const isItalian = document.documentElement.lang === 'it';
+  const coverflowKind = coverflowGallery.dataset.coverflow;
+  const hasGroups = slides.some((slide) => slide.dataset.coverflowGroup);
+  let activeSlide = 0;
+  let pointerStartX = 0;
+  let pointerStartY = 0;
+  let didSwipe = false;
+
+  coverflowGallery.classList.add('cv-coverflow');
+  coverflowGallery.tabIndex = 0;
+  coverflowGallery.setAttribute('role', 'region');
+  coverflowGallery.setAttribute('aria-roledescription', 'carousel');
+  const ariaLabels = {
+    bathrooms: ['Galleria fotografica dei bagni', 'Bathroom photo gallery'],
+    rooms: ['Galleria fotografica delle camere', 'Room photo gallery'],
+    leisure: ['Galleria fotografica sala giochi e bici', 'Games room and bikes photo gallery'],
+  };
+  const [labelIt, labelEn] = ariaLabels[coverflowKind] || ['Galleria fotografica della villa', 'Villa photo gallery'];
+  coverflowGallery.setAttribute('aria-label', isItalian ? labelIt : labelEn);
+
+  const note = !hasGroups && coverflowGallery.previousElementSibling?.querySelector('p:last-child');
+  if (note) {
+    note.textContent = isItalian
+      ? 'Scorri le fotografie: quella selezionata si ingrandisce al centro.'
+      : 'Browse the photographs: the selected image expands in the centre.';
+  }
+
+  slides.forEach((slide, index) => {
+    slide.dataset.coverflowIndex = String(index);
+    slide.querySelector('img')?.setAttribute('data-no-lightbox', '');
+  });
+
+  const controls = document.createElement('div');
+  controls.className = 'cv-coverflow-controls';
+  const groupKeys = [...new Set(slides.map((slide) => slide.dataset.coverflowGroup).filter(Boolean))];
+  const groupPickerLabels = {
+    bathrooms: ['Scegli il bagno', 'Choose a bathroom'],
+    rooms: ['Scegli la camera', 'Choose a room'],
+  };
+  const [groupLabelIt, groupLabelEn] = groupPickerLabels[coverflowKind] || ['Scegli', 'Choose'];
+  const groupControls = groupKeys.length ? `
+    <div class="cv-coverflow-groups" aria-label="${isItalian ? groupLabelIt : groupLabelEn}">
+      ${groupKeys.map((group) => `<button class="cv-coverflow-group" type="button" data-coverflow-target="${group}">${group}</button>`).join('')}
+    </div>` : '';
+  controls.innerHTML = `${groupControls}
+    <div class="cv-coverflow-navigation">
+    <button class="cv-coverflow-button cv-coverflow-previous" type="button" aria-label="${isItalian ? 'Foto precedente' : 'Previous photo'}">‹</button>
+    <span class="cv-coverflow-status" aria-live="polite"></span>
+    <button class="cv-coverflow-button cv-coverflow-next" type="button" aria-label="${isItalian ? 'Foto successiva' : 'Next photo'}">›</button>
+    </div>`;
+  coverflowGallery.after(controls);
+
+  const status = controls.querySelector('.cv-coverflow-status');
+  const groupButtons = Array.from(controls.querySelectorAll('.cv-coverflow-group'));
+  const normalize = (index) => (index + slides.length) % slides.length;
+  const shortestOffset = (index) => {
+    let offset = index - activeSlide;
+    if (offset > slides.length / 2) offset -= slides.length;
+    if (offset < -slides.length / 2) offset += slides.length;
+    return offset;
+  };
+
+  const renderCoverflow = () => {
+    slides.forEach((slide, index) => {
+      const offset = shortestOffset(index);
+      const distance = Math.abs(offset);
+      const visible = distance <= 2;
+      slide.classList.toggle('is-previous-one', offset === -1);
+      slide.classList.toggle('is-next-one', offset === 1);
+      slide.classList.toggle('is-previous-two', offset === -2);
+      slide.classList.toggle('is-next-two', offset === 2);
+      slide.style.zIndex = String(20 - distance);
+      slide.classList.toggle('is-active', offset === 0);
+      slide.setAttribute('aria-hidden', visible ? 'false' : 'true');
+      slide.tabIndex = visible ? 0 : -1;
+      slide.style.pointerEvents = visible ? 'auto' : 'none';
+    });
+    const active = slides[activeSlide];
+    if (hasGroups) {
+      const group = active.dataset.coverflowGroup;
+      const groupSlides = slides.filter((slide) => slide.dataset.coverflowGroup === group);
+      const groupPosition = groupSlides.indexOf(active) + 1;
+      const label = active.dataset.groupLabel || group;
+      const name = active.dataset.groupName;
+      status.textContent = `${label}${name ? ` · ${name}` : ''} · ${isItalian ? 'Foto' : 'Photo'} ${groupPosition} ${isItalian ? 'di' : 'of'} ${groupSlides.length}`;
+      groupButtons.forEach((button) => {
+        const isCurrent = button.dataset.coverflowTarget === group;
+        button.classList.toggle('is-active', isCurrent);
+        if (isCurrent) button.setAttribute('aria-current', 'true');
+        else button.removeAttribute('aria-current');
+      });
+    } else {
+      status.textContent = `${isItalian ? 'Foto' : 'Photo'} ${activeSlide + 1}/${slides.length}`;
+    }
+  };
+
+  const goTo = (index) => {
+    activeSlide = normalize(index);
+    renderCoverflow();
+  };
+
+  slides.forEach((slide, index) => {
+    slide.addEventListener('click', (event) => {
+      if (didSwipe) {
+        event.preventDefault();
+        didSwipe = false;
+        return;
+      }
+      goTo(index);
+    });
+    slide.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        goTo(index);
+      }
+    });
+  });
+  controls.querySelector('.cv-coverflow-previous').addEventListener('click', () => goTo(activeSlide - 1));
+  controls.querySelector('.cv-coverflow-next').addEventListener('click', () => goTo(activeSlide + 1));
+  groupButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const targetIndex = slides.findIndex((slide) => slide.dataset.coverflowGroup === button.dataset.coverflowTarget);
+      if (targetIndex >= 0) goTo(targetIndex);
+    });
+  });
+  coverflowGallery.addEventListener('keydown', (event) => {
+    if (event.key === 'ArrowLeft') goTo(activeSlide - 1);
+    if (event.key === 'ArrowRight') goTo(activeSlide + 1);
+  });
+  coverflowGallery.addEventListener('pointerdown', (event) => {
+    pointerStartX = event.clientX;
+    pointerStartY = event.clientY;
+  });
+  coverflowGallery.addEventListener('pointerup', (event) => {
+    const distanceX = event.clientX - pointerStartX;
+    const distanceY = event.clientY - pointerStartY;
+    if (Math.abs(distanceX) > 45 && Math.abs(distanceX) > Math.abs(distanceY)) {
+      didSwipe = true;
+      goTo(activeSlide + (distanceX < 0 ? 1 : -1));
+    }
+  });
+
+  renderCoverflow();
+};
+
+document.querySelectorAll('.cv-villa-gallery, [data-coverflow="bathrooms"], [data-coverflow="rooms"], [data-coverflow="leisure"]').forEach(initializeCoverflow);
