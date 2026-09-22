@@ -329,16 +329,7 @@ const initializeCoverflow = (coverflowGallery) => {
   const controls = document.createElement('div');
   controls.className = 'cv-coverflow-controls';
   const groupKeys = [...new Set(slides.map((slide) => slide.dataset.coverflowGroup).filter(Boolean))];
-  const groupPickerLabels = {
-    bathrooms: ['Scegli il bagno', 'Choose a bathroom'],
-    rooms: ['Scegli la camera', 'Choose a room'],
-  };
-  const [groupLabelIt, groupLabelEn] = groupPickerLabels[coverflowKind] || ['Scegli', 'Choose'];
-  const groupControls = groupKeys.length ? `
-    <div class="cv-coverflow-groups" aria-label="${isItalian ? groupLabelIt : groupLabelEn}">
-      ${groupKeys.map((group) => `<button class="cv-coverflow-group" type="button" data-coverflow-target="${group}">${group}</button>`).join('')}
-    </div>` : '';
-  controls.innerHTML = `${groupControls}
+  controls.innerHTML = `
     <div class="cv-coverflow-navigation">
     <button class="cv-coverflow-button cv-coverflow-previous" type="button" aria-label="${isItalian ? 'Foto precedente' : 'Previous photo'}">‹</button>
     <span class="cv-coverflow-status" aria-live="polite"></span>
@@ -373,18 +364,7 @@ const initializeCoverflow = (coverflowGallery) => {
     });
     const active = slides[activeSlide];
     if (hasGroups) {
-      const group = active.dataset.coverflowGroup;
-      const groupSlides = slides.filter((slide) => slide.dataset.coverflowGroup === group);
-      const groupPosition = groupSlides.indexOf(active) + 1;
-      const label = active.dataset.groupLabel || group;
-      const name = active.dataset.groupName;
-      status.textContent = `${label}${name ? ` · ${name}` : ''} · ${isItalian ? 'Foto' : 'Photo'} ${groupPosition} ${isItalian ? 'di' : 'of'} ${groupSlides.length}`;
-      groupButtons.forEach((button) => {
-        const isCurrent = button.dataset.coverflowTarget === group;
-        button.classList.toggle('is-active', isCurrent);
-        if (isCurrent) button.setAttribute('aria-current', 'true');
-        else button.removeAttribute('aria-current');
-      });
+      status.textContent = active.dataset.groupName || active.dataset.groupLabel || '';
     } else {
       status.textContent = `${isItalian ? 'Foto' : 'Photo'} ${activeSlide + 1}/${slides.length}`;
     }
