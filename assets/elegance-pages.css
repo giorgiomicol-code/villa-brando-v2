@@ -1,5 +1,5 @@
 .cv-brand-logo{display:block;width:176px;height:auto;object-fit:contain}
-.elegance .cv-hero-bg img{object-position:center 58%}
+.elegance .cv-hero-bg img{object-position:center 24%}
 .cv-nav{grid-template-columns:190px 1fr auto}
 .cv-links{gap:clamp(13px,1.5vw,25px)}
 .cv-links a{white-space:nowrap}
@@ -125,7 +125,7 @@ body.lightbox-open{overflow:hidden}
 
   .elegance .cv-hero{min-height:auto;background:#092e39}
   .elegance .cv-hero::after{background:linear-gradient(0deg,rgba(3,30,36,.96) 0%,rgba(3,30,36,.72) 47%,rgba(3,30,36,.16) 100%)}
-  .elegance .cv-hero-bg img{object-position:57% center}
+  .elegance .cv-hero-bg img{object-position:57% 24%}
   .elegance .cv-hero-inner{min-height:auto;gap:22px;padding:118px 0 28px}
   .elegance .cv-hero-copy{max-width:100%}
   .elegance .cv-kicker{margin-bottom:8px;font-size:.69rem;letter-spacing:.17em}

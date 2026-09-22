@@ -169,22 +169,9 @@ const photoContainerSelector = [
   '.cv-room-media'
 ].join(', ');
 
-const lightboxPhotos = Array.from(document.querySelectorAll('body.elegance main img:not([data-no-lightbox])'));
-
-lightboxPhotos.forEach((photo) => {
-  const sourcePath = new URL(photo.getAttribute('src'), window.location.origin).pathname;
-  const code = photoCodes.get(sourcePath);
-  if (!code) return;
-  photo.dataset.photoCode = code;
-  const container = photo.closest(photoContainerSelector) || photo.parentElement;
-  if (!container || container.querySelector(':scope > .cv-photo-code')) return;
-  container.classList.add('cv-coded-photo');
-  const badge = document.createElement('span');
-  badge.className = 'cv-photo-code';
-  badge.textContent = code;
-  badge.setAttribute('aria-hidden', 'true');
-  container.appendChild(badge);
-});
+const lightboxPhotos = Array.from(
+  document.querySelectorAll('body.elegance main img:not([data-no-lightbox])')
+).filter((photo) => !photo.closest('[data-coverflow]'));
 
 if (lightboxPhotos.length) {
   const isItalian = document.documentElement.lang === 'it';
@@ -192,8 +179,29 @@ if (lightboxPhotos.length) {
     ? { close: 'Chiudi foto', previous: 'Foto precedente', next: 'Foto successiva', enlarge: 'Ingrandisci foto' }
     : { close: 'Close photo', previous: 'Previous photo', next: 'Next photo', enlarge: 'Enlarge photo' };
   const lightbox = document.createElement('div');
+  const scopeIds = new WeakMap();
+  const photosByGroup = new Map();
+  let scopeCounter = 0;
+  let activePhotos = [];
   let activeIndex = 0;
+  let triggerPhoto = null;
   let hideTimer;
+
+  const getGroupKey = (photo) => {
+    if (photo.dataset.gallery) return `gallery:${photo.dataset.gallery}`;
+    const scope = photo.closest('[data-lightbox-gallery], .cv-photo-grid, .cv-room-media, .cv-card-media');
+    if (!scope) return `single:${lightboxPhotos.indexOf(photo)}`;
+    const declared = scope.dataset.lightboxGallery;
+    if (declared) return `gallery:${declared}`;
+    if (!scopeIds.has(scope)) scopeIds.set(scope, `scope:${scopeCounter++}`);
+    return scopeIds.get(scope);
+  };
+
+  lightboxPhotos.forEach((photo) => {
+    const group = getGroupKey(photo);
+    if (!photosByGroup.has(group)) photosByGroup.set(group, []);
+    photosByGroup.get(group).push(photo);
+  });
 
   lightbox.className = 'cv-lightbox';
   lightbox.hidden = true;
@@ -212,22 +220,30 @@ if (lightboxPhotos.length) {
   const lightboxImage = lightbox.querySelector('.cv-lightbox-image');
   const lightboxCaption = lightbox.querySelector('.cv-lightbox-caption');
   const closeButton = lightbox.querySelector('.cv-lightbox-close');
+  const previousButton = lightbox.querySelector('.cv-lightbox-prev');
+  const nextButton = lightbox.querySelector('.cv-lightbox-next');
   let touchStartX = 0;
   let touchStartY = 0;
 
   const showPhoto = (index) => {
-    activeIndex = (index + lightboxPhotos.length) % lightboxPhotos.length;
-    const photo = lightboxPhotos[activeIndex];
+    if (!activePhotos.length) return;
+    activeIndex = (index + activePhotos.length) % activePhotos.length;
+    const photo = activePhotos[activeIndex];
     lightboxImage.src = photo.currentSrc || photo.src;
     lightboxImage.alt = photo.alt || '';
     const code = photo.dataset.photoCode;
     lightboxCaption.textContent = [code, photo.alt].filter(Boolean).join(' · ');
     lightboxCaption.hidden = !code && !photo.alt;
+    const hasNavigation = activePhotos.length > 1;
+    previousButton.hidden = !hasNavigation;
+    nextButton.hidden = !hasNavigation;
   };
 
-  const openLightbox = (index) => {
+  const openLightbox = (photo) => {
     window.clearTimeout(hideTimer);
-    showPhoto(index);
+    triggerPhoto = photo;
+    activePhotos = photosByGroup.get(getGroupKey(photo)) || [photo];
+    showPhoto(activePhotos.indexOf(photo));
     lightbox.hidden = false;
     document.body.classList.add('lightbox-open');
     window.requestAnimationFrame(() => lightbox.classList.add('is-open'));
@@ -241,10 +257,10 @@ if (lightboxPhotos.length) {
       lightbox.hidden = true;
       lightboxImage.removeAttribute('src');
     }, 180);
-    lightboxPhotos[activeIndex]?.focus({ preventScroll: true });
+    triggerPhoto?.focus({ preventScroll: true });
   };
 
-  lightboxPhotos.forEach((photo, index) => {
+  lightboxPhotos.filter((photo) => !photo.hasAttribute('data-gallery-source')).forEach((photo) => {
     photo.classList.add('cv-lightbox-trigger');
     photo.tabIndex = 0;
     photo.setAttribute('role', 'button');
@@ -252,19 +268,19 @@ if (lightboxPhotos.length) {
     photo.addEventListener('click', (event) => {
       event.preventDefault();
       event.stopPropagation();
-      openLightbox(index);
+      openLightbox(photo);
     });
     photo.addEventListener('keydown', (event) => {
       if (event.key === 'Enter' || event.key === ' ') {
         event.preventDefault();
-        openLightbox(index);
+        openLightbox(photo);
       }
     });
   });
 
   closeButton.addEventListener('click', closeLightbox);
-  lightbox.querySelector('.cv-lightbox-prev').addEventListener('click', () => showPhoto(activeIndex - 1));
-  lightbox.querySelector('.cv-lightbox-next').addEventListener('click', () => showPhoto(activeIndex + 1));
+  previousButton.addEventListener('click', () => showPhoto(activeIndex - 1));
+  nextButton.addEventListener('click', () => showPhoto(activeIndex + 1));
   lightbox.addEventListener('click', (event) => {
     if (!event.target.closest('.cv-lightbox-image, .cv-lightbox-close, .cv-lightbox-nav')) closeLightbox();
   });
@@ -274,6 +290,7 @@ if (lightboxPhotos.length) {
     touchStartY = touch.clientY;
   }, { passive: true });
   lightboxImage.addEventListener('touchend', (event) => {
+    if (activePhotos.length < 2) return;
     const touch = event.changedTouches[0];
     const distanceX = touch.clientX - touchStartX;
     const distanceY = touch.clientY - touchStartY;
@@ -284,8 +301,8 @@ if (lightboxPhotos.length) {
   document.addEventListener('keydown', (event) => {
     if (lightbox.hidden) return;
     if (event.key === 'Escape') closeLightbox();
-    if (event.key === 'ArrowLeft') showPhoto(activeIndex - 1);
-    if (event.key === 'ArrowRight') showPhoto(activeIndex + 1);
+    if (activePhotos.length > 1 && event.key === 'ArrowLeft') showPhoto(activeIndex - 1);
+    if (activePhotos.length > 1 && event.key === 'ArrowRight') showPhoto(activeIndex + 1);
   });
 }
 
