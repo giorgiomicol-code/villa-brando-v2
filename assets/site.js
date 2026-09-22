@@ -440,3 +440,15 @@ const initializeCoverflow = (coverflowGallery) => {
 };
 
 document.querySelectorAll('.cv-villa-gallery, [data-coverflow="bathrooms"], [data-coverflow="rooms"], [data-coverflow="leisure"]').forEach(initializeCoverflow);
+
+// Collegamento tra la mini-gallery sotto il Cover Flow e i pulsanti di gruppo del Cover Flow stesso
+document.querySelectorAll('[data-jump-to-group]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const target = btn.dataset.jumpToGroup;
+    const groupBtn = document.querySelector(`.cv-coverflow-group[data-coverflow-target="${target}"]`);
+    if (groupBtn) {
+      groupBtn.click();
+      document.querySelector('.cv-coverflow[data-coverflow="rooms"]')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  });
+});
