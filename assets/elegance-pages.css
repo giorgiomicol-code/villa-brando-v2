@@ -286,7 +286,7 @@ body.lightbox-open{overflow:hidden}
 .cv-room-preview{display:flex;flex-direction:column}
 .cv-room-preview-thumbs{display:flex;gap:4px;height:96px;margin-bottom:14px}
 .cv-room-preview-thumbs img{flex:1;height:100%;object-fit:cover;min-width:0}
-.cv-room-preview h3{margin:0 0 6px;font-family:var(--cv-serif);font-size:1.1rem;color:var(--cv-navy)}
+.cv-room-preview h3{margin:0 0 6px;font-family:var(--cv-serif);font-size:1.25rem;color:var(--cv-navy)}
 .cv-room-preview p{margin:0 0 8px;font-size:.78rem;line-height:1.5;color:#4a4a45}
 .cv-room-preview .cv-detail-list{gap:5px;margin-top:0}
 .cv-room-preview .cv-detail-list span{padding:5px 9px;font-size:.58rem}
