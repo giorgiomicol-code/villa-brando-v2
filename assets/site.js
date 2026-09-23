@@ -419,7 +419,7 @@ const initializeCoverflow = (coverflowGallery) => {
   renderCoverflow();
 };
 
-document.querySelectorAll('.cv-villa-gallery, [data-coverflow="bathrooms"], [data-coverflow="rooms"], [data-coverflow="leisure"], [data-coverflow="features"]').forEach(initializeCoverflow);
+document.querySelectorAll('.cv-villa-gallery, [data-coverflow="bathrooms"], [data-coverflow="rooms"], [data-coverflow="leisure"], [data-coverflow="features"], [data-coverflow="home"]').forEach(initializeCoverflow);
 
 // Collegamento tra la mini-gallery sotto il Cover Flow e i pulsanti di gruppo del Cover Flow stesso
 document.querySelectorAll('[data-jump-to-group]').forEach((btn) => {
