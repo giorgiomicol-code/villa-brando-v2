@@ -314,13 +314,6 @@ const initializeCoverflow = (coverflowGallery) => {
   const [labelIt, labelEn] = ariaLabels[coverflowKind] || ['Galleria fotografica della villa', 'Villa photo gallery'];
   coverflowGallery.setAttribute('aria-label', isItalian ? labelIt : labelEn);
 
-  const note = !hasGroups && coverflowGallery.previousElementSibling?.querySelector('p:last-child');
-  if (note) {
-    note.textContent = isItalian
-      ? 'Scorri le fotografie: quella selezionata si ingrandisce al centro.'
-      : 'Browse the photographs: the selected image expands in the centre.';
-  }
-
   slides.forEach((slide, index) => {
     slide.dataset.coverflowIndex = String(index);
     slide.querySelector('img')?.setAttribute('data-no-lightbox', '');
