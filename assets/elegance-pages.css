@@ -300,3 +300,4 @@ body.lightbox-open{overflow:hidden}
 .cv-platform-badges img{width:60%;height:60%;display:block}
 .cv-platform-badges a[aria-label*="Booking"] img,.cv-platform-badges a[aria-label*="booking"] img{width:100%;height:100%}
 .cv-photocode-badge{position:absolute;top:6px;left:6px;z-index:5;background:#c0392b;color:#fff;font-family:monospace;font-weight:700;font-size:.72rem;line-height:1;padding:4px 7px;border-radius:4px;box-shadow:0 2px 6px rgba(0,0,0,.35);pointer-events:none}
+#villa-hero::before{content:'';position:absolute;inset:-20px;background-image:url('/villa-brando-v2/assets/official/villa-hero-hallway.webp');background-size:cover;background-position:center;filter:blur(28px) brightness(.75) saturate(1.1);transform:scale(1.15);z-index:0}
