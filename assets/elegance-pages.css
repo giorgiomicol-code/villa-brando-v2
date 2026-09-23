@@ -305,4 +305,5 @@ body.lightbox-open{overflow:hidden}
 .cv-home-teaser-footer{max-width:700px;margin:32px auto 0;text-align:left}
 .cv-home-teaser-footer p{color:#60747d;font-size:.85rem;margin:0 0 24px}
 @media(max-width:760px){.cv-home-teaser-footer{max-width:100%}}
-.cv-tagline-uses{font-style:italic;color:var(--cv-gold-dark);font-size:.82rem;margin:0 0 18px}
+.cv-tagline-uses{font-family:var(--cv-serif);font-style:italic;color:var(--cv-gold-dark);font-size:1.35rem;line-height:1.4;letter-spacing:.01em;margin:0 0 26px}
+@media(max-width:760px){.cv-tagline-uses{font-size:1.05rem}}
