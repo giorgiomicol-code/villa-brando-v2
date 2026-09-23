@@ -432,3 +432,17 @@ document.querySelectorAll('[data-jump-to-group]').forEach((btn) => {
     }
   });
 });
+
+// Overlay dei codici foto (H1, V2, C9...) — visibile solo con ?codici=1 nell'URL, per riferimento interno
+if (new URLSearchParams(location.search).has('codici')) {
+  document.querySelectorAll('img[data-photo-code]').forEach((img) => {
+    const parent = img.parentElement;
+    if (parent && getComputedStyle(parent).position === 'static') {
+      parent.style.position = 'relative';
+    }
+    const badge = document.createElement('span');
+    badge.className = 'cv-photocode-badge';
+    badge.textContent = img.dataset.photoCode;
+    parent.appendChild(badge);
+  });
+}
