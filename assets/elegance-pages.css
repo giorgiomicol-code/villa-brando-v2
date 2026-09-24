@@ -171,7 +171,7 @@ body.lightbox-open{overflow:hidden}
 
   .elegance .cv-about{padding:54px 0}
   .elegance .cv-about-grid{gap:28px}
-  .elegance .cv-about .cv-script{font-size:2.65rem}
+  .elegance .cv-about .cv-script{font-size:3rem}
   .elegance .cv-about-copy>p:not(.cv-script){margin:18px 0 24px;font-size:1rem;line-height:1.72}
   .elegance .cv-about-copy .cv-button{width:100%}
   .elegance .cv-video{min-height:0;aspect-ratio:4/3}
