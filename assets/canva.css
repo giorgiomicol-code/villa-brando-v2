@@ -109,7 +109,7 @@ button, input, select { font: inherit; }
 
 .cv-about { padding: 84px 0; }
 .cv-about-grid { display: grid; grid-template-columns: .94fr 1.06fr; gap: 66px; align-items: center; }
-.cv-about .cv-script { color: var(--cv-blue); font-size: clamp(3rem, 5.2vw, 3.7rem); line-height: .95; }
+.cv-about .cv-centered .cv-script { color: var(--cv-blue); font-size: clamp(3rem, 5.2vw, 3.7rem); line-height: .95; }
 .cv-about-copy > p:not(.cv-script) { margin: 22px 0 28px; color: #60747d; font-size: .85rem; }
 .cv-video { position: relative; min-height: 365px; overflow: hidden; }
 .cv-video::after { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,50,56,.16), rgba(8,50,56,.02)); content: ''; }
