@@ -346,3 +346,17 @@ p.cv-tagline-uses{font-family:var(--cv-serif);font-style:italic;color:var(--cv-b
 @media(max-width:390px){
   .elegance .cv-card-grid{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px;scroll-padding:12px}
 }
+
+/* Mobile: Cover Flow più grande, meno spazio vuoto, frecce sempre toccabili */
+.cv-coverflow-controls{position:relative;z-index:6}
+@media(max-width:760px){
+  .elegance .cv-coverflow{height:clamp(270px,72vw,340px);margin-top:4px}
+  .elegance .cv-coverflow .cv-photo,.elegance .cv-coverflow .cv-photo.wide,.elegance .cv-coverflow .cv-photo.tall{top:50%;width:74vw}
+  .elegance .cv-coverflow .cv-photo.is-previous-one{transform:translate(-50%,-50%) translateX(-44vw) translateZ(-125px) rotateY(38deg) scale(.78)}
+  .elegance .cv-coverflow .cv-photo.is-next-one{transform:translate(-50%,-50%) translateX(44vw) translateZ(-125px) rotateY(-38deg) scale(.78)}
+  .elegance .cv-coverflow .cv-photo.is-previous-two{opacity:0;transform:translate(-50%,-50%) translateX(-80vw) translateZ(-235px) rotateY(38deg) scale(.6)}
+  .elegance .cv-coverflow .cv-photo.is-next-two{opacity:0;transform:translate(-50%,-50%) translateX(80vw) translateZ(-235px) rotateY(-38deg) scale(.6)}
+  .elegance .cv-coverflow-controls{margin-top:6px}
+  .elegance .cv-coverflow .cv-photo img{bottom:40px;height:calc(100% - 40px)}
+  .elegance .cv-coverflow .cv-photo .cv-photo-caption{height:40px;font-size:.88rem}
+}
