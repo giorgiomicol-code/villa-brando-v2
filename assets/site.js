@@ -172,6 +172,7 @@ const photoContainerSelector = [
 const lightboxPhotos = Array.from(document.querySelectorAll('body.elegance main img:not([data-no-lightbox])'));
 
 lightboxPhotos.forEach((photo) => {
+  if (photo.dataset.photoCode) return; // i codici attuali sono già nell'HTML: la vecchia tabella non va applicata
   const sourcePath = new URL(photo.getAttribute('src'), window.location.origin).pathname;
   const code = photoCodes.get(sourcePath);
   if (!code) return;
