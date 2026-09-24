@@ -311,3 +311,12 @@ p.cv-tagline-uses{font-family:var(--cv-serif);font-style:italic;color:var(--cv-b
 .cv-coverflow .cv-photo img{position:absolute;top:0;left:0;right:0;bottom:48px;width:100%;height:calc(100% - 48px);object-fit:cover}
 .cv-coverflow .cv-photo .cv-photo-caption{position:absolute;left:0;right:0;bottom:0;height:48px;display:flex;align-items:center;justify-content:center;background:#fdfbf6;color:var(--cv-navy);font-family:var(--cv-serif);font-size:.95rem;font-weight:600;padding:0 12px;letter-spacing:.01em;text-align:center;opacity:0;transition:opacity .35s ease}
 .cv-coverflow .cv-photo.is-active .cv-photo-caption{opacity:1}
+
+/* La Villa: titolo in corsivo Caveat, foto allineata in alto, box numeri compatto */
+.elegance .cv-villa-intro .cv-editorial{align-items:start}
+.elegance .cv-villa-intro .cv-editorial-copy h2.cv-script-title{margin:4px 0 0;color:var(--cv-blue);font-family:var(--cv-script);font-size:clamp(2.6rem,4.4vw,3.6rem);font-weight:500;line-height:1}
+.elegance .cv-villa-intro .cv-facts{grid-template-columns:repeat(3,1fr);margin-top:20px}
+.elegance .cv-villa-intro .cv-fact{display:flex;align-items:baseline;justify-content:center;gap:6px;padding:8px 10px}
+.elegance .cv-villa-intro .cv-fact strong{display:inline;font-size:1.2rem;line-height:1}
+.elegance .cv-villa-intro .cv-fact span{font-size:.62rem;line-height:1}
+@media(max-width:760px){.elegance .cv-villa-intro .cv-editorial-copy h2.cv-script-title{font-size:clamp(2.3rem,10vw,2.9rem)}.elegance .cv-villa-intro .cv-fact{padding:8px 6px;gap:4px}.elegance .cv-villa-intro .cv-fact span{font-size:.6rem;letter-spacing:.04em}}
