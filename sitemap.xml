@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  <url><loc>https://villa-brando-new.giorgiomicol.chatgpt.site/it/</loc><xhtml:link rel="alternate" hreflang="it" href="https://villa-brando-new.giorgiomicol.chatgpt.site/it/"/><xhtml:link rel="alternate" hreflang="en" href="https://villa-brando-new.giorgiomicol.chatgpt.site/en/"/></url>
-  <url><loc>https://villa-brando-new.giorgiomicol.chatgpt.site/en/</loc><xhtml:link rel="alternate" hreflang="it" href="https://villa-brando-new.giorgiomicol.chatgpt.site/it/"/><xhtml:link rel="alternate" hreflang="en" href="https://villa-brando-new.giorgiomicol.chatgpt.site/en/"/></url>
-  <url><loc>https://villa-brando-new.giorgiomicol.chatgpt.site/canva/it/</loc><xhtml:link rel="alternate" hreflang="it" href="https://villa-brando-new.giorgiomicol.chatgpt.site/canva/it/"/><xhtml:link rel="alternate" hreflang="en" href="https://villa-brando-new.giorgiomicol.chatgpt.site/canva/en/"/></url>
-  <url><loc>https://villa-brando-new.giorgiomicol.chatgpt.site/canva/en/</loc><xhtml:link rel="alternate" hreflang="it" href="https://villa-brando-new.giorgiomicol.chatgpt.site/canva/it/"/><xhtml:link rel="alternate" hreflang="en" href="https://villa-brando-new.giorgiomicol.chatgpt.site/canva/en/"/></url>
-  <url><loc>https://villa-brando-new.giorgiomicol.chatgpt.site/atelier/it/</loc><xhtml:link rel="alternate" hreflang="it" href="https://villa-brando-new.giorgiomicol.chatgpt.site/atelier/it/"/><xhtml:link rel="alternate" hreflang="en" href="https://villa-brando-new.giorgiomicol.chatgpt.site/atelier/en/"/></url>
-  <url><loc>https://villa-brando-new.giorgiomicol.chatgpt.site/atelier/en/</loc><xhtml:link rel="alternate" hreflang="it" href="https://villa-brando-new.giorgiomicol.chatgpt.site/atelier/it/"/><xhtml:link rel="alternate" hreflang="en" href="https://villa-brando-new.giorgiomicol.chatgpt.site/atelier/en/"/></url>
-  <url><loc>https://villa-brando-new.giorgiomicol.chatgpt.site/glamour/it/</loc><xhtml:link rel="alternate" hreflang="it" href="https://villa-brando-new.giorgiomicol.chatgpt.site/glamour/it/"/><xhtml:link rel="alternate" hreflang="en" href="https://villa-brando-new.giorgiomicol.chatgpt.site/glamour/en/"/></url>
-  <url><loc>https://villa-brando-new.giorgiomicol.chatgpt.site/glamour/en/</loc><xhtml:link rel="alternate" hreflang="it" href="https://villa-brando-new.giorgiomicol.chatgpt.site/glamour/it/"/><xhtml:link rel="alternate" hreflang="en" href="https://villa-brando-new.giorgiomicol.chatgpt.site/glamour/en/"/></url>
-  <url><loc>https://villa-brando-new.giorgiomicol.chatgpt.site/elegance/it/</loc><xhtml:link rel="alternate" hreflang="it" href="https://villa-brando-new.giorgiomicol.chatgpt.site/elegance/it/"/><xhtml:link rel="alternate" hreflang="en" href="https://villa-brando-new.giorgiomicol.chatgpt.site/elegance/en/"/></url>
-  <url><loc>https://villa-brando-new.giorgiomicol.chatgpt.site/elegance/en/</loc><xhtml:link rel="alternate" hreflang="it" href="https://villa-brando-new.giorgiomicol.chatgpt.site/elegance/it/"/><xhtml:link rel="alternate" hreflang="en" href="https://villa-brando-new.giorgiomicol.chatgpt.site/elegance/en/"/></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://www.villabrando.com/it/</loc></url>
+  <url><loc>https://www.villabrando.com/it/villa/</loc></url>
+  <url><loc>https://www.villabrando.com/it/camere/</loc></url>
+  <url><loc>https://www.villabrando.com/it/giardino/</loc></url>
+  <url><loc>https://www.villabrando.com/it/gallery/</loc></url>
+  <url><loc>https://www.villabrando.com/it/esperienze/</loc></url>
+  <url><loc>https://www.villabrando.com/it/info/</loc></url>
+  <url><loc>https://www.villabrando.com/it/prenota/</loc></url>
+  <url><loc>https://www.villabrando.com/en/</loc></url>
+  <url><loc>https://www.villabrando.com/en/villa/</loc></url>
+  <url><loc>https://www.villabrando.com/en/rooms/</loc></url>
+  <url><loc>https://www.villabrando.com/en/garden/</loc></url>
+  <url><loc>https://www.villabrando.com/en/gallery/</loc></url>
+  <url><loc>https://www.villabrando.com/en/experiences/</loc></url>
+  <url><loc>https://www.villabrando.com/en/info/</loc></url>
+  <url><loc>https://www.villabrando.com/en/book/</loc></url>
+  <url><loc>https://www.villabrando.com/tour-eventi/</loc></url>
 </urlset>
