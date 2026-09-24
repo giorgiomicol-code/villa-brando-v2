@@ -333,3 +333,6 @@ p.cv-tagline-uses{font-family:var(--cv-serif);font-style:italic;color:var(--cv-b
 .elegance .cv-villa-living .cv-amenities li::before{flex:none;margin-right:7px}
 @media(max-width:1040px){.elegance .cv-villa-living .cv-editorial-media{min-height:0;aspect-ratio:4/3}.elegance .cv-villa-living .cv-amenities{margin-top:0}}
 @media(max-width:760px){.elegance .cv-villa-living .cv-living-title{white-space:normal;margin-bottom:22px;font-size:clamp(2.45rem,12vw,3.45rem)}.elegance .cv-villa-living .cv-amenities li{padding:8px 10px;font-size:.8rem}}
+
+/* Giardino: sottotitolo piccolo sotto il Cover Flow */
+.elegance .cv-garden-photos .cv-coverflow-subtitle{margin:26px 0 0;color:var(--cv-gold-dark);font-size:.72rem;font-weight:600;letter-spacing:.18em;text-align:center;text-transform:uppercase}
