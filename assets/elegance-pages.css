@@ -320,3 +320,16 @@ p.cv-tagline-uses{font-family:var(--cv-serif);font-style:italic;color:var(--cv-b
 .elegance .cv-villa-intro .cv-fact strong{display:inline;font-size:1.2rem;line-height:1}
 .elegance .cv-villa-intro .cv-fact span{font-size:.62rem;line-height:1}
 @media(max-width:760px){.elegance .cv-villa-intro .cv-editorial-copy h2.cv-script-title{font-size:clamp(2.3rem,10vw,2.9rem)}.elegance .cv-villa-intro .cv-fact{padding:8px 6px;gap:4px}.elegance .cv-villa-intro .cv-fact span{font-size:.6rem;letter-spacing:.04em}}
+
+/* La Villa, Ambienti giorno: titolo su una riga sopra la foto; tabella compatta allineata al fondo della foto */
+.elegance .cv-villa-living .cv-living-title{margin:0 0 30px;color:var(--cv-navy);font-family:var(--cv-serif);font-size:clamp(2.5rem,4.8vw,4.5rem);font-weight:600;line-height:.94;white-space:nowrap}
+.elegance .cv-villa-living .cv-editorial{align-items:stretch}
+.elegance .cv-villa-living .cv-editorial-media{position:relative;min-height:440px}
+.elegance .cv-villa-living .cv-editorial-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.elegance .cv-villa-living .cv-editorial-copy{display:flex;flex-direction:column}
+.elegance .cv-villa-living .cv-editorial-copy .cv-script{margin-top:0}
+.elegance .cv-villa-living .cv-amenities{margin-top:auto;padding-top:18px;gap:6px}
+.elegance .cv-villa-living .cv-amenities li{display:flex;align-items:center;padding:7px 10px;font-size:.72rem;line-height:1.25}
+.elegance .cv-villa-living .cv-amenities li::before{flex:none;margin-right:7px}
+@media(max-width:1040px){.elegance .cv-villa-living .cv-editorial-media{min-height:0;aspect-ratio:4/3}.elegance .cv-villa-living .cv-amenities{margin-top:0}}
+@media(max-width:760px){.elegance .cv-villa-living .cv-living-title{white-space:normal;margin-bottom:22px;font-size:clamp(2.45rem,12vw,3.45rem)}.elegance .cv-villa-living .cv-amenities li{padding:8px 10px;font-size:.8rem}}
