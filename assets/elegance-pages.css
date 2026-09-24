@@ -336,3 +336,13 @@ p.cv-tagline-uses{font-family:var(--cv-serif);font-style:italic;color:var(--cv-b
 
 /* Giardino: sottotitolo piccolo sotto il Cover Flow */
 .elegance .cv-garden-photos .cv-coverflow-subtitle{margin:26px 0 0;color:var(--cv-gold-dark);font-size:.72rem;font-weight:600;letter-spacing:.18em;text-align:center;text-transform:uppercase}
+
+/* Mobile: niente scorrimento laterale della pagina */
+@media(max-width:760px){
+  html,body{overflow-x:clip}
+  .elegance .cv-coverflow-navigation{gap:10px;max-width:100%}
+  .elegance .cv-coverflow-status{min-width:0;flex:1 1 auto;max-width:230px}
+}
+@media(max-width:390px){
+  .elegance .cv-card-grid{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px;scroll-padding:12px}
+}
