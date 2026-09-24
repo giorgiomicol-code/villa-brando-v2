@@ -40,10 +40,10 @@ def write(path, content):
 
 # Home: italiano o inglese in base alla lingua del browser
 write('/', f'''<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>♥️ Villa Brando Exclusive Holiday Home</title>
+<title>Villa Brando Exclusive Holiday Home</title>
 <meta name="description" content="Villa Brando, casa vacanze esclusiva con giardino e biciclette a Latina, vicino a Sabaudia, al Circeo e a Roma.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Villa Brando Exclusive Holiday Home">
-<meta property="og:title" content="♥️ Villa Brando Exclusive Holiday Home">
+<meta property="og:title" content="Villa Brando Exclusive Holiday Home">
 <meta property="og:description" content="Villa Brando, casa vacanze esclusiva con giardino e biciclette a Latina, vicino a Sabaudia, al Circeo e a Roma.">
 <meta property="og:image" content="https://{DOMAIN}/assets/official/hero-terrace-garden.jpeg"><meta property="og:url" content="https://{DOMAIN}/">
 <meta name="twitter:card" content="summary_large_image">
