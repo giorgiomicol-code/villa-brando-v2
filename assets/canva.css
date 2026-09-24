@@ -105,7 +105,7 @@ button, input, select { font: inherit; }
 .cv-award strong { display: block; max-width: 390px; font-size: 1.12rem; line-height: 1.22; }
 .cv-award span { display: block; margin-top: 12px; font-size: .7rem; }
 .cv-film { display: flex; min-height: 122px; align-items: center; justify-content: center; gap: 36px; padding: 20px 32px; background: #fffaf0; }
-.cv-film p { margin: 0; color: var(--cv-red); font-family: var(--cv-script); font-size: 1.45rem; line-height: 1.08; }
+.cv-film p { margin: 0; color: var(--cv-red); font-family: var(--cv-script); font-style: italic; font-size: 1.45rem; line-height: 1.08; }
 
 .cv-about { padding: 84px 0; }
 .cv-about-grid { display: grid; grid-template-columns: .94fr 1.06fr; gap: 66px; align-items: center; }
