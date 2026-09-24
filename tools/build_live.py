@@ -50,11 +50,11 @@ OLD = {
  '/english': '/en/', '/english/gallery': '/en/villa/', '/english/gallery/livingrooms': '/en/villa/', '/english/gallery/garden': '/en/garden/',
  '/english/gallery/bedrooms': '/en/rooms/', '/english/gallery/game-room-bikes': '/en/gallery/', '/english/gallery/animal-amenities': '/en/info/',
  '/english/excursions': '/en/experiences/', '/english/excursions/touristic-infos': '/en/experiences/', '/english/excursions/hereabouts': '/en/experiences/',
- '/english/reviews': '/en/', '/english/contacts': '/en/info/', '/english/privacy': '/en/info/',
+ '/english/reviews': '/en/', '/english/contacts': '/en/info/', '/english/privacy': '/en/privacy/',
  '/italiano': '/it/', '/italiano/gallery': '/it/villa/', '/italiano/gallery/saloni': '/it/villa/', '/italiano/gallery/giardino': '/it/giardino/',
  '/italiano/gallery/camere': '/it/camere/', '/italiano/gallery/sala-giochi-e-bici': '/it/gallery/', '/italiano/gallery/animali-domestici': '/it/info/',
  '/italiano/escursioni': '/it/esperienze/', '/italiano/escursioni/info-turistiche': '/it/esperienze/', '/italiano/escursioni/nelle-vicinanze': '/it/esperienze/',
- '/italiano/recensioni': '/it/', '/italiano/contatti': '/it/info/', '/italiano/riservatezza': '/it/info/',
+ '/italiano/recensioni': '/it/', '/italiano/contatti': '/it/info/', '/italiano/riservatezza': '/it/privacy/',
  '/book-your-stay': '/it/prenota/', '/house-rules': '/it/info/', '/electrical-system/tour-events': '/tour-eventi/',
 }
 for old, new in OLD.items(): write(old, redirect_page(new))
@@ -67,7 +67,7 @@ write('404.html', '''<!doctype html><html lang="it"><head><meta charset="utf-8">
 open(os.path.join(OUT, 'CNAME'), 'w').write(DOMAIN + '\n')
 open(os.path.join(OUT, 'robots.txt'), 'w').write(f'User-agent: *\nAllow: /\nSitemap: https://{DOMAIN}/sitemap.xml\n')
 pages = ['it/', 'it/villa/', 'it/camere/', 'it/giardino/', 'it/gallery/', 'it/esperienze/', 'it/info/', 'it/prenota/',
-         'en/', 'en/villa/', 'en/rooms/', 'en/garden/', 'en/gallery/', 'en/experiences/', 'en/info/', 'en/book/', 'tour-eventi/']
+         'en/', 'en/villa/', 'en/rooms/', 'en/garden/', 'en/gallery/', 'en/experiences/', 'en/info/', 'en/book/', 'it/privacy/', 'en/privacy/', 'tour-eventi/']
 open(os.path.join(OUT, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
     ''.join(f'  <url><loc>https://{DOMAIN}/{p}</loc></url>\n' for p in pages) + '</urlset>\n')
 open(os.path.join(OUT, '.nojekyll'), 'w').write('')
