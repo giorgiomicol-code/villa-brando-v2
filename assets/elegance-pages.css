@@ -374,3 +374,12 @@ p.cv-tagline-uses{font-family:var(--cv-serif);font-style:italic;color:var(--cv-b
 .elegance .cv-hero-platforms>span{color:var(--cv-navy);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .elegance .cv-hero-platforms .cv-platform-badges{margin-top:0;gap:10px}
 .elegance .cv-hero-platforms .cv-platform-badges a{width:44px;height:44px;border-radius:10px}
+
+/* Pagina privacy */
+.elegance .cv-legal-text{max-width:820px}
+.elegance .cv-legal-text h2{margin:34px 0 10px;color:var(--cv-navy);font-family:var(--cv-serif);font-size:1.45rem;line-height:1.25}
+.elegance .cv-legal-text p,.elegance .cv-legal-text li{color:var(--cv-text);line-height:1.75}
+.elegance .cv-legal-text ul{margin:0 0 12px;padding-left:1.2em}
+.elegance .cv-legal-text li{margin-bottom:8px}
+.elegance .cv-legal-text a{color:var(--cv-blue);text-decoration:underline}
+.elegance .cv-legal-updated{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cv-gold-dark)!important}
