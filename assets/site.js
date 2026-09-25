@@ -397,17 +397,44 @@ const initializeCoverflow = (coverflowGallery) => {
     if (event.key === 'ArrowLeft') goTo(activeSlide - 1);
     if (event.key === 'ArrowRight') goTo(activeSlide + 1);
   });
+  // Mouse / penna: eventi pointer
   coverflowGallery.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'touch') return;
     pointerStartX = event.clientX;
     pointerStartY = event.clientY;
   });
   coverflowGallery.addEventListener('pointerup', (event) => {
+    if (event.pointerType === 'touch') return;
     const distanceX = event.clientX - pointerStartX;
     const distanceY = event.clientY - pointerStartY;
     if (Math.abs(distanceX) > 45 && Math.abs(distanceX) > Math.abs(distanceY)) {
       didSwipe = true;
       goTo(activeSlide + (distanceX < 0 ? 1 : -1));
     }
+  });
+  // Dito: eventi touch. A differenza dei pointer non vengono annullati quando il
+  // browser inizia a scorrere la pagina (succede spesso col telefono in orizzontale).
+  let touchX = 0, touchY = 0, touchLock = null;
+  coverflowGallery.addEventListener('touchstart', (event) => {
+    const t = event.touches[0];
+    touchX = t.clientX; touchY = t.clientY; touchLock = null;
+  }, { passive: true });
+  coverflowGallery.addEventListener('touchmove', (event) => {
+    const t = event.touches[0];
+    const dx = t.clientX - touchX, dy = t.clientY - touchY;
+    if (touchLock === null && (Math.abs(dx) > 8 || Math.abs(dy) > 8)) {
+      touchLock = Math.abs(dx) > Math.abs(dy) * 0.7 ? 'x' : 'y';
+    }
+    if (touchLock === 'x' && event.cancelable) event.preventDefault();
+  }, { passive: false });
+  coverflowGallery.addEventListener('touchend', (event) => {
+    const t = event.changedTouches[0];
+    const dx = t.clientX - touchX, dy = t.clientY - touchY;
+    if (touchLock === 'x' && Math.abs(dx) > 30) {
+      didSwipe = true;
+      goTo(activeSlide + (dx < 0 ? 1 : -1));
+    }
+    touchLock = null;
   });
 
   renderCoverflow();
