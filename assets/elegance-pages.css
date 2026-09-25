@@ -380,3 +380,11 @@ p.cv-tagline-uses{font-family:var(--cv-serif);font-style:italic;color:var(--cv-b
 .elegance .cv-legal-text li{margin-bottom:8px}
 .elegance .cv-legal-text a{color:var(--cv-blue);text-decoration:underline}
 .elegance .cv-legal-updated{font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--cv-gold-dark)!important}
+
+/* Telefono in orizzontale: il Cover Flow deve stare nello schermo (altezza ridotta) */
+@media (orientation:landscape) and (max-height:520px){
+  .elegance .cv-coverflow{height:min(76vh,330px);perspective-origin:center 50%}
+  .elegance .cv-coverflow .cv-photo,.elegance .cv-coverflow .cv-photo.wide,.elegance .cv-coverflow .cv-photo.tall{top:50%;width:min(52vw,calc(min(76vh,330px) * 1.15))}
+  .elegance .cv-coverflow .cv-photo .cv-photo-caption{flex-basis:38px;font-size:.85rem}
+  .elegance .cv-coverflow-controls{margin-top:4px}
+}
