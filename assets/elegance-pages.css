@@ -367,8 +367,8 @@ p.cv-tagline-uses{font-family:var(--cv-serif);font-style:italic;color:var(--cv-b
 @media(max-width:760px){.elegance .cv-garden-intro{text-align:left}.elegance .cv-games-amenities .cv-amenities{grid-template-columns:1fr 1fr}}
 
 /* Home: loghi Airbnb e Booking nel riquadro di ricerca */
-.elegance .cv-hero-platforms{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:14px;padding-top:14px;border-top:1px solid var(--cv-line)}
-.elegance .cv-hero-platforms>span{color:var(--cv-navy);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.elegance .cv-hero-platforms{display:grid;grid-template-columns:auto auto;align-items:center;justify-content:center;column-gap:14px;row-gap:8px;margin-top:14px;padding-top:14px;border-top:1px solid var(--cv-line)}
+.elegance .cv-hero-platforms>span{justify-self:end;text-align:right;color:var(--cv-navy);font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
 .elegance .cv-hero-platforms .cv-platform-badges{margin-top:0;gap:10px}
 .elegance .cv-hero-platforms .cv-platform-badges a{width:44px;height:44px;border-radius:10px}
 
@@ -391,3 +391,9 @@ p.cv-tagline-uses{font-family:var(--cv-serif);font-style:italic;color:var(--cv-b
 
 /* Lightbox a foto singola (tile delle destinazioni): nessuna freccia verso le altre foto */
 .cv-lightbox.is-single .cv-lightbox-nav{display:none}
+
+/* Home: contatti rapidi (WhatsApp, telefono, email) nel riquadro di ricerca, sulla stessa griglia dei loghi */
+.elegance .cv-contact-badges{display:flex;gap:8px}
+.elegance .cv-contact-badges a{display:grid;width:36px;height:36px;place-items:center;border:1px solid var(--cv-line);border-radius:50%;background:#fff;color:var(--cv-navy);transition:background .2s,color .2s,border-color .2s}
+.elegance .cv-contact-badges a:hover{background:var(--cv-gold-dark);border-color:var(--cv-gold-dark);color:#fff}
+.elegance .cv-contact-badges svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
