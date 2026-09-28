@@ -194,6 +194,7 @@ if (lightboxPhotos.length) {
     : { close: 'Close photo', previous: 'Previous photo', next: 'Next photo', enlarge: 'Enlarge photo' };
   const lightbox = document.createElement('div');
   let activeIndex = 0;
+  let singleMode = false; // true: mostra solo la foto cliccata, senza frecce né scorrimento verso le altre
   let hideTimer;
 
   lightbox.className = 'cv-lightbox';
@@ -228,6 +229,8 @@ if (lightboxPhotos.length) {
 
   const openLightbox = (index) => {
     window.clearTimeout(hideTimer);
+    singleMode = lightboxPhotos[index].hasAttribute('data-lightbox-single');
+    lightbox.classList.toggle('is-single', singleMode);
     showPhoto(index);
     lightbox.hidden = false;
     document.body.classList.add('lightbox-open');
@@ -264,8 +267,8 @@ if (lightboxPhotos.length) {
   });
 
   closeButton.addEventListener('click', closeLightbox);
-  lightbox.querySelector('.cv-lightbox-prev').addEventListener('click', () => showPhoto(activeIndex - 1));
-  lightbox.querySelector('.cv-lightbox-next').addEventListener('click', () => showPhoto(activeIndex + 1));
+  lightbox.querySelector('.cv-lightbox-prev').addEventListener('click', () => { if (!singleMode) showPhoto(activeIndex - 1); });
+  lightbox.querySelector('.cv-lightbox-next').addEventListener('click', () => { if (!singleMode) showPhoto(activeIndex + 1); });
   lightbox.addEventListener('click', (event) => {
     if (!event.target.closest('.cv-lightbox-image, .cv-lightbox-close, .cv-lightbox-nav')) closeLightbox();
   });
@@ -278,13 +281,14 @@ if (lightboxPhotos.length) {
     const touch = event.changedTouches[0];
     const distanceX = touch.clientX - touchStartX;
     const distanceY = touch.clientY - touchStartY;
-    if (Math.abs(distanceX) > 48 && Math.abs(distanceX) > Math.abs(distanceY)) {
+    if (!singleMode && Math.abs(distanceX) > 48 && Math.abs(distanceX) > Math.abs(distanceY)) {
       showPhoto(activeIndex + (distanceX < 0 ? 1 : -1));
     }
   }, { passive: true });
   document.addEventListener('keydown', (event) => {
     if (lightbox.hidden) return;
     if (event.key === 'Escape') closeLightbox();
+    if (singleMode) return;
     if (event.key === 'ArrowLeft') showPhoto(activeIndex - 1);
     if (event.key === 'ArrowRight') showPhoto(activeIndex + 1);
   });
