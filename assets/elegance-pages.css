@@ -388,3 +388,6 @@ p.cv-tagline-uses{font-family:var(--cv-serif);font-style:italic;color:var(--cv-b
   .elegance .cv-coverflow .cv-photo .cv-photo-caption{flex-basis:38px;font-size:.85rem}
   .elegance .cv-coverflow-controls{margin-top:4px}
 }
+
+/* Lightbox a foto singola (tile delle destinazioni): nessuna freccia verso le altre foto */
+.cv-lightbox.is-single .cv-lightbox-nav{display:none}
