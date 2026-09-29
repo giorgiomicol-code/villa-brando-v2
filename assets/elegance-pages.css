@@ -71,7 +71,7 @@
 .cv-info-card a{color:var(--cv-blue);text-decoration:underline}
 .cv-info-card>a{display:block;margin:.38rem 0}
 .cv-full-footer{padding:58px 0 95px;background:#f7f3e9}
-.cv-footer-grid{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:40px}
+.cv-footer-grid{display:grid;grid-template-columns:minmax(0,1.4fr) repeat(3,minmax(0,1fr));gap:40px}.cv-footer-grid a,.cv-footer-grid p{overflow-wrap:anywhere}
 .cv-footer-logo{width:180px;height:auto;object-fit:contain}
 .cv-full-footer h3{margin:0 0 12px;color:var(--cv-navy);font-size:.7rem;text-transform:uppercase;letter-spacing:.12em}
 .cv-full-footer p,.cv-full-footer a{display:block;margin:5px 0;color:#5d717c;font-size:.7rem}
@@ -82,7 +82,7 @@
 .cv-ulisse-link:hover{border-color:var(--cv-navy);color:var(--cv-navy)}
 .cv-ulisse-link:focus-visible{outline:3px solid var(--cv-gold-dark);outline-offset:6px}
 @media(max-width:1040px){.cv-brand-logo{width:150px}.cv-editorial,.cv-editorial.reverse,.cv-book-layout{grid-template-columns:1fr}.cv-editorial.reverse .cv-editorial-copy,.cv-room:nth-child(even) .cv-room-copy{order:initial}.cv-book-intro{position:static}.cv-amenities{grid-template-columns:1fr 1fr}}
-@media(max-width:760px){.cv-page-hero{min-height:382px}.cv-page-hero .cv-wrap{padding-bottom:38px}.cv-section{padding:62px 0}.cv-editorial{gap:32px}.cv-editorial-media{min-height:330px}.cv-facts{grid-template-columns:1fr}.cv-amenities{grid-template-columns:1fr 1fr}.cv-photo-grid{gap:10px}.cv-photo,.cv-photo.wide{grid-column:span 6;height:185px}.cv-photo.tall{height:380px}.cv-room,.cv-room:nth-child(even){grid-template-columns:1fr;gap:28px;padding:55px 0}.cv-room-media{height:330px}.cv-book-layout{padding:40px 0 85px}.cv-book-frame,.cv-book-frame iframe{min-height:720px}.cv-info-grid{grid-template-columns:1fr}.cv-footer-grid{grid-template-columns:1fr 1fr}.cv-footer-grid{gap:25px}.cv-brand-logo{width:132px}}
+@media(max-width:760px){.cv-page-hero{min-height:382px}.cv-page-hero .cv-wrap{padding-bottom:38px}.cv-section{padding:62px 0}.cv-editorial{gap:32px}.cv-editorial-media{min-height:330px}.cv-facts{grid-template-columns:1fr}.cv-amenities{grid-template-columns:1fr 1fr}.cv-photo-grid{gap:10px}.cv-photo,.cv-photo.wide{grid-column:span 6;height:185px}.cv-photo.tall{height:380px}.cv-room,.cv-room:nth-child(even){grid-template-columns:1fr;gap:28px;padding:55px 0}.cv-room-media{height:330px}.cv-book-layout{padding:40px 0 85px}.cv-book-frame,.cv-book-frame iframe{min-height:720px}.cv-info-grid{grid-template-columns:1fr}.cv-footer-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.cv-footer-grid{gap:25px}.cv-brand-logo{width:132px}}
 @media(max-width:600px){.cv-book-grid,.cv-video-grid{grid-template-columns:1fr}.cv-book-widget{padding:25px 18px}}
 
 body.lightbox-open{overflow:hidden}
@@ -423,4 +423,33 @@ html{touch-action:manipulation}
 @media(max-width:420px){
   .elegance .cv-hero-platforms{gap:6px}
   .elegance .cv-hero-platforms>span{font-size:.54rem;letter-spacing:.04em}
+}
+
+/* Indicatore di scorrimento per le fasce che scorrono di lato su telefono */
+.vg-scroll-wrap{position:relative}
+.vg-scroll-hint{position:absolute;top:0;right:0;bottom:0;z-index:5;display:none;width:54px;align-items:center;justify-content:flex-end;padding:0 8px 0 0;border:0;background:linear-gradient(90deg,transparent,var(--vg-hint-bg,#fff) 62%);cursor:pointer}
+.vg-scroll-hint span{display:flex;width:30px;height:30px;align-items:center;justify-content:center;border-radius:50%;background:var(--cv-navy);color:#fff;font:600 22px/1 var(--cv-sans,Arial,sans-serif);box-shadow:0 3px 10px rgba(0,0,0,.18);animation:vgNudge 1.6s ease-in-out infinite}
+.vg-scroll-wrap.has-more .vg-scroll-hint{display:flex}
+@keyframes vgNudge{0%,100%{transform:translateX(0)}50%{transform:translateX(4px)}}
+@media(prefers-reduced-motion:reduce){.vg-scroll-hint span{animation:none}}
+
+/* iPhone: i campi Arrivo/Partenza non devono sporgere dal riquadro di prenotazione */
+.elegance .cv-date-row,.elegance .cv-book-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.elegance .cv-date-row .cv-field,.elegance .cv-book-grid>div{min-width:0;overflow:hidden}
+.elegance .cv-date-row input,.elegance .cv-date-row select,.elegance .cv-book-grid input,.elegance .cv-book-grid select{min-width:0;width:100%;max-width:100%;box-sizing:border-box}
+.elegance .cv-date-row input[type="date"],.elegance .cv-book-grid input[type="date"]{-webkit-appearance:none;appearance:none;display:block;overflow:hidden;text-align:left;line-height:1.2}
+.elegance .cv-date-row input[type="date"]::-webkit-date-and-time-value,.elegance .cv-book-grid input[type="date"]::-webkit-date-and-time-value{text-align:left;min-width:0;margin:0}
+.elegance .cv-booking,.elegance .cv-book-widget{overflow:hidden}
+
+/* Piè di pagina: una sola colonna sui telefoni molto stretti */
+@media(max-width:420px){
+  .elegance .cv-footer-grid{grid-template-columns:1fr}
+}
+
+/* Barra WhatsApp / Prenota su telefono: altezza minima */
+.elegance .cv-mobile-bar a{min-height:36px;padding:0;font-size:.66rem;letter-spacing:.06em;line-height:1}
+.elegance .cv-mobile-bar{padding-bottom:env(safe-area-inset-bottom)}
+@media(orientation:landscape) and (max-height:520px){
+  .elegance .cv-mobile-bar a{min-height:28px;font-size:.6rem}
+  .elegance .cv-mobile-bar{padding-bottom:0}
 }
