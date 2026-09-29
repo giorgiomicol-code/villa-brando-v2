@@ -471,3 +471,47 @@ if (new URLSearchParams(location.search).has('codici')) {
     parent.appendChild(badge);
   });
 }
+
+// Indicatore di scorrimento (principio generale)
+(() => {
+  const isScroller = (el) => {
+    if (el.closest('[data-coverflow], .cv-coverflow')) return false;
+    const ox = getComputedStyle(el).overflowX;
+    return (ox === 'auto' || ox === 'scroll') && el.scrollWidth > el.clientWidth + 8;
+  };
+  const setup = () => {
+    document.querySelectorAll('main *, .cv-benefits *').forEach((el) => {
+      if (el.dataset.scrollHint === 'done' || el.classList.contains('vg-scroll-wrap')) return;
+      if (!isScroller(el)) return;
+      el.dataset.scrollHint = 'done';
+      const wrap = document.createElement('div');
+      wrap.className = 'vg-scroll-wrap';
+      el.parentNode.insertBefore(wrap, el);
+      wrap.appendChild(el);
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'vg-scroll-hint';
+      btn.setAttribute('aria-label', document.documentElement.lang === 'it' ? 'Scorri a destra' : 'Scroll right');
+      btn.innerHTML = '<span aria-hidden="true">›</span>';
+      wrap.appendChild(btn);
+      let bgEl = wrap, bg = 'rgb(255, 255, 255)';
+      while (bgEl && bgEl !== document.documentElement) {
+        const c = getComputedStyle(bgEl).backgroundColor;
+        if (c && c !== 'transparent' && !/rgba\(.*,\s*0\)$/.test(c)) { bg = c; break; }
+        bgEl = bgEl.parentElement;
+      }
+      wrap.style.setProperty('--vg-hint-bg', bg);
+      const update = () => {
+        const more = el.scrollLeft + el.clientWidth < el.scrollWidth - 8 && el.scrollWidth > el.clientWidth + 8;
+        wrap.classList.toggle('has-more', more);
+      };
+      btn.addEventListener('click', () => el.scrollBy({ left: el.clientWidth * 0.8, behavior: 'smooth' }));
+      el.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+    });
+  };
+  const run = () => requestAnimationFrame(setup);
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
+  let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(setup, 200); });
+})();
