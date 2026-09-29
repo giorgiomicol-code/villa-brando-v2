@@ -397,3 +397,10 @@ p.cv-tagline-uses{font-family:var(--cv-serif);font-style:italic;color:var(--cv-b
 .elegance .cv-contact-badges a{display:grid;width:36px;height:36px;place-items:center;border:1px solid var(--cv-line);border-radius:50%;background:#fff;color:var(--cv-navy);transition:background .2s,color .2s,border-color .2s}
 .elegance .cv-contact-badges a:hover{background:var(--cv-gold-dark);border-color:var(--cv-gold-dark);color:#fff}
 .elegance .cv-contact-badges svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+
+/* iPhone: le frecce del Cover Flow non devono attivare lo zoom col doppio tocco di Safari */
+html{touch-action:manipulation}
+.cv-coverflow,.cv-coverflow *,.cv-coverflow-controls,.cv-coverflow-controls *{touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.cv-coverflow-controls .cv-coverflow-button{position:relative}
+.cv-coverflow-controls .cv-coverflow-button::before{content:"";position:absolute;inset:-14px}
+@media(max-width:760px){.cv-coverflow-navigation{gap:26px}}
