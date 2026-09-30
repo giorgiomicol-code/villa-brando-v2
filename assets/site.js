@@ -1,3 +1,152 @@
+(function(){
+'use strict';
+/* ============================================================
+   TRACCIAMENTO: Google tag (GA4 + Google Ads) + Consent Mode v2
+   Un solo punto di caricamento per tutto il sito. Non aggiungere
+   altri tag gtag.js altrove: se serve modificare il tracciamento,
+   si modifica solo questo blocco.
+   ============================================================ */
+(function () {
+  var GA4_ID = 'G-WHW22QQ8HG';
+  var ADS_ID = 'AW-16750334483';
+  var ADS_CONVERSION_SEND_TO = 'AW-16750334483/WiRiCL2R8IsdEJOkl7M-';
+  var CONSENT_KEY = 'vbConsent';
+
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { window.dataLayer.push(arguments); }
+  window.gtag = gtag; // esposto per il resto di site.js e per eventuali controlli esterni
+
+  // 1) Stato di consenso di default: negato finché l'ospite non sceglie.
+  //    Va impostato PRIMA di caricare gtag.js.
+  var stored = null;
+  try { stored = JSON.parse(localStorage.getItem(CONSENT_KEY) || 'null'); } catch (e) { stored = null; }
+  gtag('consent', 'default', {
+    analytics_storage: 'denied',
+    ad_storage: 'denied',
+    ad_user_data: 'denied',
+    ad_personalization: 'denied',
+    wait_for_update: 500
+  });
+  if (stored) {
+    gtag('consent', 'update', stored);
+  }
+
+  // 2) Un solo Google tag, condiviso da GA4 e Google Ads.
+  gtag('js', new Date());
+  gtag('config', GA4_ID);
+  gtag('config', ADS_ID);
+
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
+  document.head.appendChild(s);
+
+  window.vbGtag = gtag; // usato più sotto dal resto di site.js
+
+  /* ---------- Banner cookie (accetta / rifiuta) ---------- */
+  function grantAll() {
+    return { analytics_storage: 'granted', ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' };
+  }
+  function denyAll() {
+    return { analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied' };
+  }
+  function setConsent(state) {
+    gtag('consent', 'update', state);
+    try { localStorage.setItem(CONSENT_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+  function buildBanner() {
+    var lang = document.documentElement.lang === 'en' ? 'en' : 'it';
+    var text = lang === 'en'
+      ? { msg: 'We use cookies to measure traffic and, only with your consent, for advertising purposes.', accept: 'Accept', reject: 'Reject', more: 'Privacy policy' }
+      : { msg: 'Usiamo cookie per misurare il traffico e, solo con il tuo consenso, a scopo pubblicitario.', accept: 'Accetta', reject: 'Rifiuta', more: 'Informativa privacy' };
+    var privacyHref = (location.pathname.indexOf('/en/') === 0 || lang === 'en') ? '/en/privacy/' : '/it/privacy/';
+    var bar = document.createElement('div');
+    bar.className = 'cv-cookie-bar';
+    bar.innerHTML =
+      '<p>' + text.msg + ' <a href="' + privacyHref + '">' + text.more + '</a></p>' +
+      '<div class="cv-cookie-actions">' +
+      '<button type="button" data-cookie-reject>' + text.reject + '</button>' +
+      '<button type="button" data-cookie-accept>' + text.accept + '</button>' +
+      '</div>';
+    document.body.appendChild(bar);
+    bar.querySelector('[data-cookie-accept]').addEventListener('click', function () {
+      setConsent(grantAll());
+      bar.remove();
+    });
+    bar.querySelector('[data-cookie-reject]').addEventListener('click', function () {
+      setConsent(denyAll());
+      bar.remove();
+    });
+  }
+  if (!stored) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', buildBanner);
+    } else {
+      buildBanner();
+    }
+  }
+
+  /* ---------- Evento GA4: cambio lingua ---------- */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('.cv-lang a');
+    if (!a) return;
+    gtag('event', 'language_change', {
+      target_language: (a.textContent || '').trim(),
+      page_location: location.href
+    });
+  });
+
+  /* ---------- Click su Prenota/Book: conversione Google Ads + evento GA4 ----------
+     Si applica a qualunque link che porta verso il motore di prenotazione
+     (pagina /prenota/ o /book/, oppure direttamente direct-book.com).
+     I link verso Airbnb/Booking.com e i contatti (tel/email/WhatsApp) sono
+     esclusi di proposito: non sono "il motore di prenotazione". */
+  function isBookingHref(href) {
+    return /\/prenota\//.test(href) || /\/book\//.test(href) || /direct-book\.com/.test(href);
+  }
+  function trackBookingIntent(text, href) {
+    gtag('event', 'booking_click', {
+      button_text: text,
+      page_location: location.href,
+      language: document.documentElement.lang,
+      destination_url: href
+    });
+  }
+  window.vbTrackBookingConversion = function (text, href, navigateCb) {
+    trackBookingIntent(text, href);
+    if (typeof navigateCb === 'function') {
+      var done = false;
+      var go = function () { if (!done) { done = true; navigateCb(); } };
+      gtag('event', 'conversion', { send_to: ADS_CONVERSION_SEND_TO, event_callback: go });
+      setTimeout(go, 300);
+    } else {
+      gtag('event', 'conversion', { send_to: ADS_CONVERSION_SEND_TO });
+    }
+  };
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href]');
+    if (!a) return;
+    var href = a.getAttribute('href') || '';
+    if (!isBookingHref(href)) {
+      if (/^tel:/.test(href) || /^mailto:/.test(href) || /wa\.me\//.test(href) || /api\.whatsapp\.com/.test(href)) {
+        gtag('event', 'contact_click', {
+          method: /^tel:/.test(href) ? 'phone' : (/^mailto:/.test(href) ? 'email' : 'whatsapp'),
+          page_location: location.href
+        });
+      }
+      return;
+    }
+    var text = (a.textContent || '').trim();
+    if (a.target === '_blank') {
+      trackBookingIntent(text, href);
+      gtag('event', 'conversion', { send_to: ADS_CONVERSION_SEND_TO });
+    } else {
+      e.preventDefault();
+      window.vbTrackBookingConversion(text, href, function () { window.location.href = href; });
+    }
+  }, true);
+})();
+
 const menuButton = document.querySelector('[data-menu-button]');
 const menu = document.querySelector('[data-menu]');
 const header = document.querySelector('[data-header]');
@@ -53,6 +202,11 @@ document.querySelectorAll('[data-booking-form]').forEach((form) => {
     url.searchParams.set('adults', values.get('adults') || '2');
     url.searchParams.set('children', values.get('children') || '0');
     url.searchParams.set('infants', values.get('infants') || '0');
+    window.gtag('event', 'booking_start', {
+      page_location: location.href,
+      language: document.documentElement.lang,
+      destination_url: `${url.pathname}${url.search}`
+    });
     window.location.href = `${url.pathname}${url.search}`;
   });
 });
@@ -107,7 +261,9 @@ document.querySelectorAll('[data-direct-book]').forEach((form) => {
 
   form.addEventListener('submit', (event) => {
     event.preventDefault();
-    window.location.href = preserveSelection().toString();
+    const bookingUrl = preserveSelection().toString();
+    const buttonText = (form.querySelector('button[type="submit"]')?.textContent || '').trim();
+    window.vbTrackBookingConversion(buttonText, bookingUrl, () => { window.location.href = bookingUrl; });
   });
 
   preserveSelection();
@@ -514,4 +670,6 @@ if (new URLSearchParams(location.search).has('codici')) {
   const run = () => requestAnimationFrame(setup);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', run); else run();
   let t; window.addEventListener('resize', () => { clearTimeout(t); t = setTimeout(setup, 200); });
+})();
+
 })();
