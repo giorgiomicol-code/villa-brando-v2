@@ -12,6 +12,7 @@ DOMAIN = 'www.villabrando.com'
 if os.path.exists(OUT): shutil.rmtree(OUT)
 os.makedirs(OUT)
 shutil.copytree(os.path.join(SRC, 'assets'), os.path.join(OUT, 'assets'))
+shutil.copy(os.path.join(SRC, 'assets', 'favicon.ico'), os.path.join(OUT, 'favicon.ico'))  # richiesta automatica dei browser
 for a, b in [('elegance/it', 'it'), ('elegance/en', 'en'), ('elegance/tour-eventi', 'tour-eventi')]:
     shutil.copytree(os.path.join(SRC, a), os.path.join(OUT, b))
 
@@ -30,7 +31,7 @@ for root, _, files in os.walk(OUT):
 
 def redirect_page(target):
     return f'''<!doctype html><html><head><meta charset="utf-8"><title>Villa Brando</title>
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon.ico?v=3" sizes="48x48"><link rel="icon" href="/assets/favicon-32.png?v=3" type="image/png" sizes="32x32"><link rel="icon" href="/assets/favicon-192.png?v=3" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=3">
 <meta name="robots" content="noindex"><link rel="canonical" href="https://{DOMAIN}{target}">
 <meta http-equiv="refresh" content="0; url={target}"><script>location.replace({target!r}+location.search+location.hash)</script>
 </head><body><p><a href="{target}">Villa Brando</a></p></body></html>'''
@@ -42,7 +43,7 @@ def write(path, content):
 # Home: italiano o inglese in base alla lingua del browser
 write('/', f'''<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Villa Brando Exclusive Holiday Home</title>
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon.ico?v=3" sizes="48x48"><link rel="icon" href="/assets/favicon-32.png?v=3" type="image/png" sizes="32x32"><link rel="icon" href="/assets/favicon-192.png?v=3" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=3">
 <meta name="description" content="Villa Brando, casa vacanze esclusiva con giardino e biciclette a Latina, vicino a Sabaudia, al Circeo e a Roma.">
 <meta property="og:type" content="website"><meta property="og:site_name" content="Villa Brando Exclusive Holiday Home">
 <meta property="og:title" content="Villa Brando Exclusive Holiday Home">
@@ -69,7 +70,7 @@ for old, new in OLD.items(): write(old, redirect_page(new))
 
 # Pagina non trovata: prova i vecchi indirizzi, altrimenti Home
 write('404.html', '''<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>Villa Brando</title>
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon.ico?v=3" sizes="48x48"><link rel="icon" href="/assets/favicon-32.png?v=3" type="image/png" sizes="32x32"><link rel="icon" href="/assets/favicon-192.png?v=3" type="image/png" sizes="192x192"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=3">
 <script>var m=%s;var p=location.pathname.replace(/\\/+$/,'').toLowerCase();location.replace(m[p]||(p.indexOf('/en')===0?'/en/':'/it/'));</script>
 </head><body><p><a href="/it/">Villa Brando</a></p></body></html>''' % str(OLD).replace("'", '"'))
 
