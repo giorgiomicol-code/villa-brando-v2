@@ -57,8 +57,8 @@
   function buildBanner() {
     var lang = document.documentElement.lang === 'en' ? 'en' : 'it';
     var text = lang === 'en'
-      ? { msg: 'We use cookies to measure traffic and, only with your consent, for advertising purposes.', accept: 'Accept', reject: 'Reject', more: 'Privacy policy' }
-      : { msg: 'Usiamo cookie per misurare il traffico e, solo con il tuo consenso, a scopo pubblicitario.', accept: 'Accetta', reject: 'Rifiuta', more: 'Informativa privacy' };
+      ? { msg: 'Cookies?', accept: 'Ok', reject: 'No', more: 'Info' }
+      : { msg: 'Cookie?', accept: 'Ok', reject: 'No', more: 'Info' };
     var privacyHref = (location.pathname.indexOf('/en/') === 0 || lang === 'en') ? '/en/privacy/' : '/it/privacy/';
     var bar = document.createElement('div');
     bar.className = 'cv-cookie-bar';

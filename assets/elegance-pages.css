@@ -454,15 +454,18 @@ html{touch-action:manipulation}
   .elegance .cv-mobile-bar{padding-bottom:0}
 }
 
-/* Banner cookie */
-.cv-cookie-bar{position:fixed;left:12px;right:12px;bottom:12px;z-index:70;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px;padding:14px 18px;border-radius:10px;background:var(--cv-navy);color:#fff;box-shadow:0 12px 30px rgba(0,0,0,.28)}
-.cv-cookie-bar p{margin:0;flex:1 1 260px;font-size:.78rem;line-height:1.5;color:#fff}
-.cv-cookie-bar a{color:var(--cv-gold);text-decoration:underline}
-.cv-cookie-actions{display:flex;gap:10px;flex:0 0 auto}
-.cv-cookie-bar button{padding:9px 18px;border:1px solid rgba(255,255,255,.4);border-radius:5px;background:transparent;color:#fff;font:600 .74rem/1 var(--cv-sans,Arial,sans-serif);letter-spacing:.04em;cursor:pointer}
+/* Banner cookie: il più piccolo e discreto possibile */
+.cv-cookie-bar{position:fixed;left:10px;bottom:10px;z-index:70;display:flex;align-items:center;gap:6px;padding:5px 6px 5px 10px;border-radius:20px;background:rgba(18,62,91,.92);backdrop-filter:blur(2px);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.22)}
+.cv-cookie-bar p{margin:0;font-size:.66rem;line-height:1;color:#fff;white-space:nowrap}
+.cv-cookie-bar a{color:#cfe0ea;text-decoration:underline;margin-left:4px}
+.cv-cookie-actions{display:flex;gap:4px}
+.cv-cookie-bar button{padding:4px 9px;border:1px solid rgba(255,255,255,.35);border-radius:14px;background:transparent;color:#fff;font:600 .64rem/1 var(--cv-sans,Arial,sans-serif);cursor:pointer}
 .cv-cookie-bar button[data-cookie-accept]{background:var(--cv-gold-dark);border-color:var(--cv-gold-dark);color:#123e5b}
+@media(max-width:760px){
+  /* sopra la barra fissa WhatsApp/Prenota, mai sovrapposto */
+  .cv-cookie-bar{bottom:calc(46px + env(safe-area-inset-bottom))}
+}
 @media(max-width:480px){
-  .cv-cookie-bar{left:8px;right:8px;bottom:8px;padding:12px 14px;flex-direction:column;align-items:stretch}
-  .cv-cookie-actions{justify-content:stretch}
-  .cv-cookie-bar button{flex:1 1 0}
+  .cv-cookie-bar{left:8px;padding:5px 5px 5px 9px}
+  .cv-cookie-bar p{font-size:.62rem}
 }
