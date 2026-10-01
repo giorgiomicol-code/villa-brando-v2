@@ -128,10 +128,16 @@
     if (!a) return;
     var href = a.getAttribute('href') || '';
     if (!isBookingHref(href)) {
-      if (/^tel:/.test(href) || /^mailto:/.test(href) || /wa\.me\//.test(href) || /api\.whatsapp\.com/.test(href)) {
-        gtag('event', 'contact_click', {
-          method: /^tel:/.test(href) ? 'phone' : (/^mailto:/.test(href) ? 'email' : 'whatsapp'),
-          page_location: location.href
+      var contactEvent = /^tel:/.test(href) ? 'phone_click'
+        : /^mailto:/.test(href) ? 'email_click'
+        : (/wa\.me\//.test(href) || /api\.whatsapp\.com/.test(href)) ? 'whatsapp_click'
+        : null;
+      if (contactEvent) {
+        gtag('event', contactEvent, {
+          page_location: location.href,
+          button_text: (a.textContent || '').trim(),
+          language: document.documentElement.lang,
+          destination_url: href
         });
       }
       return;
