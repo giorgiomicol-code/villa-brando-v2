@@ -52,7 +52,7 @@ write('/', f'''<!doctype html><html lang="it"><head><meta charset="utf-8"><meta 
 <meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://{DOMAIN}/it/"><link rel="alternate" hreflang="it" href="https://{DOMAIN}/it/"><link rel="alternate" hreflang="en" href="https://{DOMAIN}/en/">
 <meta http-equiv="refresh" content="1; url=/it/">
-<script>var l=(navigator.language||'it').toLowerCase();location.replace(l.indexOf('it')===0?'/it/':'/en/');</script>
+<script>var l=(navigator.language||'it').toLowerCase();location.replace((l.indexOf('it')===0?'/it/':'/en/')+location.search+location.hash);</script>
 </head><body><p><a href="/it/">Italiano</a> · <a href="/en/">English</a></p></body></html>''')
 
 OLD = {
