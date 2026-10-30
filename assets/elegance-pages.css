@@ -455,17 +455,17 @@ html{touch-action:manipulation}
 }
 
 /* Banner cookie: il più piccolo e discreto possibile */
-.cv-cookie-bar{position:fixed;left:10px;bottom:10px;z-index:70;display:flex;align-items:center;gap:6px;padding:5px 6px 5px 10px;border-radius:20px;background:rgba(18,62,91,.92);backdrop-filter:blur(2px);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.22)}
-.cv-cookie-bar p{margin:0;font-size:.66rem;line-height:1;color:#fff;white-space:nowrap}
+.cv-cookie-bar{position:fixed;left:10px;bottom:10px;z-index:70;display:flex;align-items:center;gap:10px;max-width:min(560px,calc(100vw - 20px));padding:8px 8px 8px 14px;border-radius:16px;background:rgba(18,62,91,.92);backdrop-filter:blur(2px);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.22)}
+.cv-cookie-bar p{margin:0;font-size:.72rem;line-height:1.35;color:#fff}
 .cv-cookie-bar a{color:#cfe0ea;text-decoration:underline;margin-left:4px}
-.cv-cookie-actions{display:flex;gap:4px}
-.cv-cookie-bar button{padding:4px 9px;border:1px solid rgba(255,255,255,.35);border-radius:14px;background:transparent;color:#fff;font:600 .64rem/1 var(--cv-sans,Arial,sans-serif);cursor:pointer}
+.cv-cookie-actions{display:flex;gap:6px;flex-shrink:0}
+.cv-cookie-bar button{padding:7px 12px;border:1px solid rgba(255,255,255,.55);border-radius:14px;background:transparent;color:#fff;font:600 .7rem/1 var(--cv-sans,Arial,sans-serif);cursor:pointer}
 .cv-cookie-bar button[data-cookie-accept]{background:var(--cv-gold-dark);border-color:var(--cv-gold-dark);color:#123e5b}
 @media(max-width:760px){
   /* sopra la barra fissa WhatsApp/Prenota, mai sovrapposto */
   .cv-cookie-bar{bottom:calc(46px + env(safe-area-inset-bottom))}
 }
 @media(max-width:480px){
-  .cv-cookie-bar{left:8px;padding:5px 5px 5px 9px}
-  .cv-cookie-bar p{font-size:.62rem}
+  .cv-cookie-bar{left:8px;right:8px;max-width:none;padding:8px 8px 8px 12px}
+  .cv-cookie-bar p{font-size:.68rem}
 }
