@@ -38,7 +38,7 @@
 
   var s = document.createElement('script');
   s.async = true;
-  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA4_ID;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + ADS_ID; // tag Google Villa Brando (AW + GA4 G-WHW22QQ8HG come destinazioni)
   document.head.appendChild(s);
 
   window.vbGtag = gtag; // usato più sotto dal resto di site.js
