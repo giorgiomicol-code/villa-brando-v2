@@ -478,7 +478,7 @@ html{touch-action:manipulation}
 .elegance .vb-date-trigger:focus-visible{outline:2px solid #bf8910;outline-offset:1px}
 @media(max-width:760px){.elegance .vb-date-trigger{min-height:48px;font-size:16px}}
 .vb-cal{position:fixed;z-index:2147483000;box-sizing:border-box;width:min(640px,calc(100vw - 24px));padding:16px 18px 14px;border:1px solid #d9d2bf;border-radius:10px;background:#fff;box-shadow:0 24px 60px rgba(8,28,43,.28);color:#123e5b;font-family:var(--cv-sans,'Montserrat',Arial,sans-serif);overscroll-behavior:contain}
-.vb-cal.is-sheet{left:0;right:0;bottom:0;top:auto;width:100%;max-height:88vh;overflow:auto;border-radius:14px 14px 0 0;padding-bottom:calc(14px + env(safe-area-inset-bottom))}
+.vb-cal.is-sheet{width:min(360px,calc(100vw - 16px));padding:12px 12px 10px;border-radius:16px;box-shadow:0 8px 24px rgba(8,28,43,.16)}
 .vb-cal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
 .vb-cal-title{font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-align:center}
 .vb-cal-nav{width:40px;height:40px;border:1px solid #cfd8dc;border-radius:50%;background:#fff;color:#123e5b;font-size:1.4rem;line-height:1;cursor:pointer}
@@ -501,4 +501,16 @@ html{touch-action:manipulation}
 .vb-cal-clear,.vb-cal-done{min-height:36px;padding:0 14px;border-radius:3px;font:inherit;font-size:.72rem;font-weight:600;cursor:pointer}
 .vb-cal-clear{border:0;background:transparent;color:#8a6208;text-decoration:underline}
 .vb-cal-done{border:1px solid #123e5b;background:#123e5b;color:#fff}
-@media(max-width:719px){.vb-cal-day{height:42px;font-size:.9rem}.vb-cal-nav{width:44px;height:44px}}
+@media(max-width:719px){
+.vb-cal-head{margin-bottom:2px}
+.vb-cal-title{font-size:.68rem}
+.vb-cal-nav{width:36px;height:36px;font-size:1.25rem}
+.vb-cal-mname{margin:0 0 4px;font-size:1.08rem}
+.vb-cal-grid{grid-template-rows:auto repeat(6,34px);row-gap:0}
+.vb-cal-wd{padding:2px 0;font-size:.56rem}
+.vb-cal-day{height:34px;font-size:.78rem}
+.vb-cal-foot{flex-wrap:wrap;gap:6px;min-height:84px;margin-top:6px;padding-top:8px;align-content:flex-start}
+.vb-cal-info{flex:0 0 100%;font-size:.72rem;line-height:1.3}
+.vb-cal-actions{flex:0 0 100%;justify-content:space-between}
+.vb-cal-clear,.vb-cal-done{min-height:36px}
+}
