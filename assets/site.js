@@ -275,6 +275,182 @@ document.querySelectorAll('[data-direct-book]').forEach((form) => {
   preserveSelection();
 });
 
+// Calendario di prenotazione proprio (sostituisce il selettore data nativo del browser)
+(() => {
+  const forms = Array.from(document.querySelectorAll('[data-booking-form], [data-direct-book]'));
+  if (!forms.length) return;
+  const MIN_NIGHTS = 3;
+  const pad = (n) => String(n).padStart(2, '0');
+  const iso = (d) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+  const parse = (s) => { const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s || ''); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; };
+  const addDays = (d, n) => new Date(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  const diffDays = (a, b) => Math.round((Date.UTC(b.getFullYear(), b.getMonth(), b.getDate()) - Date.UTC(a.getFullYear(), a.getMonth(), a.getDate())) / 86400000);
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const single = (n) => n === 1;
+
+  let pop = null, active = null; // popup condiviso e modulo attivo
+
+  const closePop = () => { if (pop) { pop.remove(); pop = null; } if (active) { active.trigIn.setAttribute('aria-expanded', 'false'); active.trigOut.setAttribute('aria-expanded', 'false'); active = null; } };
+
+  forms.forEach((form) => {
+    const inEl = form.elements.namedItem('checkin');
+    const outEl = form.elements.namedItem('checkout');
+    if (!inEl || !outEl) return;
+    const it = (form.dataset.locale || document.documentElement.lang) === 'it';
+    const loc = it ? 'it-IT' : 'en-GB';
+    const L = it
+      ? { ph: 'gg/mm/aaaa', nights: ['notte', 'notti'], clear: 'Cancella date', close: 'Chiudi', prev: 'Mese precedente', next: 'Mese successivo', min: `Minimo ${MIN_NIGHTS} notti`, pickOut: 'Scegli la partenza', pickIn: 'Scegli l’arrivo', cal: 'Calendario' }
+      : { ph: 'dd/mm/yyyy', nights: ['night', 'nights'], clear: 'Clear dates', close: 'Close', prev: 'Previous month', next: 'Next month', min: `Minimum ${MIN_NIGHTS} nights`, pickOut: 'Choose check-out', pickIn: 'Choose check-in', cal: 'Calendar' };
+    const monthFmt = new Intl.DateTimeFormat(loc, { month: 'long', year: 'numeric' });
+    const dayFmt = new Intl.DateTimeFormat(loc, { day: '2-digit', month: '2-digit', year: 'numeric' });
+    const wdFmt = new Intl.DateTimeFormat(loc, { weekday: 'short' });
+    const longFmt = new Intl.DateTimeFormat(loc, { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+    // stato
+    let ci = parse(inEl.value), co = parse(outEl.value);
+    if (ci && ci < today) ci = null;
+    if (!ci || !co || diffDays(ci, co) < MIN_NIGHTS) co = null;
+    if (!ci) co = null;
+    let hover = null, view = new Date((ci || today).getFullYear(), (ci || today).getMonth(), 1);
+
+    // i campi nativi restano come contenitori del valore (ISO) ma non sono più visibili
+    const mk = (input, label) => {
+      input.type = 'hidden';
+      input.removeAttribute('required');
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'vb-date-trigger';
+      b.setAttribute('aria-haspopup', 'dialog');
+      b.setAttribute('aria-expanded', 'false');
+      const lab = form.querySelector(`label[for="${input.id}"]`);
+      if (lab) { lab.removeAttribute('for'); b.setAttribute('aria-label', `${lab.textContent.trim()} – ${L.cal}`); }
+      input.insertAdjacentElement('afterend', b);
+      return b;
+    };
+    const trigIn = mk(inEl), trigOut = mk(outEl);
+    const sync = () => {
+      inEl.value = ci ? iso(ci) : '';
+      outEl.value = co ? iso(co) : '';
+      [[trigIn, ci], [trigOut, co]].forEach(([t, d]) => { t.textContent = d ? dayFmt.format(d) : L.ph; t.classList.toggle('is-empty', !d); });
+      inEl.dispatchEvent(new Event('change', { bubbles: true }));
+      outEl.dispatchEvent(new Event('change', { bubbles: true }));
+    };
+    sync();
+
+    const isDisabled = (d) => {
+      if (d < today) return true;
+      if (ci && !co) { const n = diffDays(ci, d); return n > 0 && n < MIN_NIGHTS; }
+      return false;
+    };
+
+    const render = () => {
+      if (!pop) return;
+      const two = window.innerWidth >= 720;
+      const months = two ? [view, new Date(view.getFullYear(), view.getMonth() + 1, 1)] : [view];
+      const first = new Date(now.getFullYear(), now.getMonth(), 1);
+      const prevOk = view > first;
+      const refEnd = co || hover;
+      let html = `<div class="vb-cal-head"><button type="button" class="vb-cal-nav" data-nav="-1" aria-label="${L.prev}"${prevOk ? '' : ' disabled'}>‹</button><div class="vb-cal-title">${ci && !co ? L.pickOut : L.pickIn}</div><button type="button" class="vb-cal-nav" data-nav="1" aria-label="${L.next}">›</button></div><div class="vb-cal-months">`;
+      months.forEach((m) => {
+        const y = m.getFullYear(), mo = m.getMonth();
+        const offset = (new Date(y, mo, 1).getDay() + 6) % 7; // lunedì primo
+        const len = new Date(y, mo + 1, 0).getDate();
+        html += `<div class="vb-cal-month"><div class="vb-cal-mname">${monthFmt.format(m)}</div><div class="vb-cal-grid" role="grid">`;
+        for (let i = 0; i < 7; i++) html += `<span class="vb-cal-wd">${wdFmt.format(new Date(2024, 0, 1 + i)).replace('.', '').slice(0, it ? 3 : 3)}</span>`;
+        for (let i = 0; i < offset; i++) html += '<span></span>';
+        for (let d = 1; d <= len; d++) {
+          const day = new Date(y, mo, d);
+          const dis = isDisabled(day);
+          let cls = 'vb-cal-day';
+          if (dis) cls += ' is-off';
+          if (ci && +day === +ci) cls += ' is-start';
+          if (co && +day === +co) cls += ' is-end';
+          if (ci && refEnd && day > ci && day < refEnd) cls += ' is-range';
+          if (+day === +today) cls += ' is-today';
+          html += `<button type="button" class="${cls}" data-d="${iso(day)}"${dis ? ' disabled' : ''} aria-label="${longFmt.format(day)}">${d}</button>`;
+        }
+        html += '</div></div>';
+      });
+      const n = ci && co ? diffDays(ci, co) : 0;
+      html += `</div><div class="vb-cal-foot"><span class="vb-cal-info">${n ? `${n} ${L.nights[single(n) ? 0 : 1]}` : L.min}</span><span class="vb-cal-actions"><button type="button" class="vb-cal-clear" data-clear>${L.clear}</button><button type="button" class="vb-cal-done" data-close>${L.close}</button></span></div>`;
+      pop.innerHTML = html;
+    };
+
+    const place = (anchor) => {
+      if (!pop) return;
+      if (window.innerWidth < 720) { pop.classList.add('is-sheet'); pop.style.cssText = ''; return; }
+      pop.classList.remove('is-sheet');
+      const r = anchor.getBoundingClientRect();
+      const w = pop.offsetWidth, h = pop.offsetHeight;
+      let left = Math.min(Math.max(12, r.left), window.innerWidth - w - 12);
+      let top = r.bottom + 8;
+      if (top + h > window.innerHeight - 8) top = Math.max(8, r.top - h - 8);
+      pop.style.left = `${left}px`; pop.style.top = `${top}px`;
+    };
+
+    const open = (anchor) => {
+      if (active === api && pop) { return; }
+      closePop();
+      active = api;
+      pop = document.createElement('div');
+      pop.className = 'vb-cal';
+      pop.setAttribute('role', 'dialog');
+      pop.setAttribute('aria-label', L.cal);
+      document.body.appendChild(pop);
+      anchor.setAttribute('aria-expanded', 'true');
+      view = new Date((ci || today).getFullYear(), (ci || today).getMonth(), 1);
+      render(); place(anchor);
+      pop.addEventListener('click', onClick);
+      pop.addEventListener('mouseover', onOver);
+      pop.addEventListener('wheel', onWheel, { passive: false });
+      pop.addEventListener('mouseleave', () => { if (hover) { hover = null; render(); } });
+    };
+
+    const shift = (n) => { const nv = new Date(view.getFullYear(), view.getMonth() + n, 1); if (nv < new Date(now.getFullYear(), now.getMonth(), 1)) return; view = nv; render(); };
+    let wheelLock = 0;
+    const onWheel = (e) => {
+      e.preventDefault();
+      const t = Date.now();
+      if (t - wheelLock < 220 || Math.abs(e.deltaY) < 4) return;
+      wheelLock = t;
+      shift(e.deltaY > 0 ? 1 : -1);
+    };
+    const onOver = (e) => {
+      const b = e.target.closest('.vb-cal-day');
+      if (!b || b.disabled || !ci || co) return;
+      const d = parse(b.dataset.d);
+      if (d > ci && (!hover || +hover !== +d)) { hover = d; render(); }
+    };
+    const onClick = (e) => {
+      const nav = e.target.closest('[data-nav]');
+      if (nav) { shift(+nav.dataset.nav); return; }
+      if (e.target.closest('[data-clear]')) { ci = co = hover = null; sync(); render(); return; }
+      if (e.target.closest('[data-close]')) { closePop(); return; }
+      const b = e.target.closest('.vb-cal-day');
+      if (!b || b.disabled) return;
+      const d = parse(b.dataset.d);
+      if (!ci || co || d <= ci) { ci = d; co = null; hover = null; sync(); render(); return; }
+      co = d; hover = null; sync(); closePop();
+    };
+    const api = { trigIn, trigOut, view: () => view, render, place };
+    trigIn.addEventListener('click', () => open(trigIn));
+    trigOut.addEventListener('click', () => { if (!ci) open(trigIn); else open(trigOut); });
+
+    // controllo date prima dell'invio (i campi nativi non sono più "required")
+    form.addEventListener('submit', (e) => {
+      if (ci && co) return;
+      e.preventDefault(); e.stopImmediatePropagation();
+      open(ci ? trigOut : trigIn);
+    }, true);
+  });
+
+  document.addEventListener('mousedown', (e) => { if (pop && !pop.contains(e.target) && !e.target.closest('.vb-date-trigger')) closePop(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && pop) { const t = active && active.trigIn; closePop(); t && t.focus(); } });
+  window.addEventListener('resize', () => { if (pop && active) { active.render(); active.place(active.trigIn); } });
+  window.addEventListener('scroll', () => { if (pop && active && window.innerWidth >= 720) closePop(); }, { passive: true });
+})();
+
 const reveals = document.querySelectorAll('[data-reveal]');
 if (typeof window.IntersectionObserver === 'function') {
   const observer = new IntersectionObserver((entries) => {
