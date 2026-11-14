@@ -377,10 +377,37 @@ document.querySelectorAll('[data-direct-book]').forEach((form) => {
       pop.innerHTML = html;
     };
 
-    const place = (anchor) => {
+    const place = (anchor, scrollIntoView) => {
       if (!pop) return;
-      if (window.innerWidth < 720) { pop.classList.add('is-sheet'); pop.style.cssText = ''; return; }
+      if (window.innerWidth < 720) {
+        // telefono: scheda compatta sotto i campi Arrivo/Partenza, mai fissata in basso
+        pop.classList.add('is-sheet');
+        const f1 = trigIn.closest('.cv-field') || trigIn.parentElement;
+        const f2 = trigOut.closest('.cv-field') || trigOut.parentElement;
+        const hdr = document.querySelector('.cv-header');
+        const hh = hdr && getComputedStyle(hdr).position === 'sticky' ? hdr.getBoundingClientRect().height : 0;
+        const vh = window.innerHeight, w = pop.offsetWidth, h = pop.offsetHeight;
+        const rect = () => { const a = f1.getBoundingClientRect(), b = f2.getBoundingClientRect(); return { top: Math.min(a.top, b.top), bottom: Math.max(a.bottom, b.bottom) }; };
+        if (scrollIntoView) {
+          let r = rect();
+          // 1) etichette Arrivo/Partenza in alto, subito sotto l'intestazione
+          let dy = r.top - (hh + 8);
+          // 2) se la scheda non sta nello schermo, scorri ancora quanto serve ma senza coprire le etichette
+          const overflow = (r.bottom - dy) + 8 + h - (vh - 8);
+          if (overflow > 0) dy += Math.min(overflow, Math.max(0, (r.top - dy) - (hh + 8)));
+          if (Math.abs(dy) > 1) {
+            const y = window.scrollY + dy;
+            try { window.scrollTo({ top: y, behavior: 'instant' }); } catch (_) { window.scrollTo(0, y); }
+          }
+        }
+        const r = rect();
+        pop.style.left = `${Math.max(8, Math.round((window.innerWidth - w) / 2))}px`;
+        pop.style.top = `${Math.round(r.bottom + 8)}px`;
+        pop.style.right = 'auto'; pop.style.bottom = 'auto';
+        return;
+      }
       pop.classList.remove('is-sheet');
+      pop.style.right = ''; pop.style.bottom = '';
       const r = anchor.getBoundingClientRect();
       const w = pop.offsetWidth, h = pop.offsetHeight;
       let left = Math.min(Math.max(12, r.left), window.innerWidth - w - 12);
@@ -400,7 +427,7 @@ document.querySelectorAll('[data-direct-book]').forEach((form) => {
       document.body.appendChild(pop);
       anchor.setAttribute('aria-expanded', 'true');
       view = new Date((ci || today).getFullYear(), (ci || today).getMonth(), 1);
-      render(); place(anchor);
+      render(); place(anchor, true);
       pop.addEventListener('click', onClick);
       pop.addEventListener('mouseover', onOver);
       pop.addEventListener('wheel', onWheel, { passive: false });
@@ -417,6 +444,7 @@ document.querySelectorAll('[data-direct-book]').forEach((form) => {
       shift(e.deltaY > 0 ? 1 : -1);
     };
     const onOver = (e) => {
+      if (window.matchMedia && window.matchMedia('(hover: none)').matches) return; // su touch niente evidenziazione al passaggio
       const b = e.target.closest('.vb-cal-day');
       if (!b || b.disabled || !ci || co) return;
       const d = parse(b.dataset.d);
@@ -445,10 +473,15 @@ document.querySelectorAll('[data-direct-book]').forEach((form) => {
     }, true);
   });
 
-  document.addEventListener('mousedown', (e) => { if (pop && !pop.contains(e.target) && !e.target.closest('.vb-date-trigger')) closePop(); });
+  document.addEventListener('pointerdown', (e) => { if (pop && !pop.contains(e.target) && !e.target.closest('.vb-date-trigger')) closePop(); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && pop) { const t = active && active.trigIn; closePop(); t && t.focus(); } });
-  window.addEventListener('resize', () => { if (pop && active) { active.render(); active.place(active.trigIn); } });
-  window.addEventListener('scroll', () => { if (pop && active && window.innerWidth >= 720) closePop(); }, { passive: true });
+  window.addEventListener('resize', () => { if (pop && active) { active.render(); active.place(active.trigIn, false); } });
+  let raf = 0;
+  window.addEventListener('scroll', () => {
+    if (!pop || !active) return;
+    if (window.innerWidth >= 720) { closePop(); return; }
+    if (!raf) raf = requestAnimationFrame(() => { raf = 0; if (pop && active) active.place(active.trigIn, false); }); // telefono: la scheda segue i campi
+  }, { passive: true });
 })();
 
 const reveals = document.querySelectorAll('[data-reveal]');
