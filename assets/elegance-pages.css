@@ -455,17 +455,50 @@ html{touch-action:manipulation}
 }
 
 /* Banner cookie: il più piccolo e discreto possibile */
-.cv-cookie-bar{position:fixed;left:10px;bottom:10px;z-index:70;display:flex;align-items:center;gap:10px;max-width:min(560px,calc(100vw - 20px));padding:8px 8px 8px 14px;border-radius:16px;background:rgba(18,62,91,.92);backdrop-filter:blur(2px);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.22)}
-.cv-cookie-bar p{margin:0;font-size:.72rem;line-height:1.35;color:#fff}
+.cv-cookie-bar{position:fixed;left:10px;bottom:10px;z-index:70;display:flex;align-items:center;gap:6px;padding:5px 6px 5px 10px;border-radius:20px;background:rgba(18,62,91,.92);backdrop-filter:blur(2px);color:#fff;box-shadow:0 4px 14px rgba(0,0,0,.22)}
+.cv-cookie-bar p{margin:0;font-size:.66rem;line-height:1;color:#fff;white-space:nowrap}
 .cv-cookie-bar a{color:#cfe0ea;text-decoration:underline;margin-left:4px}
-.cv-cookie-actions{display:flex;gap:6px;flex-shrink:0}
-.cv-cookie-bar button{padding:7px 12px;border:1px solid rgba(255,255,255,.55);border-radius:14px;background:transparent;color:#fff;font:600 .7rem/1 var(--cv-sans,Arial,sans-serif);cursor:pointer}
+.cv-cookie-actions{display:flex;gap:4px}
+.cv-cookie-bar button{padding:4px 9px;border:1px solid rgba(255,255,255,.35);border-radius:14px;background:transparent;color:#fff;font:600 .64rem/1 var(--cv-sans,Arial,sans-serif);cursor:pointer}
 .cv-cookie-bar button[data-cookie-accept]{background:var(--cv-gold-dark);border-color:var(--cv-gold-dark);color:#123e5b}
 @media(max-width:760px){
   /* sopra la barra fissa WhatsApp/Prenota, mai sovrapposto */
   .cv-cookie-bar{bottom:calc(46px + env(safe-area-inset-bottom))}
 }
 @media(max-width:480px){
-  .cv-cookie-bar{left:8px;right:8px;max-width:none;padding:8px 8px 8px 12px}
-  .cv-cookie-bar p{font-size:.68rem}
+  .cv-cookie-bar{left:8px;padding:5px 5px 5px 9px}
+  .cv-cookie-bar p{font-size:.62rem}
 }
+
+/* Calendario di prenotazione proprio (sostituisce il selettore data nativo) */
+.elegance .vb-date-trigger{display:block;width:100%;min-width:0;min-height:42px;margin-top:auto;padding:0 10px;border:1px solid #cfd8dc;border-radius:3px;background:#fff;color:var(--cv-navy);font:inherit;font-size:.7rem;text-align:left;cursor:pointer;box-sizing:border-box}
+.elegance .cv-book-grid .vb-date-trigger{height:52px;padding:0 14px;font-size:.85rem}
+.elegance .vb-date-trigger.is-empty{color:#74858d}
+.elegance .vb-date-trigger:hover,.elegance .vb-date-trigger[aria-expanded="true"]{border-color:#bf8910}
+.elegance .vb-date-trigger:focus-visible{outline:2px solid #bf8910;outline-offset:1px}
+@media(max-width:760px){.elegance .vb-date-trigger{min-height:48px;font-size:16px}}
+.vb-cal{position:fixed;z-index:2147483000;box-sizing:border-box;width:min(640px,calc(100vw - 24px));padding:16px 18px 14px;border:1px solid #d9d2bf;border-radius:10px;background:#fff;box-shadow:0 24px 60px rgba(8,28,43,.28);color:#123e5b;font-family:var(--cv-sans,'Montserrat',Arial,sans-serif);overscroll-behavior:contain}
+.vb-cal.is-sheet{left:0;right:0;bottom:0;top:auto;width:100%;max-height:88vh;overflow:auto;border-radius:14px 14px 0 0;padding-bottom:calc(14px + env(safe-area-inset-bottom))}
+.vb-cal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}
+.vb-cal-title{font-size:.78rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;text-align:center}
+.vb-cal-nav{width:40px;height:40px;border:1px solid #cfd8dc;border-radius:50%;background:#fff;color:#123e5b;font-size:1.4rem;line-height:1;cursor:pointer}
+.vb-cal-nav:hover:not(:disabled){border-color:#bf8910;color:#bf8910}
+.vb-cal-nav:disabled{opacity:.3;cursor:default}
+.vb-cal-months{display:flex;gap:22px}
+.vb-cal-month{flex:1 1 0;min-width:0}
+.vb-cal-mname{margin:4px 0 8px;font-family:var(--cv-serif,'Cormorant Garamond',serif);font-size:1.25rem;font-weight:600;text-align:center;text-transform:capitalize}
+.vb-cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));row-gap:2px}
+.vb-cal-wd{padding:4px 0;color:#74858d;font-size:.62rem;font-weight:600;text-align:center;text-transform:uppercase}
+.vb-cal-day{height:38px;border:0;border-radius:0;background:transparent;color:#123e5b;font:inherit;font-size:.82rem;cursor:pointer}
+.vb-cal-day:hover:not(:disabled){background:#f3e7c4}
+.vb-cal-day.is-today{font-weight:700;text-decoration:underline}
+.vb-cal-day.is-range{background:#f6edd0}
+.vb-cal-day.is-start,.vb-cal-day.is-end{background:#123e5b;color:#fff;border-radius:50%;font-weight:600}
+.vb-cal-day.is-off{color:#b8c2c7;text-decoration:line-through;cursor:default}
+.vb-cal-foot{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding-top:10px;border-top:1px solid #e6e1d2;font-size:.74rem}
+.vb-cal-info{font-weight:600}
+.vb-cal-actions{display:flex;gap:8px}
+.vb-cal-clear,.vb-cal-done{min-height:36px;padding:0 14px;border-radius:3px;font:inherit;font-size:.72rem;font-weight:600;cursor:pointer}
+.vb-cal-clear{border:0;background:transparent;color:#8a6208;text-decoration:underline}
+.vb-cal-done{border:1px solid #123e5b;background:#123e5b;color:#fff}
+@media(max-width:719px){.vb-cal-day{height:42px;font-size:.9rem}.vb-cal-nav{width:44px;height:44px}}
