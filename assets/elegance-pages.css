@@ -514,3 +514,9 @@ html{touch-action:manipulation}
 .vb-cal-actions{flex:0 0 100%;justify-content:space-between}
 .vb-cal-clear,.vb-cal-done{min-height:36px}
 }
+
+.cv-book-fees{order:2;align-self:stretch;margin:0;padding:12px 14px;border:1px solid rgba(197,148,54,.35);border-radius:4px;background:#fbf7ef;color:#3f5560;font-size:.72rem;line-height:1.45}
+.cv-book-fees-title{margin:0 0 6px;color:var(--cv-navy);font-size:.66rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase}
+.cv-book-fees ul{margin:0;padding:0 0 0 14px}.cv-book-fees li{margin:0 0 4px}.cv-book-fees li:last-child{margin:0}.cv-book-fees strong{color:var(--cv-navy);font-weight:600}
+.cv-book-grid>div:has(select[name="infants"]){align-self:start}.cv-book-grid>div:has(select[name="infants"]) select{margin-top:0}
+@media(max-width:760px){.cv-book-fees{grid-column:1/-1}}
