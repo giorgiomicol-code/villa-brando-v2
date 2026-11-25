@@ -60,3 +60,7 @@ Questa tabella governa la sostituzione progressiva delle pagine. Compilarla prim
 ## Regola di rilascio
 
 Nessuna pagina sostituisce la versione pubblica prima dell'approvazione esplicita di Giorgio. Dopo il rilascio, controllare errori 404, redirect, indicizzazione e comportamento mobile.
+
+## Registro modifiche pubblicate
+
+- **25/11/2026 — Villa intera in uso esclusivo (IT/EN).** Menu "Camere" → "Zona notte" / "Rooms" → "Bedrooms" (URL invariati); Home, Camere, Villa, Prenota e Info chiariscono che la villa si affitta per intero a un solo gruppo e che le camere vengono preparate in base al numero di ospiti; title, meta description e dati strutturati iniziano con "Villa intera". Sorgente: branch `villa-brando-v38` (`elegance/`), generato con `tools/build_live.py` nel branch `gh-pages`. La pubblicazione parte con il workflow "Publish Villa Brando Version E" (push su `main` o avvio manuale). Rollback: ripristinare su `gh-pages` il commit precedente (`ed9d9ab`) e rilanciare il workflow.
