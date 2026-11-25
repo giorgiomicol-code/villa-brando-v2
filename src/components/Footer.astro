@@ -1,0 +1,43 @@
+---
+import { siteConfig } from '../config/site';
+import ContactActions from './ContactActions.astro';
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand-mark brand-mark-light" aria-hidden="true">VB</span>
+      <div>
+        <strong>Villa Brando</strong>
+        <p>{siteConfig.location}</p>
+      </div>
+    </div>
+
+    <div class="footer-contact">
+      <ContactActions />
+    </div>
+
+    <div class="footer-links">
+      <a href={siteConfig.currentSiteUrl}>
+        <span data-lang="en">Current website</span>
+        <span data-lang="it" hidden>Sito attuale</span>
+      </a>
+      <a
+        href={siteConfig.privacy.en}
+        data-href-en={siteConfig.privacy.en}
+        data-href-it={siteConfig.privacy.it}
+      >
+        Privacy
+      </a>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <p data-lang="en">
+      Your reservation is completed securely on Villa Brando’s official external booking engine.
+    </p>
+    <p data-lang="it" hidden>
+      La prenotazione viene completata sul motore esterno ufficiale di Villa Brando.
+    </p>
+  </div>
+</footer>

@@ -1,0 +1,88 @@
+---
+import '../styles/global.css';
+import { pageSeo } from '../config/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  pathname: string;
+}
+
+const {
+  title = pageSeo.title,
+  description = pageSeo.description,
+  pathname,
+} = Astro.props;
+
+const configuredSiteUrl = import.meta.env.PUBLIC_SITE_URL?.trim();
+const canonicalUrl = configuredSiteUrl
+  ? new URL(pathname, configuredSiteUrl).toString()
+  : undefined;
+const allowIndexing = import.meta.env.PUBLIC_ALLOW_INDEXING === 'true';
+---
+
+<!doctype html>
+<html lang="en" data-current-lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="robots"
+      content={allowIndexing ? 'index, follow' : 'noindex, nofollow'}
+    />
+    {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Villa Brando" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <slot />
+
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const supported = ['en', 'it'];
+        const stored = window.localStorage.getItem('villa-brando-language');
+        const initial = supported.includes(stored) ? stored : 'en';
+
+        const applyLanguage = (language) => {
+          root.lang = language;
+          root.dataset.currentLang = language;
+
+          document.querySelectorAll('[data-lang]').forEach((element) => {
+            element.hidden = element.dataset.lang !== language;
+          });
+
+          document.querySelectorAll('[data-select-lang]').forEach((button) => {
+            button.setAttribute(
+              'aria-pressed',
+              String(button.dataset.selectLang === language),
+            );
+          });
+
+          document.querySelectorAll('[data-href-en][data-href-it]').forEach((link) => {
+            link.href = language === 'it' ? link.dataset.hrefIt : link.dataset.hrefEn;
+          });
+
+          window.localStorage.setItem('villa-brando-language', language);
+        };
+
+        document.querySelectorAll('[data-select-lang]').forEach((button) => {
+          button.addEventListener('click', () => {
+            applyLanguage(button.dataset.selectLang);
+          });
+        });
+
+        applyLanguage(initial);
+      })();
+    </script>
+  </body>
+</html>

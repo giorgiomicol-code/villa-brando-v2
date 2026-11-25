@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import BookingButton from '../components/BookingButton.astro';
+import ContactActions from '../components/ContactActions.astro';
+import { pageSeo, siteConfig } from '../config/site';
+
+const advantages = [
+  {
+    number: '01',
+    en: 'Access direct booking rates',
+    it: 'Accedi alle tariffe di prenotazione diretta',
+    detailEn: 'View availability and rates directly in the official booking engine.',
+    detailIt: 'Consulta disponibilità e tariffe direttamente nel motore ufficiale.',
+  },
+  {
+    number: '02',
+    en: 'Personal contact when needed',
+    it: 'Un contatto personale quando serve',
+    detailEn: 'Giorgio is available for specific needs or special requests.',
+    detailIt: 'Giorgio è disponibile per esigenze o richieste particolari.',
+  },
+  {
+    number: '03',
+    en: 'A simple official process',
+    it: 'Una procedura ufficiale e semplice',
+    detailEn: 'Complete your reservation through Villa Brando’s official booking system.',
+    detailIt: 'Completa la prenotazione tramite il sistema ufficiale di Villa Brando.',
+  },
+];
+
+const steps = [
+  {
+    number: '1',
+    en: 'Check your dates',
+    it: 'Verifica le date',
+    detailEn: 'Open the calendar and select your arrival and departure dates.',
+    detailIt: 'Apri il calendario e seleziona le date di arrivo e partenza.',
+  },
+  {
+    number: '2',
+    en: 'Add every guest',
+    it: 'Indica tutti gli ospiti',
+    detailEn: 'Enter the correct number of adults and children.',
+    detailIt: 'Inserisci correttamente il numero di adulti e bambini.',
+  },
+  {
+    number: '3',
+    en: 'Complete your booking',
+    it: 'Completa la prenotazione',
+    detailEn: 'Confirm your reservation in the official external booking engine.',
+    detailIt: 'Conferma la prenotazione nel motore esterno ufficiale.',
+  },
+];
+---
+
+<BaseLayout title={pageSeo.title} description={pageSeo.description} pathname="/book-your-stay">
+  <Header />
+
+  <main id="main-content">
+    <section class="hero" aria-labelledby="booking-title">
+      <div class="hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow">Direct booking · Prenotazione diretta</p>
+          <h1 id="booking-title">Book Your Stay at Villa Brando</h1>
+          <p class="hero-italian">Prenota il tuo soggiorno a Villa Brando</p>
+
+          <div class="hero-description">
+            <p data-lang="en">
+              Check availability and access our direct booking rates through Villa Brando’s official booking engine.
+            </p>
+            <p data-lang="it" hidden>
+              Verifica la disponibilità e accedi alle tariffe di prenotazione diretta tramite il motore ufficiale di Villa Brando.
+            </p>
+          </div>
+
+          <div class="hero-actions">
+            <BookingButton />
+            <a class="text-link" href="#personal-assistance">
+              <span data-lang="en">Prefer personal assistance?</span>
+              <span data-lang="it" hidden>Preferisci assistenza personale?</span>
+            </a>
+          </div>
+
+          <p class="external-note">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="M12 3 5 6v5c0 4.7 2.8 8 7 10 4.2-2 7-5.3 7-10V6l-7-3Z" />
+              <path d="m9 12 2 2 4-5" />
+            </svg>
+            <span data-lang="en">Booking is completed on the official external engine.</span>
+            <span data-lang="it" hidden>La prenotazione si completa sul motore esterno ufficiale.</span>
+          </p>
+        </div>
+
+        <figure class="hero-visual" aria-label="Reserved area for an authentic Villa Brando photograph">
+          <div class="visual-frame">
+            <div class="visual-label">
+              <span class="visual-label-line"></span>
+              <span data-lang="en">Photography placeholder</span>
+              <span data-lang="it" hidden>Spazio fotografia</span>
+              <small data-lang="en">Exterior or garden view required</small>
+              <small data-lang="it" hidden>Richiesta una vista esterna o del giardino</small>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </section>
+
+    <section class="advantages section" aria-labelledby="advantages-title">
+      <div class="section-heading">
+        <p class="eyebrow">
+          <span data-lang="en">Why book direct</span>
+          <span data-lang="it" hidden>Perché prenotare direttamente</span>
+        </p>
+        <h2 id="advantages-title">
+          <span data-lang="en">A direct path to Villa Brando</span>
+          <span data-lang="it" hidden>La via diretta per Villa Brando</span>
+        </h2>
+      </div>
+
+      <div class="advantage-grid">
+        {advantages.map((item) => (
+          <article class="advantage-card">
+            <span class="card-number" aria-hidden="true">{item.number}</span>
+            <h3>
+              <span data-lang="en">{item.en}</span>
+              <span data-lang="it" hidden>{item.it}</span>
+            </h3>
+            <p data-lang="en">{item.detailEn}</p>
+            <p data-lang="it" hidden>{item.detailIt}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section id="personal-assistance" class="assistance section" aria-labelledby="assistance-title">
+      <div class="assistance-card">
+        <div class="assistance-copy">
+          <p class="eyebrow">
+            <span data-lang="en">Personal assistance</span>
+            <span data-lang="it" hidden>Assistenza personale</span>
+          </p>
+          <h2 id="assistance-title">
+            <span data-lang="en">Speak directly with Giorgio</span>
+            <span data-lang="it" hidden>Parla direttamente con Giorgio</span>
+          </h2>
+          <p data-lang="en">
+            For special rates or specific requests, contact Giorgio directly. He will help you understand the available options before you book.
+          </p>
+          <p data-lang="it" hidden>
+            Per tariffe dedicate o richieste particolari, contatta direttamente Giorgio. Ti aiuterà a valutare le opzioni disponibili prima della prenotazione.
+          </p>
+        </div>
+        <ContactActions />
+      </div>
+    </section>
+
+    <section class="steps section" aria-labelledby="steps-title">
+      <div class="section-heading section-heading-centered">
+        <p class="eyebrow">
+          <span data-lang="en">How it works</span>
+          <span data-lang="it" hidden>Come funziona</span>
+        </p>
+        <h2 id="steps-title">
+          <span data-lang="en">Book in three clear steps</span>
+          <span data-lang="it" hidden>Prenota in tre semplici passaggi</span>
+        </h2>
+      </div>
+
+      <ol class="step-list">
+        {steps.map((step) => (
+          <li>
+            <span class="step-number" aria-hidden="true">{step.number}</span>
+            <div>
+              <h3>
+                <span data-lang="en">{step.en}</span>
+                <span data-lang="it" hidden>{step.it}</span>
+              </h3>
+              <p data-lang="en">{step.detailEn}</p>
+              <p data-lang="it" hidden>{step.detailIt}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+
+      <p class="privacy-note">
+        <span data-lang="en">
+          Villa Brando’s new website does not collect or store your personal or payment data. These are handled by the official external booking engine.
+        </span>
+        <span data-lang="it" hidden>
+          Il nuovo sito di Villa Brando non raccoglie né memorizza dati personali o di pagamento. La gestione avviene nel motore esterno ufficiale.
+        </span>
+      </p>
+    </section>
+
+    <section class="final-cta" aria-labelledby="final-cta-title">
+      <div class="final-cta-inner">
+        <div>
+          <p class="eyebrow eyebrow-light">Villa Brando · Latina, Italia</p>
+          <h2 id="final-cta-title">
+            <span data-lang="en">Ready to plan your stay?</span>
+            <span data-lang="it" hidden>Pronto a organizzare il soggiorno?</span>
+          </h2>
+          <p data-lang="en">Check your dates now, or contact Giorgio for personal assistance.</p>
+          <p data-lang="it" hidden>Verifica subito le date oppure contatta Giorgio per assistenza personale.</p>
+        </div>
+        <div class="final-cta-actions">
+          <BookingButton />
+          <a class="final-phone" href={siteConfig.phoneHref}>{siteConfig.phoneDisplay}</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
